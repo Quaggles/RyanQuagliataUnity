@@ -67,7 +67,8 @@ namespace RyanQuagliata.PluginExtensions.DOTween {
 			if (instant) {
 				CanvasGroup.alpha = alpha;
 				if (DisableGameObjectWhenInvisible && alpha == 0) CanvasGroup.gameObject.SetActive(false);
-			} else { // If not instant then tweek
+			} else { // If not instant then tween
+				fadeTween = CanvasGroup.DOFade(alpha, FadeTweenSettings.Duration).ApplySettings(FadeTweenSettings).SetUpdate(true);
 				fadeTween = CanvasGroup.DOFade(alpha, FadeTweenSettings.Duration).ApplySettings(FadeTweenSettings).SetUpdate(true);
 				if (DisableGameObjectWhenInvisible && alpha == 0) fadeTween.onComplete += () => canvasGroup.gameObject.SetActive(false);
 			}

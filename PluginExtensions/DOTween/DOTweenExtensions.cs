@@ -16,6 +16,12 @@ namespace RyanQuagliata.PluginExtensions.DOTween {
 			t.SetOptions(snapping).SetTarget(that);
 			return t;
 		}
+		
+		public static TweenerCore<float, float, FloatOptions> DOFade(this CanvasGroup that, float endAlpha, float duration, bool snapping = false) {
+			var t = DG.Tweening.DOTween.To(() => that.alpha, x => that.alpha = x, endAlpha, duration);
+			t.SetOptions(snapping).SetTarget(that);
+			return t;
+		}
 
 		/// <summary>Tweens a property or field to the given value using default plugins</summary>
 		/// <param name="getter">A getter for the field or property to tween.

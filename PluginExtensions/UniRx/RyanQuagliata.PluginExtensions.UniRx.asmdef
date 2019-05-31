@@ -2,7 +2,9 @@
     "name": "RyanQuagliata.PluginExtensions.UniRx",
     "references": [
         "GUID:0065df8e10cb31c4695d09ae3d05494f",
-        "GUID:f51ebe6a0ceec4240a699833d6309b23"
+        "GUID:f51ebe6a0ceec4240a699833d6309b23",
+        "GUID:fbc376426469ba34ca1de613b40fbfd8",
+        "GUID:1c8361c0a41c21348b2d88e540fc6862"
     ],
     "optionalUnityReferences": [],
     "includePlatforms": [],
