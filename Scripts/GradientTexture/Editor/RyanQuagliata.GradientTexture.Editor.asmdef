@@ -1,0 +1,12 @@
+{
+    "name": "RyanQuagliata.GradientTexture.Editor",
+    "references": [
+        "RyanQuagliata"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false
+}

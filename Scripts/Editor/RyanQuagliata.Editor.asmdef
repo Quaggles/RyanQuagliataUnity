@@ -1,0 +1,16 @@
+{
+    "name": "RyanQuagliataEditor",
+    "references": [
+        "RyanQuagliata"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": []
+}
