@@ -20,6 +20,21 @@ namespace RyanQuagliata.Utilities {
 			if (float.IsNaN(val)) return 0;
 			return val;
 		}
+		
+		/// <summary>
+		/// Remaps a value from a previous min and max range to a new range
+		/// </summary>
+		/// <param name="iValue">Value to remap</param>
+		/// <param name="iMin">Min value of input range</param>
+		/// <param name="iMax">Max value of input range</param>
+		/// <param name="oMin">Min value of output range</param>
+		/// <param name="oMax">Max value of output range</param>
+		/// <returns>Remapped value</returns>
+		public static double Remap(double iValue, double iMin, double iMax, double oMin, double oMax) {
+			var val = oMin + (iValue - iMin) * (oMax - oMin) / (iMax - iMin);
+			if (double.IsNaN(val)) return 0;
+			return val;
+		}
 
 		/// <summary>
 		/// Overload of Min function for 3 values to avoid overhead and allocation of using params
