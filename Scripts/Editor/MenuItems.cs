@@ -1,5 +1,6 @@
 ﻿#if UNITY_EDITOR
 using System;
+using System.IO;
 using RyanQuagliata.Extensions;
 using RyanQuagliata.Extensions.Editor;
 using UnityEditor;
@@ -107,6 +108,9 @@ namespace RyanQuagliata.Scripts.Editor {
 			var dest = new SerializedObject(command.context);
 			return EditorUtilityExtensions.MatchingPropertyCount(source, dest) > 0;
 		}
+
+		[MenuItem("RyanQuagliata/Open Package Manifest", priority = 0)]
+		public static void OpenPackageManifest() => Application.OpenURL(Directory.GetParent(Application.dataPath).FullName + "\\Packages\\manifest.json");
 	}
 }
 #endif
