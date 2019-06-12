@@ -1,10 +1,17 @@
 ﻿using System;
-using Sirenix.OdinInspector;
 using UnityEngine;
+#if ODIN_INSPECTOR
+using Sirenix.OdinInspector;
+#endif
 
 namespace RyanQuagliata.Scripts {
 	[ExecuteInEditMode]
-	public class ResizeRT : SerializedMonoBehaviour {
+	public class ResizeRT : 
+#if ODIN_INSPECTOR && !ODIN_EDITOR_ONLY
+		SerializedMonoBehaviour {
+#else
+		MonoBehaviour {
+#endif
 		[Required]
 		public RenderTexture RenderTexture;
 

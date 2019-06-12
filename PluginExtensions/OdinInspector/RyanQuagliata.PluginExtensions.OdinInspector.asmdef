@@ -9,7 +9,7 @@
     "precompiledReferences": [],
     "autoReferenced": true,
     "defineConstraints": [
-        "false"
+        "ODIN_INSPECTOR"
     ],
     "versionDefines": []
 }

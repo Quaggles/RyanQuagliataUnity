@@ -10,5 +10,8 @@
     "overrideReferences": false,
     "precompiledReferences": [],
     "autoReferenced": true,
-    "defineConstraints": []
+    "defineConstraints": [
+        "ODIN_INSPECTOR"
+    ],
+    "versionDefines": []
 }

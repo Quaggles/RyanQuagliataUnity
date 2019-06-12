@@ -1,4 +1,4 @@
-﻿#if ODIN_INSPECTOR && !ODIN_EDITOR_ONLY
+﻿#if !ODIN_EDITOR_ONLY
 using Sirenix.Serialization;
 using Sirenix.Utilities;
 using UnityEngine;
