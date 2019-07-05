@@ -1,11 +1,10 @@
 ﻿#if UNITY_EDITOR
 using System;
 using System.IO;
-using RyanQuagliata.Extensions;
+using System.Text.RegularExpressions;
 using RyanQuagliata.Extensions.Editor;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
 
@@ -111,6 +110,27 @@ namespace RyanQuagliata.Scripts.Editor {
 
 		[MenuItem("RyanQuagliata/Open Package Manifest", priority = 0)]
 		public static void OpenPackageManifest() => Application.OpenURL(Directory.GetParent(Application.dataPath).FullName + "\\Packages\\manifest.json");
+		
+		[MenuItem("RyanQuagliata/Remove Package Locks", priority = 0)]
+		public static void RemovePackageLocks() {
+			if (!EditorUtility.DisplayDialog("Confirm", "Are you sure you want to remove all package locks? Any packages using git will be upgraded to the latest commit", "Yes", "No"))
+				return;
+			try {
+				var path = Directory.GetParent(Application.dataPath).FullName + "\\Packages\\manifest.json";
+				var regex = new Regex(" *\"dependencies\": {.*?}", RegexOptions.Singleline);
+				var match = regex.Match(File.ReadAllText(path));
+				if (match.Success) {
+					var output = string.Concat("{\n", match.Value, "\n}");
+					File.WriteAllText(path, output);
+					AssetDatabase.Refresh();
+				} else {
+					throw new Exception($"Regex could not find the dependency array in {path}");
+				}
+			} catch (Exception ex) {
+				EditorUtility.DisplayDialog("Error", ex.Message, "ok");
+			}
+		}
 	}
+	
 }
 #endif
