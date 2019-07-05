@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using RyanQuagliata.Extensions;
+using RyanQuagliataUnity.Attributes;
 using RyanQuagliataUnity.Extensions.OdinInspector.AddressableValidators;
 using Sirenix.OdinInspector.Editor.Validation;
 using Sirenix.Utilities;
@@ -9,28 +10,7 @@ using UnityEngine.AddressableAssets;
 [assembly: RegisterValidator(typeof(AssetReferenceValidator))]
 
 namespace RyanQuagliataUnity.Extensions.OdinInspector.AddressableValidators {
-	public enum TypeStrictness {
-		AssignableFrom,
-		EquivalentTo
-	}
 
-	[AttributeUsage(AttributeTargets.Field)]
-	public class AssetReferenceValidatorAttribute : Attribute {
-		public Type EnforceType;
-
-		public TypeStrictness TypeStrictness;
-
-		/// <summary>
-		/// Enforces that an AssetReference must be of a certain type or is required
-		/// </summary>
-		/// <param name="enforceType">The type that the Asset Reference must adhere to</param>
-		/// <param name="typeStrictness">How strictly does the type need to match</param>
-		public AssetReferenceValidatorAttribute(Type enforceType,
-			TypeStrictness typeStrictness = TypeStrictness.AssignableFrom) {
-			EnforceType = enforceType;
-			TypeStrictness = typeStrictness;
-		}
-	}
 
 	public class AssetReferenceValidator : AttributeValidator<AssetReferenceValidatorAttribute> {
 		public override RevalidationCriteria RevalidationCriteria => RevalidationCriteria.Always;

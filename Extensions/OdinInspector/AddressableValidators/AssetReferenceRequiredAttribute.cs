@@ -1,6 +1,7 @@
 using System;
 using System.Reflection;
 using RyanQuagliata.Extensions;
+using RyanQuagliataUnity.Attributes;
 using RyanQuagliataUnity.Extensions.OdinInspector.AddressableValidators;
 using Sirenix.OdinInspector.Editor.Validation;
 using Sirenix.Utilities;
@@ -9,7 +10,6 @@ using UnityEngine.AddressableAssets;
 [assembly: RegisterValidator(typeof(AssetReferenceRequiredAttributeValidator))]
 
 namespace RyanQuagliataUnity.Extensions.OdinInspector.AddressableValidators {
-	public class AssetReferenceRequiredAttribute : Attribute { }
 
 	public class AssetReferenceRequiredAttributeValidator : AttributeValidator<AssetReferenceRequiredAttribute> {
 		public override RevalidationCriteria RevalidationCriteria => RevalidationCriteria.Always;
