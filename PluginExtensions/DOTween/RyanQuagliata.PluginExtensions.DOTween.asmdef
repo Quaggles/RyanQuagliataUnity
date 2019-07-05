@@ -2,7 +2,7 @@
     "name": "RyanQuagliata.PluginExtensions.DOTween",
     "references": [
         "GUID:0065df8e10cb31c4695d09ae3d05494f",
-        "GUID:104a20a951e426c41a6f5a55b3e660d7",
+        "GUID:e2e9959bd64170e47930067e50fcb902",
         "GUID:fbc376426469ba34ca1de613b40fbfd8"
     ],
     "optionalUnityReferences": [],
