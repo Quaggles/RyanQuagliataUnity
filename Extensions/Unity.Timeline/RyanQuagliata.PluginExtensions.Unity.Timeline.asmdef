@@ -10,12 +10,14 @@
     "overrideReferences": false,
     "precompiledReferences": [],
     "autoReferenced": true,
-    "defineConstraints": [],
+    "defineConstraints": [
+        "UNITY_TIMELINE"
+    ],
     "versionDefines": [
         {
-            "name": "Select...",
-            "expression": "",
-            "define": ""
+            "name": "com.unity.timeline",
+            "expression": "0.9.9",
+            "define": "UNITY_TIMELINE"
         }
     ]
 }

@@ -1,9 +1,20 @@
 ﻿using System;
 using System.Linq;
 using JetBrains.Annotations;
+using UnityEngine;
 
 namespace RyanQuagliata.Extensions {
 	public static class StringExtensions {
+		public static string Bold(this string that) => string.Concat("<b>", that, "</b>");
+		public static string Italics(this string that) => string.Concat("<i>", that, "</i>");
+		public static string Colour(this string that, Color color) => string.Concat("<color=#", ColorUtility.ToHtmlStringRGB(color), ">", that, "</color>");
+		public static string Size(this string that, float size) => string.Concat("<size=", size, ">", that, "</size>");
+		public static string Surround(this string that, string value) => string.Concat(value, that, value);
+		public static string Surround(this string that, char value) => that.Surround(value.ToString());
+		public static string SurroundBacktick(this string that) => that.Surround("`");
+		public static string SurroundApostrophe(this string that) => that.Surround("'");
+		public static string SurroundQuotation(this string that) => that.Surround("\"");
+		
 		/// <summary>
 		/// Creates a string where there are spaces before every capital letter (Except if the first letter is capital)
 		/// </summary>

@@ -1,0 +1,31 @@
+{
+    "name": "RyanQuagliata.PluginExtensions.OdinInspector.AddressableValidators",
+    "references": [
+        "GUID:9e24947de15b9834991c9d8411ea37cf",
+        "GUID:0065df8e10cb31c4695d09ae3d05494f"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [
+        "ODIN_INSPECTOR",
+        "UNITY_ADDRESSABLES",
+        "UNITY_SBP"
+    ],
+    "versionDefines": [
+        {
+            "name": "com.unity.addressables",
+            "expression": "1.1.3",
+            "define": "UNITY_ADDRESSABLES"
+        },
+        {
+            "name": "com.unity.scriptablebuildpipeline",
+            "expression": "1.4.9",
+            "define": "UNITY_SBP"
+        }
+    ]
+}
