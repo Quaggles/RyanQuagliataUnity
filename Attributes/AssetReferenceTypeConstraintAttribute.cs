@@ -7,19 +7,19 @@ namespace RyanQuagliataUnity.Attributes {
 	}
 
 	[AttributeUsage(AttributeTargets.Field)]
-	public class AssetReferenceValidatorAttribute : Attribute {
-		public Type EnforceType;
+	public class AssetReferenceTypeConstraintAttribute : Attribute {
+		public Type Type;
 
 		public TypeStrictness TypeStrictness;
 
 		/// <summary>
 		/// Enforces that an AssetReference must be of a certain type or is required
 		/// </summary>
-		/// <param name="enforceType">The type that the Asset Reference must adhere to</param>
+		/// <param name="type">The type that the Asset Reference must adhere to</param>
 		/// <param name="typeStrictness">How strictly does the type need to match</param>
-		public AssetReferenceValidatorAttribute(Type enforceType,
+		public AssetReferenceTypeConstraintAttribute(Type type,
 			TypeStrictness typeStrictness = TypeStrictness.AssignableFrom) {
-			EnforceType = enforceType;
+			Type = type;
 			TypeStrictness = typeStrictness;
 		}
 	}

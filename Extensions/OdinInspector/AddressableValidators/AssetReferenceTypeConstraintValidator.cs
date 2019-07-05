@@ -7,12 +7,10 @@ using Sirenix.OdinInspector.Editor.Validation;
 using Sirenix.Utilities;
 using UnityEngine.AddressableAssets;
 
-[assembly: RegisterValidator(typeof(AssetReferenceValidator))]
+[assembly: RegisterValidator(typeof(AssetReferenceTypeConstraintValidator))]
 
 namespace RyanQuagliataUnity.Extensions.OdinInspector.AddressableValidators {
-
-
-	public class AssetReferenceValidator : AttributeValidator<AssetReferenceValidatorAttribute> {
+	public class AssetReferenceTypeConstraintValidator : AttributeValidator<AssetReferenceTypeConstraintAttribute> {
 		public override RevalidationCriteria RevalidationCriteria => RevalidationCriteria.Always;
 
 		public override bool CanValidateMember(MemberInfo member, Type memberValueType) {
@@ -28,17 +26,17 @@ namespace RyanQuagliataUnity.Extensions.OdinInspector.AddressableValidators {
 				}
 
 				var editorAssetType = assetReference.editorAsset.GetType();
-				if (IsValid(assetReference.editorAsset.GetType(), Attribute.EnforceType, Attribute.TypeStrictness)) {
+				if (IsValid(assetReference.editorAsset.GetType(), Attribute.Type, Attribute.TypeStrictness)) {
 					result.ResultType = ValidationResultType.Valid;
 				} else {
 					result.ResultType = ValidationResultType.Error;
 					result.Message =
-						$"{member.Name} {editorAssetType.ToString().SurroundApostrophe().Bold()} is not {Attribute.TypeStrictness.ToString().Bold().Italics()} enforced type {Attribute.EnforceType.ToString().SurroundApostrophe().Bold()}";
+						$"{member.Name} {editorAssetType.ToString().SurroundApostrophe().Bold()} is not {Attribute.TypeStrictness.ToString().Bold().Italics()} enforced type {Attribute.Type.ToString().SurroundApostrophe().Bold()}";
 				}
 			} else {
 				result.ResultType = ValidationResultType.Error;
 				result.Message =
-					$"Cannot use {typeof(AssetReferenceValidatorAttribute).GetNiceName().SurroundApostrophe().Bold()} on member type {member.GetReturnType().ToString().SurroundApostrophe().Bold()} as it is not an {typeof(AssetReference).ToString().SurroundApostrophe().Bold()}";
+					$"Cannot use {typeof(AssetReferenceTypeConstraintAttribute).GetNiceName().SurroundApostrophe().Bold()} on member type {member.GetReturnType().ToString().SurroundApostrophe().Bold()} as it is not an {typeof(AssetReference).ToString().SurroundApostrophe().Bold()}";
 			}
 		}
 

@@ -7,11 +7,10 @@ using Sirenix.OdinInspector.Editor.Validation;
 using Sirenix.Utilities;
 using UnityEngine.AddressableAssets;
 
-[assembly: RegisterValidator(typeof(AssetReferenceRequiredAttributeValidator))]
+[assembly: RegisterValidator(typeof(AssetReferenceRequiredValidator))]
 
 namespace RyanQuagliataUnity.Extensions.OdinInspector.AddressableValidators {
-
-	public class AssetReferenceRequiredAttributeValidator : AttributeValidator<AssetReferenceRequiredAttribute> {
+	public class AssetReferenceRequiredValidator : AttributeValidator<AssetReferenceRequiredAttribute> {
 		public override RevalidationCriteria RevalidationCriteria => RevalidationCriteria.Always;
 
 		public override bool CanValidateMember(MemberInfo member, Type memberValueType) {
