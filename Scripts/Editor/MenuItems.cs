@@ -1,6 +1,7 @@
 ﻿#if UNITY_EDITOR
 using System;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 using RyanQuagliata.Extensions.Editor;
 using UnityEditor;
@@ -129,6 +130,15 @@ namespace RyanQuagliata.Scripts.Editor {
 			} catch (Exception ex) {
 				EditorUtility.DisplayDialog("Error", ex.Message, "ok");
 			}
+		}
+
+		[MenuItem("RyanQuagliata/Clear Missing Build Scenes")]
+		public static void ClearMissingBuildScenes() {
+			var oldCount = EditorBuildSettings.scenes.Length;
+			var valid = EditorBuildSettings.scenes.Where(x => !x.guid.Empty());
+			if (!EditorUtility.DisplayDialog("Confirm", $"Are you sure you want to remove {oldCount - valid.Count()} missing scenes from the build list?", "Yes", "No"))
+				return;
+			EditorBuildSettings.scenes = valid.ToArray();
 		}
 	}
 	
