@@ -5,6 +5,9 @@ using RyanQuagliataUnity.Attributes;
 using RyanQuagliataUnity.Extensions.OdinInspector.AddressableValidators;
 using Sirenix.OdinInspector.Editor.Validation;
 using Sirenix.Utilities;
+using UnityEditor;
+using UnityEditor.AddressableAssets;
+using UnityEngine;
 using UnityEngine.AddressableAssets;
 
 [assembly: RegisterValidator(typeof(AssetReferenceRequiredValidator))]
@@ -20,9 +23,14 @@ namespace RyanQuagliataUnity.Extensions.OdinInspector.AddressableValidators {
 		protected override void Validate(object parentInstance, object memberValue, MemberInfo member,
 			ValidationResult result) {
 			if (memberValue is AssetReference assetReference) {
+				string guid = assetReference.RuntimeKey.ToString();
+				var aaSettings = AddressableAssetSettingsDefaultObject.Settings;
 				if (assetReference.editorAsset == null) {
 					result.ResultType = ValidationResultType.Error;
 					result.Message = $"{member.Name} is required";
+				} else if (aaSettings != null && aaSettings.FindAssetEntry(guid) == null) {
+					result.ResultType = ValidationResultType.Error;
+					result.Message = $"{member.Name} asset {AssetDatabase.GetAssetPath(assetReference.editorAsset).SurroundApostrophe().Bold()} is not marked as addressable";
 				}
 			} else {
 				result.ResultType = ValidationResultType.Error;
