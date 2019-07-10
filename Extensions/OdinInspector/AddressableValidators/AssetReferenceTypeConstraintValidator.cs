@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Reflection;
 using RyanQuagliata.Extensions;
 using RyanQuagliataUnity.Attributes;
@@ -26,12 +27,12 @@ namespace RyanQuagliataUnity.Extensions.OdinInspector.AddressableValidators {
 				}
 
 				var editorAssetType = assetReference.editorAsset.GetType();
-				if (IsValid(assetReference.editorAsset.GetType(), Attribute.Type, Attribute.TypeStrictness)) {
+				if (Attribute.Types.Any(x => IsValid(assetReference.editorAsset.GetType(), x, Attribute.TypeStrictness))) {
 					result.ResultType = ValidationResultType.Valid;
 				} else {
 					result.ResultType = ValidationResultType.Error;
 					result.Message =
-						$"{member.Name} {editorAssetType.ToString().SurroundApostrophe().Bold()} is not {Attribute.TypeStrictness.ToString().Bold().Italics()} enforced type {Attribute.Type.ToString().SurroundApostrophe().Bold()}";
+						$"{member.Name} {editorAssetType.ToString().SurroundApostrophe().Bold()} is not {Attribute.TypeStrictness.ToString().Bold().Italics()} any of the following enforced types: {string.Join("\n", Attribute.Types.Select(x => x.GetNiceFullName().SurroundApostrophe().Bold()))}";
 				}
 			} else {
 				result.ResultType = ValidationResultType.Error;

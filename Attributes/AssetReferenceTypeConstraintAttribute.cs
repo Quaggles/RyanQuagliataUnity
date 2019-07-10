@@ -6,9 +6,9 @@ namespace RyanQuagliataUnity.Attributes {
 		EquivalentTo
 	}
 
-	[AttributeUsage(AttributeTargets.Field)]
+	[AttributeUsage(AttributeTargets.Field, AllowMultiple = true)]
 	public class AssetReferenceTypeConstraintAttribute : Attribute {
-		public Type Type;
+		public Type[] Types;
 
 		public TypeStrictness TypeStrictness;
 
@@ -17,10 +17,8 @@ namespace RyanQuagliataUnity.Attributes {
 		/// </summary>
 		/// <param name="type">The type that the Asset Reference must adhere to</param>
 		/// <param name="typeStrictness">How strictly does the type need to match</param>
-		public AssetReferenceTypeConstraintAttribute(Type type,
-			TypeStrictness typeStrictness = TypeStrictness.AssignableFrom) {
-			Type = type;
-			TypeStrictness = typeStrictness;
+		public AssetReferenceTypeConstraintAttribute(params Type[] types) {
+			Types = types;
 		}
 	}
 }
