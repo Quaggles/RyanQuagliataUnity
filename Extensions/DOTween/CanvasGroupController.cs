@@ -1,6 +1,6 @@
 ﻿using DG.Tweening;
 using DG.Tweening.Plugins.Options;
-using RyanQuagliata.Extensions;
+using RyanQuagliataUnity.Extensions;
 using Sirenix.OdinInspector;
 using UnityEngine;
 

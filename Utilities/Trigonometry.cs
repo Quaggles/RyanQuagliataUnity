@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace RyanQuagliata.Utilities {
+namespace RyanQuagliataUnity.Utilities {
 
 	public class Trigonometry {
 		///<summary>

@@ -1,10 +1,8 @@
 ﻿#if UNITY_EDITOR
-using System;
 using UnityEditor;
-using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace RyanQuagliata.Extensions.Editor {
+namespace RyanQuagliataUnity.Extensions.Editor {
 	public static class EditorUtilityExtensions {
 		
 		public static int CopySerializedPolymorphic(Object source, Object dest) => CopySerializedPolymorphic(new SerializedObject(source), new SerializedObject(dest));

@@ -1,16 +1,15 @@
 ﻿using System;
 using System.IO;
 using System.Text.RegularExpressions;
-using RyanQuagliata.Extensions;
+using RyanQuagliataUnity.Extensions;
 using UnityEngine;
 using Object = UnityEngine.Object;
 #if UNITY_EDITOR
 using UnityEditor;
 using UnityEditor.SceneManagement;
-
 #endif
 
-namespace RyanQuagliata.Attributes {
+namespace RyanQuagliataUnity.Attributes {
 	[System.Serializable]
 	public class SceneField {
 		[SerializeField] private Object m_SceneAsset;

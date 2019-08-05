@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
-namespace RyanQuagliata.GlobalShaderPropertySetter {
+namespace RyanQuagliataUnity.GlobalShaderPropertySetter {
 	public class VectorArrayProvider : MonoBehaviour {
 		public List<VectorArraySource> VectorSources = new List<VectorArraySource>();
 		

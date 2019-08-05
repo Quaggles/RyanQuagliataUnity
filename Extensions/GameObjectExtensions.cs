@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace RyanQuagliata.Extensions {
+namespace RyanQuagliataUnity.Extensions {
 	public static class GameObjectExtensions {
 		public static void SetLayer(this GameObject that, int layer) {
 			that.layer = layer;

@@ -1,4 +1,4 @@
-﻿namespace RyanQuagliata.GlobalShaderPropertySetter {
+﻿namespace RyanQuagliataUnity.GlobalShaderPropertySetter {
 	public interface IGlobalShaderPropertySettable {
 		bool Enabled { get; set; }
 

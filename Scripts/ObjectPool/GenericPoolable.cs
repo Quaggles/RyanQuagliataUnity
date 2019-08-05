@@ -1,4 +1,4 @@
-﻿namespace RyanQuagliata.ObjectPool {
+﻿namespace RyanQuagliataUnity.ObjectPool {
 	public class GenericPoolable : PoolableObject {
 		protected bool inUse = false;
 		public override bool InUse {

@@ -1,8 +1,7 @@
 using System;
-using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 
-namespace RyanQuagliata.Extensions {
+namespace RyanQuagliataUnity.Extensions {
 	public static class Texture2DExtensions {
 		public enum ExportFormat {
 			Png,

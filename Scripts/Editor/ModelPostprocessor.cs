@@ -2,7 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace RyanQuagliata.Scripts.Editor {
+namespace RyanQuagliataUnity.Editor {
 	public class ModelPostprocessor : AssetPostprocessor {
 		
 		/// <summary>

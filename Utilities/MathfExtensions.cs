@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace RyanQuagliata.Utilities {
+namespace RyanQuagliataUnity.Utilities {
 	/// <summary>
 	/// Adds remap function
 	/// </summary>

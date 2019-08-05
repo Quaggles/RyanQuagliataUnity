@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RyanQuagliata.Extensions {
+namespace RyanQuagliataUnity.Extensions {
 	public static class Array2DExtensions {
 		public static T[] GetRow<T>(this T[,] array, int row) {
 			if (array == null) throw new ArgumentNullException(nameof(array));

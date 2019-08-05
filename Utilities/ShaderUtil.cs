@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RyanQuagliata.Utilities {
+namespace RyanQuagliataUnity.Utilities {
 	public static class ShaderUtil {
 		public static float GetPropertyDefaultValue(this Shader that, string propertyName) =>
 			GetPropertyDefaultValue(that, GetPropertyIdX(that, propertyName));

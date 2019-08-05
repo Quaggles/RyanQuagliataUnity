@@ -1,12 +1,12 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using RyanQuagliata.Extensions;
+using RyanQuagliataUnity.Extensions;
 using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace RyanQuagliataUnity.Scripts.Editor {
+namespace RyanQuagliataUnity.Editor {
 	public static class MeshSerializer {
 		[InitializeOnLoadMethod]
 		static void Listen() => PrefabUtility.prefabInstanceUpdated += PrefabInstanceUpdate;

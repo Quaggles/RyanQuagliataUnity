@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace RyanQuagliata.Extensions {
+namespace RyanQuagliataUnity.Extensions {
 	public static class EnumeratorExtensions {
 		/// <summary>
 		/// Enumerates over an IEnumerator to create a list

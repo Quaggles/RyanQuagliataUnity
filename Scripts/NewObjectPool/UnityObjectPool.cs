@@ -3,7 +3,7 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace RyanQuagliata.NewObjectPool {
+namespace RyanQuagliataUnity.NewObjectPool {
 	[Serializable]
 	public class UnityObjectPool<T> : GenericObjectPool<T> where T : Object {
 		[Required]

@@ -3,7 +3,7 @@ using System.Collections;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace RyanQuagliata.Looper {
+namespace RyanQuagliataUnity.Looper {
 	/// <summary>
 	/// The type of delay that this loop will use between iterations
 	/// </summary>

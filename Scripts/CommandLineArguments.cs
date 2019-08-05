@@ -1,12 +1,11 @@
 using System;
-using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using JetBrains.Annotations;
 using UnityEngine;
 
-namespace RyanQuagliata {
+namespace RyanQuagliataUnity {
 	public static class CommandLineArguments {
 		private static readonly List<string> Arguments = new List<string>();
 		private static bool environmentArgsAdded = false;

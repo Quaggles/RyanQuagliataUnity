@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using JetBrains.Annotations;
 using UnityEngine;
 
-namespace RyanQuagliata.Extensions {
+namespace RyanQuagliataUnity.Extensions {
 	public static class StreamExtensions {
 		public static void Write(this Stream that, float value) {
 			that.Write(BitConverter.GetBytes(value));

@@ -1,12 +1,12 @@
 ﻿using System.Linq;
-using UnityEngine.SceneManagement;
-using UnityEngine;
-#if UNITY_EDITOR
 using UnityEditor;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+#if UNITY_EDITOR
 
 #endif
 
-namespace RyanQuagliata.Extensions {
+namespace RyanQuagliataUnity.Extensions {
 	public static class SceneManagerExtensions {
 		/// <summary>
 		/// Returns if a scene is loaded by comparing scene names

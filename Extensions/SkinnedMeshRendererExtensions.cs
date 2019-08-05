@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace RyanQuagliata.Extensions {
+namespace RyanQuagliataUnity.Extensions {
 	/// <summary>
 	/// SkinnedMeshRendererExtetensions
 	/// </summary>

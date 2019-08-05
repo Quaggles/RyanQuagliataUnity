@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace RyanQuagliata.NewObjectPool {
+namespace RyanQuagliataUnity.NewObjectPool {
 	[Serializable]
 	public class ComponentObjectPool<T> : UnityObjectPool<T> where T : Component {
 		public Transform Parent;

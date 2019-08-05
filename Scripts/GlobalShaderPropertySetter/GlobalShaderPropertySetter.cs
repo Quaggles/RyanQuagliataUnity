@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using RyanQuagliata.Extensions;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace RyanQuagliata.GlobalShaderPropertySetter {
+namespace RyanQuagliataUnity.GlobalShaderPropertySetter {
     [Serializable]
     public abstract class GlobalShaderPropertySetter<T> : IGlobalShaderPropertySettable {
         protected GlobalShaderPropertySetter() {

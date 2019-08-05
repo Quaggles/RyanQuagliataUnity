@@ -1,8 +1,7 @@
-﻿using RyanQuagliata.Utilities;
-using UnityEditor;
+﻿using RyanQuagliataUnity.Utilities;
 using UnityEngine;
 
-namespace RyanQuagliata.Extensions {
+namespace RyanQuagliataUnity.Extensions {
 	public static class Vector {
 		/// <summary>
 		/// Converts a radian to a Vector 2

@@ -1,7 +1,7 @@
 ﻿using System;
 using Sirenix.OdinInspector;
 
-namespace RyanQuagliata.Looper {
+namespace RyanQuagliataUnity.Looper {
 	[System.Serializable]
 	public class ActionLooper : Looper {		
 		[InfoBox("Loop Action cannot be modified in the inspector, consider using \"UnityEventLooper\""), BoxGroup, ReadOnly]

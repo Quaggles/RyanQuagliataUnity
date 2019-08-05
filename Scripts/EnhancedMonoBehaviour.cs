@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
-using RyanQuagliata.Extensions;
+using RyanQuagliataUnity.Extensions;
 using Sirenix.OdinInspector;
 using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
-
 #endif
 
-namespace RyanQuagliata {
+namespace RyanQuagliataUnity {
 	public abstract class EnhancedMonoBehaviour : MonoBehaviour {
 		public enum GizmoDrawModeType {
 			Disabled,

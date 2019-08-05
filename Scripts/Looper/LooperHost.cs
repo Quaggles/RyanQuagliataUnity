@@ -2,7 +2,7 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace RyanQuagliata.Looper {
+namespace RyanQuagliataUnity.Looper {
 	public class LooperHost : MonoBehaviour {
 		private static LooperHost instance;
 		

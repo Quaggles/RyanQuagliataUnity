@@ -1,7 +1,7 @@
 ﻿using Sirenix.OdinInspector;
 using UnityEngine.Events;
 
-namespace RyanQuagliata.Looper {
+namespace RyanQuagliataUnity.Looper {
 	[System.Serializable]
 	public class UnityEventLooper : Looper {
 		[System.Serializable]

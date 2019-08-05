@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace RyanQuagliata.Extensions {
+namespace RyanQuagliataUnity.Extensions {
 	public static class ObjectExtensions {
 		public static Object Instantiate(Object obj, Transform parent = null, bool worldPositionStays = false) {
 #if UNITY_EDITOR

@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace RyanQuagliata.Extensions {
+namespace RyanQuagliataUnity.Extensions {
 	public static class RendererExtensions {
 		/// <summary>
 		/// If the application is playing it gets the instantiated material, otherwise gets the shared one

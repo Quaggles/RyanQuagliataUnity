@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace RyanQuagliata.Extensions {
+namespace RyanQuagliataUnity.Extensions {
 	public static class MeshFilterExtensions {
 		/// <summary>
 		/// If the application is playing it gets the instantiated mesh, otherwise gets the shared one

@@ -1,7 +1,7 @@
-﻿using RyanQuagliata.Extensions;
+﻿using RyanQuagliataUnity.Extensions;
 using UnityEngine;
 
-namespace RyanQuagliata.Utilities {
+namespace RyanQuagliataUnity.Utilities {
 	[System.Serializable]
 	public struct RectPrism {
 		public bool Equals(RectPrism other) {

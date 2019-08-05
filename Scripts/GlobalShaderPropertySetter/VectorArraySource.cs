@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace RyanQuagliata.GlobalShaderPropertySetter {
+namespace RyanQuagliataUnity.GlobalShaderPropertySetter {
 	public class VectorArraySource :
 #if ODIN_INSPECTOR && !ODIN_EDITOR_ONLY
 		Sirenix.OdinInspector.SerializedMonoBehaviour

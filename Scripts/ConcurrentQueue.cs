@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-namespace RyanQuagliata
+namespace RyanQuagliataUnity
 {
 	[System.Serializable]
 	public class ConcurrentQueue<T> : IEnumerable<T> {

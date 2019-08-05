@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace RyanQuagliata.Utilities {
+namespace RyanQuagliataUnity.Utilities {
 	public static class ColorUtils {
 		public static bool TryParse(string hexString, out UnityEngine.Color color) {
 			try {

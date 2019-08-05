@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace RyanQuagliata.Extensions {
+namespace RyanQuagliataUnity.Extensions {
 	public static class BoundsExtensions {
 		/// <summary>
 		/// Gets the 8 vertices of the bounding box in local space

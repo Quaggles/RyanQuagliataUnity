@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace RyanQuagliata {
+namespace RyanQuagliataUnity {
 	public class EnhancedScriptableObject : ScriptableObject {
 //		private string Export() {
 //			

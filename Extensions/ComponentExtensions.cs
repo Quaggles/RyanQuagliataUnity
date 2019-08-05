@@ -1,8 +1,7 @@
 ﻿using System;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
-namespace RyanQuagliata.Extensions {
+namespace RyanQuagliataUnity.Extensions {
 	public static class ComponentExtensions {
 		/// <summary>
 		/// Gets a component that exists on the target or adds a new one if it doesn't exist

@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Security.Cryptography;
 
-namespace RyanQuagliata.Extensions {
+namespace RyanQuagliataUnity.Extensions {
 	public static class ListExtensions {
 		/// <summary>
 		/// Fisher-Yates Shuffle

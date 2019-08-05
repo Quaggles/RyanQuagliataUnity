@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace RyanQuagliata.Extensions {
+namespace RyanQuagliataUnity.Extensions {
 	public static class TransformExtensions {
 		/// <summary>
 		/// Transforms rotation from world space to local space

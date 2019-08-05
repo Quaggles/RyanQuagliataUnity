@@ -1,6 +1,6 @@
 using System;
 
-namespace RyanQuagliata.NewObjectPool {
+namespace RyanQuagliataUnity.NewObjectPool {
 	public class ObjectPool<T> : GenericObjectPool<T> where T : new() {
 		protected override T Instantiate() => new T();
 

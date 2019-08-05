@@ -1,7 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-namespace RyanQuagliata.Scripts.Editor {
+namespace RyanQuagliataUnity.Editor {
 	public static class TransformTools {
 		[System.Serializable]
 		public struct TransformStruct {

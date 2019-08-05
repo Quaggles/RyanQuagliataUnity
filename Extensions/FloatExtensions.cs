@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RyanQuagliata.Extensions {
+namespace RyanQuagliataUnity.Extensions {
 	public static class FloatExtensions {
 		/// <summary>
 		/// Remaps a value from a previous min and max range to a new range

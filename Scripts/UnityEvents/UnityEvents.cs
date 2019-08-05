@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace RyanQuagliata.UnityEvents {
+namespace RyanQuagliataUnity.UnityEvents {
 	[Serializable] public class BooleanEvent : UnityEvent<Boolean> { }
 
 	[Serializable] public class ByteEvent : UnityEvent<Byte> { }

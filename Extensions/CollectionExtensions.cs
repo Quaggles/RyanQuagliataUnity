@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
 
-namespace RyanQuagliata.Extensions {
+namespace RyanQuagliataUnity.Extensions {
 	public static class CollectionExtensions {
 		/// <summary>
 		/// Attempts to cast the ICollection`1 into an into a List`1 to take advantage of the native 'AddRange' speed,

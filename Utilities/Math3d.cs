@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace RyanQuagliata.Utilities {
+namespace RyanQuagliataUnity.Utilities {
 	public static class Math3D {
 
 		private static Transform tempChild = null;

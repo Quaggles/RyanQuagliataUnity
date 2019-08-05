@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace RyanQuagliata.Scripts {
+namespace RyanQuagliataUnity {
 	public class CursorController : MonoBehaviour {
 		public bool VisibleOnStart = true;
 

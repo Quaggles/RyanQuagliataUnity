@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RyanQuagliata.FormatProviders {
+namespace RyanQuagliataUnity.FormatProviders {
 	public class FileSizeFormatProvider : IFormatProvider, ICustomFormatter {
 		public object GetFormat(Type formatType) {
 			if (formatType == typeof(ICustomFormatter)) return this;

@@ -1,8 +1,7 @@
 using System;
-using RyanQuagliata.NewObjectPool;
 using UnityEngine;
 
-namespace RyanQuagliata.Scripts.NewObjectPool {
+namespace RyanQuagliataUnity.NewObjectPool {
 	[Serializable] public class GameObjectPool : UnityObjectPool<GameObject> { }
 	[Serializable] public class RectTransformPool : ComponentObjectPool<RectTransform> { }
 }

@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace _Project {
+namespace RyanQuagliataUnity {
 	public class RotationToUvRectOffset : MonoBehaviour {
 		public RawImage RawImage;
 

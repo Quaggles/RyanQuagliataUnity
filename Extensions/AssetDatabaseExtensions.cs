@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace RyanQuagliata.Extensions {
+namespace RyanQuagliataUnity.Extensions {
 	public class AssetDatabaseExtensions {
 		public static T[] GetScriptableObjects<T>() where T : ScriptableObject {
 #if UNITY_EDITOR

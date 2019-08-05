@@ -7,7 +7,7 @@ using Sirenix.OdinInspector;
 #endif
 
 
-namespace RyanQuagliata {
+namespace RyanQuagliataUnity {
 	public class DelayedActionHost : MonoBehaviour {
 #if ODIN_INSPECTOR
 		[InfoBox("The DelayedActionHost runs all delayed action coroutines")]

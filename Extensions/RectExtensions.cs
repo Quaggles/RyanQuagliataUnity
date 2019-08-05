@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace RyanQuagliata.Extensions {
+namespace RyanQuagliataUnity.Extensions {
 	public static class RectExtensions {
 		public static Rect Scale(this Rect rect, float scaleFactor) => Scale(rect, Vector2.one * scaleFactor);
 

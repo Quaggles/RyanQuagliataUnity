@@ -3,13 +3,13 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using RyanQuagliata.Extensions.Editor;
+using RyanQuagliataUnity.Extensions.Editor;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
 
-namespace RyanQuagliata.Scripts.Editor {
+namespace RyanQuagliataUnity.Editor {
 	public static class MenuItems {
 		/// <summary>
 		/// Forces a recompile by adding a temporary new symbol to the PlayerSettings and then removing it

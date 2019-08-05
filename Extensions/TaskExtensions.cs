@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using JetBrains.Annotations;
 using UnityEngine;
 
-namespace RyanQuagliata.Extensions {
+namespace RyanQuagliataUnity.Extensions {
 	public static class TaskExtensions {
 		/// <summary>
 		/// Adds a continuation to Debug.LogError all exceptions to the Unity Console for a task

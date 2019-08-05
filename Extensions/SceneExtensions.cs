@@ -4,7 +4,7 @@ using System.Linq;
 using JetBrains.Annotations;
 using UnityEngine.SceneManagement;
 
-namespace RyanQuagliata.Extensions {
+namespace RyanQuagliataUnity.Extensions {
 	public static class SceneExtensions {
 		public static T GetComponentInScene<T>(this Scene scene) {
 			if (!scene.IsValid()) throw new ArgumentException("Value should be valid.", nameof(scene));

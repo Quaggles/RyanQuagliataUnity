@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using UnityEditor;
 
-namespace RyanQuagliata.Scripts.Editor {
+namespace RyanQuagliataUnity.Editor {
 	/// <summary>
 	/// Imports textures located in a folder containing the string "sprite" as sprites and enables mipmaps
 	/// </summary>

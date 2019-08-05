@@ -1,11 +1,11 @@
 ﻿#if ODIN_INSPECTOR && !ODIN_EDITOR_ONLY
-using System.Collections.Generic;
 using System.Linq;
-using RyanQuagliata.Extensions;
+using RyanQuagliataUnity.Extensions;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using System.Collections.Generic;
 
-namespace RyanQuagliata.GlobalShaderPropertySetter {
+namespace RyanQuagliataUnity.GlobalShaderPropertySetter {
 	[ExecuteInEditMode]
 	public class GlobalShaderPropertySetterHost : SerializedMonoBehaviour {
 		public bool SetInEditMode;

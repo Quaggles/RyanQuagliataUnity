@@ -1,6 +1,7 @@
 ﻿using DG.Tweening;
 using DG.Tweening.Core.Easing;
-using RyanQuagliata.Extensions;
+using RyanQuagliataUnity.Extensions;
+using RyanQuagliataUnity.Utilities;
 using Sirenix.OdinInspector;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -288,7 +289,7 @@ namespace RyanQuagliata.PluginExtensions.DOTween {
 		
 			// Adds all the required keys
 			for (int i = 0; i < timesteps; i++) {
-				float time = RyanQuagliata.Utilities.MathfExtensions.Remap(i, 0, timesteps, 0, Duration);
+				float time = MathfExtensions.Remap(i, 0, timesteps, 0, Duration);
 				var result = EaseManager.Evaluate(ease, easeFunction, time, Duration, EaseOvershoot, EasePeriod);
 				curve.AddKey(time, result);
 			}

@@ -1,6 +1,6 @@
 using System;
 
-namespace RyanQuagliata.NewObjectPool {
+namespace RyanQuagliataUnity.NewObjectPool {
 	public interface IPoolReturnable {
 		Action PoolReturn { set; }
 	}

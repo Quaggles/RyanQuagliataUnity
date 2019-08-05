@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace RyanQuagliata.ObjectPool {
+namespace RyanQuagliataUnity.ObjectPool {
 	/// <summary>
 	/// Interface to allow PoolableObjects to return themselves to a generic object pool
 	/// </summary>

@@ -3,11 +3,10 @@
 #endif
 
 using System;
-// ReSharper disable once RedundantUsingDirective
-using System.Runtime.InteropServices;
 using UnityEngine;
+// ReSharper disable once RedundantUsingDirective
 
-namespace RyanQuagliata.Extensions {
+namespace RyanQuagliataUnity.Extensions {
 	public static class DisplayExtensions {
 		private const string X_POSITION_SWITCH_NAME = "-screen-x";
 		private const string Y_POSITION_SWITCH_NAME = "-screen-y";

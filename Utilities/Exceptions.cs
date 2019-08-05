@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace RyanQuagliata.Utilities {
+namespace RyanQuagliataUnity.Utilities {
 	public static class PlayerAssertions {
 		public static void AssertEditModeOnly(string methodName) {
 			if (Application.isPlaying) throw new EditModeOnlyException(methodName);

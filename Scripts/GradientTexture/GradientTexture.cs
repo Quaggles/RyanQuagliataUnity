@@ -1,15 +1,14 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
 using JetBrains.Annotations;
-using RyanQuagliata.Extensions;
+using RyanQuagliataUnity.Extensions;
 using Sirenix.OdinInspector;
 using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
 
-namespace RyanQuagliata.GradientTexture {
+namespace RyanQuagliataUnity.GradientTexture {
 	[CreateAssetMenu(menuName = "Ryan Quagliata/Gradient Texture", fileName = "Gradient", order = 1000)]
 	public class GradientTexture : ScriptableObject {
 		// The name used for the texture sub asset of the gradient

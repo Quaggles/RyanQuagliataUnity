@@ -3,7 +3,7 @@ using System.Linq;
 using JetBrains.Annotations;
 using UnityEngine;
 
-namespace RyanQuagliata.Extensions {
+namespace RyanQuagliataUnity.Extensions {
 	public static class StringExtensions {
 		public static string Bold(this string that) => string.Concat("<b>", that, "</b>");
 		public static string Italics(this string that) => string.Concat("<i>", that, "</i>");

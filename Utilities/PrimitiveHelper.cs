@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace RyanQuagliata.Utilities {
+namespace RyanQuagliataUnity.Utilities {
 	/// <summary>
 	/// By Octopoid: http://answers.unity3d.com/questions/514293/changing-a-gameobjects-primitive-mesh.html
 	/// </summary>

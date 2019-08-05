@@ -1,7 +1,6 @@
 using System;
-using UnityEngine;
 
-namespace RyanQuagliata.ObjectPool {
+namespace RyanQuagliataUnity.ObjectPool {
 	/// <summary>
 	/// Abstract class for a poolable object to be using in the ObjectPooling system
 	/// Date Created: 11/24/2016

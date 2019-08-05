@@ -2,17 +2,16 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using RyanQuagliata.Extensions;
+using RyanQuagliataUnity.Extensions.Editor;
 using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;
 using Sirenix.Utilities;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 using Object = UnityEngine.Object;
 
-namespace _Project {
+namespace RyanQuagliataUnity.Extensions.OdinInspector.Editor {
 //	public class ImageSwapper : ComponentSwapper<Image, ImagePPU> {
 //		[MenuItem("RyanQuagliata/ComponentSwapper")]
 //		public static void Create() {
@@ -64,7 +63,7 @@ namespace _Project {
 				var dest = new SerializedObject(tempComponent);
 
 				// Copy the properties over
-				RyanQuagliata.Extensions.Editor.EditorUtilityExtensions.CopySerializedPolymorphic(source, dest);
+				EditorUtilityExtensions.CopySerializedPolymorphic(source, dest);
 
 				// Destroy the original image
 				oldInstance.DestroySmart();

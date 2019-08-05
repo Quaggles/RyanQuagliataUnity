@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
 
-namespace RyanQuagliata.Extensions {
+namespace RyanQuagliataUnity.Extensions {
 	public static class DictionaryExtensions {
 		/// <summary>
 		/// Attempts to get a value from a dictionary, if it doesn't exist it creates a new value using the default constructor and adds that

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace RyanQuagliata.Extensions {
+namespace RyanQuagliataUnity.Extensions {
 	public static class MemberInfoExtensions {
 		public static object GetValue(this MemberInfo that, object forObject) {
 			switch (that.MemberType) {

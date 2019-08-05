@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace RyanQuagliata.Extensions {
+namespace RyanQuagliataUnity.Extensions {
 	public static class EnumExtensions {
 		/// <summary>
 		/// Finds and returns the next enum value after the supplied one

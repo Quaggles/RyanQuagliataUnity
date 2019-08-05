@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 
-namespace RyanQuagliata.Extensions {
+namespace RyanQuagliataUnity.Extensions {
 	public static class TimeSpanExtensions {
 		/// <summary>
 		/// Does this timespan represent an infinite duration

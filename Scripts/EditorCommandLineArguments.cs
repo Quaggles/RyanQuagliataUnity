@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace RyanQuagliata {
+namespace RyanQuagliataUnity {
     public class EditorCommandLineArguments : MonoBehaviour {
         public bool Enabled;
         public string[] EditorArguments;
