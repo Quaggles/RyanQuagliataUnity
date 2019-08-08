@@ -9,5 +9,10 @@ namespace RyanQuagliataUnity.Extensions {
 		/// <param name="layer"></param>
 		/// <returns></returns>
 		public static bool ContainsLayer(this LayerMask that, int layer) => that == (that | (1 << layer));
+
+		public static LayerMask All =>
+			new LayerMask {
+				value = ~0,
+			};
 	}
 }
