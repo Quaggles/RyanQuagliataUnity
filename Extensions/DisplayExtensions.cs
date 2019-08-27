@@ -3,8 +3,9 @@
 #endif
 
 using System;
-using UnityEngine;
 // ReSharper disable once RedundantUsingDirective
+using System.Runtime.InteropServices;
+using UnityEngine;
 
 namespace RyanQuagliataUnity.Extensions {
 	public static class DisplayExtensions {

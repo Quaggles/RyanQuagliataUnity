@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using RyanQuagliata.Extensions;
 using RyanQuagliataUnity.Attributes;
-using RyanQuagliataUnity.Extensions;
+// ReSharper disable once RedundantUsingDirective
+using RyanQuagliataUnity.Utilities;
 using Sirenix.OdinInspector;
 using UniRx.Async;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
-namespace RyanQuagliata {
+namespace RyanQuagliataUnity.Extensions.UniRx {
 	public enum LoadFormat {
 		/// <summary>
 		/// Scenes are loaded sequentially, the game thread is paused during this operation, progress is reported as 0 when starting and 1 when done
@@ -185,7 +185,7 @@ namespace RyanQuagliata {
 				LoadSceneChildren(scene.ScenePath).Wait();
 			}
 #else
-		throw new RyanQuagliata.Utilities.EditorOnlyException("LoadScenesEditor");
+		throw new EditorOnlyException("LoadScenesEditor");
 #endif
 		}
 

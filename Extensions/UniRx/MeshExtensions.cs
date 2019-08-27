@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using UniRx.Async;
 using UnityEngine;
 
-namespace RyanQuagliata.Extensions {
+namespace RyanQuagliataUnity.Extensions.UniRx {
 	public static class MeshExtensions {
 		public static async Task RecalculateBoundsAsync(this Mesh that) => that.bounds = await RecalculateBoundsAsync(that.vertices);
 

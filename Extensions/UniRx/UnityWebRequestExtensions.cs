@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 using UniRx.Async;
-using UnityEngine;
 using UnityEngine.Networking;
 
-namespace RyanQuagliata.Extensions {
+namespace RyanQuagliataUnity.Extensions.UniRx {
 	public static class UnityWebRequestExtensions {
 		public static async Task<UnityWebRequest> SendWebRequestAsync(this UnityWebRequest that, IProgress<float> progress = null) {
 			var task = that.SendWebRequest();

@@ -1,11 +1,10 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using RyanQuagliataUnity.Extensions;
 using UniRx.Async;
 using UnityEngine;
 
-namespace RyanQuagliata.Extensions {
+namespace RyanQuagliataUnity.Extensions.UniRx {
 	public static class UniTaskExtensions {
 		/// <summary>
 		/// Waits for the given timespan and then throws an exception if the timeout was reached before the task finished
