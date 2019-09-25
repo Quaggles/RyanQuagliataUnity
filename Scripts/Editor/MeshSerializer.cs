@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using RyanQuagliataUnity.Extensions;
@@ -11,6 +12,10 @@ namespace RyanQuagliataUnity.Editor {
 		[InitializeOnLoadMethod]
 		static void Listen() => PrefabUtility.prefabInstanceUpdated += PrefabInstanceUpdate;
 
+		public static readonly List<string> IgnoreIfWithComponent = new List<string>{
+			"TMPro.TextMeshPro",
+		};
+
 		static void PrefabInstanceUpdate(GameObject instance) {
 			var prefab = PrefabUtility.GetCorrespondingObjectFromSource(instance);
 			string prefabPath = AssetDatabase.GetAssetPath(prefab);
@@ -22,6 +27,12 @@ namespace RyanQuagliataUnity.Editor {
 
 			// Find all meshes that aren't already assets
 			var nonAssets = filters.Where(x => !IsAsset(x.instanceFilter.sharedMesh));
+
+			// Filter out meshfilters if they are next to components on the ignore list
+			nonAssets = nonAssets.Where(x => {
+				var comps = x.instanceFilter.GetComponents<Component>();
+				return comps.All(y => IgnoreIfWithComponent.Any(z => z != y.GetType().FullName));
+			});
 			if (nonAssets.IsEmpty()) return; // If there are no non-asset mesh's no work to be done
 
 			// Confirm to the user they want save
