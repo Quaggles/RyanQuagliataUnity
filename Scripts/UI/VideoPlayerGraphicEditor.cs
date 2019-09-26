@@ -23,7 +23,6 @@ namespace _Project.Scripts {
             serializedObject.Update();
             EditorGUILayout.PropertyField(videoPlayerProperty);
             colorProperty.colorValue = EditorGUILayout.ColorField(new GUIContent(colorProperty.displayName), colorProperty.colorValue, true, false, false);
-            Debug.Log(colorProperty.colorValue);
             EditorGUI.BeginDisabledGroup(true);
             EditorGUILayout.PropertyField(textureProperty);
             EditorGUI.EndDisabledGroup();
