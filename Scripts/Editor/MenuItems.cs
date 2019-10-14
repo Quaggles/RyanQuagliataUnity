@@ -151,12 +151,9 @@ namespace RyanQuagliataUnity.Editor {
         [MenuItem("RyanQuagliata/Restart With Empty Scene")]
         public static void RestartWithEmptyScene() {
 	        if (EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo()) EditorApplication.ExecuteMenuItem("File/Save Project");
-	        EditorApplication.OpenProject(Environment.CurrentDirectory, "-executeMethod", $"{typeof(ExecuteMethod).FullName}.{nameof(ExecuteMethod.LoadEmptyScene)}");
+	        EditorSceneManager.NewScene(NewSceneSetup.EmptyScene);
+	        EditorApplication.OpenProject(Environment.CurrentDirectory);
         }
-	}
-
-	public class ExecuteMethod {
-		public static void LoadEmptyScene() => EditorSceneManager.NewScene(NewSceneSetup.EmptyScene);
 	}
 	
 }
