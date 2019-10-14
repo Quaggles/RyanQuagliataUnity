@@ -1,4 +1,5 @@
 ﻿#if UNITY_EDITOR
+using UnityEditor.SceneManagement;
 using System;
 using System.IO;
 using System.Linq;
@@ -140,6 +141,22 @@ namespace RyanQuagliataUnity.Editor {
 				return;
 			EditorBuildSettings.scenes = valid.ToArray();
 		}
+		
+        [MenuItem("RyanQuagliata/Restart")]
+        public static void Restart() {
+	        if (EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo()) EditorApplication.ExecuteMenuItem("File/Save Project");
+	        EditorApplication.OpenProject(Environment.CurrentDirectory);
+        }
+        
+        [MenuItem("RyanQuagliata/Restart With Empty Scene")]
+        public static void RestartWithEmptyScene() {
+	        if (EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo()) EditorApplication.ExecuteMenuItem("File/Save Project");
+	        EditorApplication.OpenProject(Environment.CurrentDirectory, "-executeMethod", $"{typeof(ExecuteMethod).FullName}.{nameof(ExecuteMethod.LoadEmptyScene)}");
+        }
+	}
+
+	public class ExecuteMethod {
+		public static void LoadEmptyScene() => EditorSceneManager.NewScene(NewSceneSetup.EmptyScene);
 	}
 	
 }

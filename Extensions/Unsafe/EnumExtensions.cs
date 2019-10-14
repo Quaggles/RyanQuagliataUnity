@@ -4,7 +4,6 @@ namespace RyanQuagliataUnity.Extensions.Unsafe {
 	public static class EnumExtensions {
 		/// <summary>
 		/// Garbage allocation free version of Enum.HasFlag using unsafe
-        /// https://forum.unity.com/threads/c-hasaflag-method-extension-how-to-not-create-garbage-allocation.616924/#post-4420699
 		/// </summary>
 		/// <param name="lhs"></param>
 		/// <param name="rhs"></param>
