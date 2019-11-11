@@ -26,7 +26,7 @@ namespace RyanQuagliataUnity {
 
 		public static void Draw(Action action) {
 #if UNITY_EDITOR
-			GetHandlesHost().OnGuiActions.Enqueue(action);
+			GetHandlesHost().OnGuiActions.Add(action);
 #endif
 		}
 
