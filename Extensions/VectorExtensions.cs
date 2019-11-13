@@ -347,5 +347,7 @@ namespace RyanQuagliataUnity.Extensions {
 			if (that.z < 0 || that.z > 1) return false;
 			return true;
 		}
+		
+		public static Vector3 XYtoXZ(this Vector2 that) => new Vector3(that.x, 0, that.y);
 	}
 }
