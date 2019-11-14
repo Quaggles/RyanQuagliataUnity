@@ -20,8 +20,7 @@ namespace RyanQuagliataUnity.Extensions {
 			var tasks = that.Select(
 				async x => {
 					// Push the results to the stack as they are evaluated
-					if (await predicate(x))
-						results.Push(x);
+					if (await predicate(x)) results.Push(x);
 				});
 			await Task.WhenAll(tasks);
 			return results;
@@ -66,7 +65,7 @@ namespace RyanQuagliataUnity.Extensions {
 				return identitySelector(obj).GetHashCode();
 			}
 		}
-		
+
 		/// <summary>
 		/// Determines whether a collection is empty
 		/// </summary>
@@ -77,8 +76,8 @@ namespace RyanQuagliataUnity.Extensions {
 		public static bool IsEmpty<T>([NotNull] this IEnumerable<T> source) {
 			if (source == null) throw new ArgumentNullException(nameof(source));
 			return !source.Any();
-		}		
-		
+		}
+
 		/// <summary>
 		/// Performs a action on each element in an IEnumerable
 		/// </summary>
@@ -87,11 +86,10 @@ namespace RyanQuagliataUnity.Extensions {
 		/// <typeparam name="T">Type of IEnumerable</typeparam>
 		/// <returns>Original IEnumerable for method chaining</returns>
 		public static IEnumerable<T> ForEach<T>([NotNull] this IEnumerable<T> that, Action<T> action = null) {
-			foreach (var element in that) 
-				action?.Invoke(element);
+			foreach (var element in that) action?.Invoke(element);
 			return that;
-		}		
-		
+		}
+
 		/// <summary>
 		/// Determines whether a collection is empty
 		/// </summary>
@@ -102,10 +100,10 @@ namespace RyanQuagliataUnity.Extensions {
 			if (source == null) return true;
 			return !source.Any();
 		}
-		
+
 		private static Random random;
 		public static Random Random => random ?? (random = new Random(Guid.NewGuid().GetHashCode()));
-		
+
 		/// <summary>
 		/// Gets a random item from the enumerable
 		/// </summary>
@@ -121,7 +119,7 @@ namespace RyanQuagliataUnity.Extensions {
 			if (!that.Any()) throw new EmptyEnumerableException();
 			return Random.Next(that.Count());
 		}
-		
+
 		/// <summary>
 		/// https://stackoverflow.com/a/11930875
 		/// </summary>
@@ -132,7 +130,7 @@ namespace RyanQuagliataUnity.Extensions {
 		public static int GetRandomIndexWeighted<T>(this IEnumerable<T> that, Func<T, float> weightSelector) {
 			float totalWeight = that.Sum(weightSelector);
 			// The weight we are after...
-			float itemWeightIndex = (float)Random.NextDouble() * totalWeight;
+			float itemWeightIndex = (float) Random.NextDouble() * totalWeight;
 			float currentWeightIndex = 0;
 
 			var array = that.Select(x => new {Value = x, Weight = weightSelector(x)}).ToArray();
@@ -145,9 +143,8 @@ namespace RyanQuagliataUnity.Extensions {
 			}
 
 			return -1;
-
 		}
-		
+
 		/// <summary>
 		/// https://stackoverflow.com/a/11930875
 		/// </summary>
@@ -157,20 +154,18 @@ namespace RyanQuagliataUnity.Extensions {
 		/// <returns></returns>
 		public static T GetRandomItemWeighted<T>(this IEnumerable<T> that, Func<T, double> weightSelector) {
 			var totalWeight = that.Sum(weightSelector);
-			
+
 			// The weight we are after...
 			var itemWeightIndex = Random.NextDouble() * totalWeight;
 			var currentWeightIndex = 0d;
 
-			foreach(var item in from weightedItem in that select new { Value = weightedItem, Weight = weightSelector(weightedItem) }) {
+			foreach (var item in from weightedItem in that select new {Value = weightedItem, Weight = weightSelector(weightedItem)}) {
 				currentWeightIndex += item.Weight;
 
 				// If we've hit or passed the weight we are after for this item then it's the one we want....
-				if(currentWeightIndex >= itemWeightIndex)
-					return item.Value;
-
+				if (currentWeightIndex >= itemWeightIndex) return item.Value;
 			}
-			
+
 			return default;
 		}
 
@@ -185,7 +180,7 @@ namespace RyanQuagliataUnity.Extensions {
 		public static T GetRandomItemWithFilter<T>(this IEnumerable<T> that, Predicate<T> filter = null, bool optionalFilters = false) {
 			if (!that.Any()) throw new EmptyEnumerableException();
 			if (filter == null) filter = obj => true;
-			
+
 			// Create an enumerable of all valid items that pass the filter
 			var validItems = that.Where(
 				filter.Invoke
@@ -193,8 +188,7 @@ namespace RyanQuagliataUnity.Extensions {
 
 			// If there are no results either throw an exception or handle the special case
 			if (!validItems.Any()) {
-				if (optionalFilters)
-					return that.GetRandomItem();
+				if (optionalFilters) return that.GetRandomItem();
 				throw new NoFilteredResultsException();
 			}
 
@@ -212,17 +206,16 @@ namespace RyanQuagliataUnity.Extensions {
 		/// <returns>Random item from enumerable</returns>
 		public static T GetRandomItemWithFilter<T>(this IReadOnlyCollection<T> that, IEnumerable<Predicate<T>> filters = null, bool optionalFilters = false) {
 			if (!that.Any()) throw new EmptyEnumerableException();
-			if (filters == null) filters = new Predicate<T>[]{obj => true};
+			if (filters == null) filters = new Predicate<T>[] {obj => true};
 
 			// Create an enumerable of all valid items that pass all filters
 			var validItems = that.Where(
 				item => { return filters.All(f => f.Invoke(item)); }
 			);
-			
+
 			// If there are no results either throw an exception or handle the special case
 			if (!validItems.Any()) {
-				if (optionalFilters)
-					return that.GetRandomItemWithFilter();
+				if (optionalFilters) return that.GetRandomItemWithFilter();
 				throw new NoFilteredResultsException();
 			}
 
@@ -230,7 +223,8 @@ namespace RyanQuagliataUnity.Extensions {
 			return validItems.ElementAt(Random.Next(validItems.Count()));
 		}
 
-		public static IEnumerable<T> GetRandomItems<T>([NotNull] this IEnumerable<T> that, int count, IEnumerable<Predicate<T>> filters = null, bool optionalFilters = false) {
+		public static IEnumerable<T> GetRandomItems<T>([NotNull] this IEnumerable<T> that, int count, IEnumerable<Predicate<T>> filters = null,
+			bool optionalFilters = false) {
 			if (that == null) throw new ArgumentNullException(nameof(that));
 			if (count <= 0) throw new ArgumentOutOfRangeException(nameof(count));
 			var remainingList = that.ToList();
@@ -265,12 +259,35 @@ namespace RyanQuagliataUnity.Extensions {
 					minIndex = index;
 					minValue = x;
 				}
-					
+
 				index++;
 			}
+
 			return minIndex;
 		}
 
 		public static int MinIndex<T>(this IEnumerable<T> that, Func<T, float> selector) => that.Select(selector).MinIndex();
+
+		/// <summary>
+		/// If the collection is null or empty return defaultVal, otherwise return the average
+		/// </summary>
+		/// <param name="that"></param>
+		/// <param name="selector"></param>
+		/// <typeparam name="TSource"></typeparam>
+		/// <returns></returns>
+		public static float AverageOrDefault<TSource>(this IEnumerable<TSource> that, Func<TSource, float> selector, float defaultVal = 0) {
+			if (that == null) return defaultVal;
+			double total = 0.0;
+			long iterator = 0;
+			foreach (var i in that) {
+				total += selector.Invoke(i);;
+				checked {
+					++iterator;
+				}
+			}
+
+			if (iterator > 0L) return (float) total / (float) iterator;
+			return defaultVal;
+		}
 	}
 }
