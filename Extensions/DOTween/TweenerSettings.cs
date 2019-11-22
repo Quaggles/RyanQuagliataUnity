@@ -1,15 +1,14 @@
 ﻿using DG.Tweening;
 using DG.Tweening.Core.Easing;
-using RyanQuagliataUnity.Extensions;
 using RyanQuagliataUnity.Utilities;
 using Sirenix.OdinInspector;
-#if UNITY_EDITOR
 using UnityEditor;
-#endif
 using UnityEngine;
 using UnityEngine.Events;
+#if UNITY_EDITOR
+#endif
 
-namespace RyanQuagliata.PluginExtensions.DOTween {
+namespace RyanQuagliataUnity.Extensions.DOTween {
 	[System.Serializable]
 	[CreateAssetMenu(fileName = "TweenSettings", menuName = "Ryan Quagliata/Tween Settings", order = 1000)]
 	public class TweenerSettings : ScriptableObject {

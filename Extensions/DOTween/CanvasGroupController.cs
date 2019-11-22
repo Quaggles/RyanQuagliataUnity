@@ -1,10 +1,9 @@
 ﻿using DG.Tweening;
 using DG.Tweening.Plugins.Options;
-using RyanQuagliataUnity.Extensions;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace RyanQuagliata.PluginExtensions.DOTween {
+namespace RyanQuagliataUnity.Extensions.DOTween {
 	[RequireComponent(typeof(CanvasGroup))]
 	public class CanvasGroupController : MonoBehaviour {
 		[MinMaxSlider(0, 1, true)]

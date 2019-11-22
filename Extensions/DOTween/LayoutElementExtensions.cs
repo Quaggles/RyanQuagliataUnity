@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 // ReSharper disable InconsistentNaming, following DOTween naming conventions instead
 
-namespace RyanQuagliata.PluginExtensions.DOTween {
+namespace RyanQuagliataUnity.Extensions.DOTween {
 	public static class LayoutElementExtensions {
 		public static Tweener DOPreferredSize(this LayoutElement target, Vector2 endValue, float duration) =>
 			DG.Tweening.DOTween.To(() => new Vector2(target.preferredWidth, target.preferredHeight), vec => {

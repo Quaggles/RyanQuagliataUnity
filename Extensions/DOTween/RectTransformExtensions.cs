@@ -3,7 +3,7 @@ using UnityEngine;
 
 // ReSharper disable InconsistentNaming, following DOTween naming conventions instead
 
-namespace RyanQuagliata.PluginExtensions.DOTween {
+namespace RyanQuagliataUnity.Extensions.DOTween {
 	public static class RectTransformExtensions {
 		public static Tweener DOMoveAnchoredPosition(this RectTransform target, Vector2 endValue, float duration) =>
 			DG.Tweening.DOTween.To(() => target.anchoredPosition, x => target.anchoredPosition = x, endValue, duration)

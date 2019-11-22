@@ -4,7 +4,7 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace RyanQuagliata.PluginExtensions.DOTween {
+namespace RyanQuagliataUnity.Extensions.DOTween {
 	public class CompositeGraphic : Graphic {
 		public List<Graphic> TargetGraphics = new List<Graphic>();
 		private Tween colourTween;

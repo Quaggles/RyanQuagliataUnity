@@ -9,7 +9,7 @@ using UnityEngine.UI;
 #if UNITY_EDITOR
 #endif
 
-namespace RyanQuagliata.PluginExtensions.DOTween {
+namespace RyanQuagliataUnity.Extensions.DOTween {
 	public static class DOTweenExtensions {
 		public static TweenerCore<Color, Color, ColorOptions> DOColor(this Graphic that, Color endValue, float duration, bool snapping = false) {
 			var t = DG.Tweening.DOTween.To(() => that.color, x => that.color = x, endValue, duration);
