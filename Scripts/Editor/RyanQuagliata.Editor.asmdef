@@ -1,9 +1,9 @@
 {
     "name": "RyanQuagliataEditor",
     "references": [
-        "RyanQuagliata"
+        "RyanQuagliata",
+        "Unity.VectorGraphics.Editor"
     ],
-    "optionalUnityReferences": [],
     "includePlatforms": [
         "Editor"
     ],
@@ -12,5 +12,12 @@
     "overrideReferences": false,
     "precompiledReferences": [],
     "autoReferenced": true,
-    "defineConstraints": []
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.unity.vectorgraphics",
+            "expression": "0.0.0",
+            "define": "UNITY_VECTOR_GRAPHICS"
+        }
+    ]
 }
