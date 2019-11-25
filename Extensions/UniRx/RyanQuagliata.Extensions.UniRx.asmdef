@@ -1,5 +1,5 @@
 {
-    "name": "RyanQuagliata.PluginExtensions.UniRx",
+    "name": "RyanQuagliata.Extensions.UniRx",
     "references": [
         "GUID:0065df8e10cb31c4695d09ae3d05494f",
         "GUID:f51ebe6a0ceec4240a699833d6309b23",

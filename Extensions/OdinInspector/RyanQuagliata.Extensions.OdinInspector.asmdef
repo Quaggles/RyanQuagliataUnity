@@ -1,12 +1,11 @@
 {
-    "name": "RyanQuagliata.PluginExtensions.OdinInspector",
+    "name": "RyanQuagliata.Extensions.OdinInspector",
     "references": [
         "GUID:8af13a3c597652446b5fc52a6d2836b8",
         "GUID:e2e9959bd64170e47930067e50fcb902",
         "GUID:de305acf539f3a04e9fdd36d366a917b",
         "GUID:fbc376426469ba34ca1de613b40fbfd8"
     ],
-    "optionalUnityReferences": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

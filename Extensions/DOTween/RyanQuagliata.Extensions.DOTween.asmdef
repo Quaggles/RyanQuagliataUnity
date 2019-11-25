@@ -1,5 +1,5 @@
 {
-    "name": "RyanQuagliata.PluginExtensions.DOTween",
+    "name": "RyanQuagliata.Extensions.DOTween",
     "references": [
         "GUID:0065df8e10cb31c4695d09ae3d05494f",
         "GUID:e2e9959bd64170e47930067e50fcb902",
