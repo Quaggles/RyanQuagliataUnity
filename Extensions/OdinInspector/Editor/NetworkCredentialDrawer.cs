@@ -1,10 +1,10 @@
 ﻿#if UNITY_EDITOR && ODIN_INSPECTOR
-using System.Net;
-using Sirenix.OdinInspector.Editor;
 using UnityEditor;
 using UnityEngine;
+using System.Net;
+using Sirenix.OdinInspector.Editor;
 
-namespace RyanQuagliata.PluginExtensions.OdinInspector.Drawers {
+namespace RyanQuagliataUnity.Extensions.OdinInspector.Editor {
 	[OdinDrawer]
 	public class NetworkCredentialDrawer : OdinValueDrawer<NetworkCredential> {
 		protected override void DrawPropertyLayout(IPropertyValueEntry<NetworkCredential> entry, GUIContent label) {

@@ -1,11 +1,11 @@
 ﻿#if UNITY_EDITOR
-using System;
-using System.IO;
 using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
 using UnityEngine;
+using System;
+using System.IO;
 
-namespace RyanQuagliata.PluginExtensions.SharpConfig {
+namespace RyanQuagliataUnity.Extensions.SharpConfig {
 	public class ExportDuringBuild : IPreprocessBuildWithReport {
 		public int callbackOrder => 0;
 		public void OnPreprocessBuild(BuildReport report) {

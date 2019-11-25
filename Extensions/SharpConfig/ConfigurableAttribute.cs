@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RyanQuagliata.PluginExtensions.SharpConfig {
+namespace RyanQuagliataUnity.Extensions.SharpConfig {
 	[AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
 	public class ConfigurableAttribute : Attribute {
 		public readonly string ConfigFileName;

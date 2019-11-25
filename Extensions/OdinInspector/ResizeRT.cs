@@ -4,7 +4,7 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 #endif
 
-namespace RyanQuagliata.Scripts {
+namespace RyanQuagliataUnity.Extensions.OdinInspector {
 	[ExecuteInEditMode]
 	public class ResizeRT : 
 #if ODIN_INSPECTOR && !ODIN_EDITOR_ONLY

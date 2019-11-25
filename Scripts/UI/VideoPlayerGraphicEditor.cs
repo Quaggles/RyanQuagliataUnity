@@ -1,10 +1,8 @@
-
-using RyanQuagliataUnity.UI;
 #if UNITY_EDITOR
-using UnityEditor;
 using UnityEngine;
+using UnityEditor;
 
-namespace _Project.Scripts {
+namespace RyanQuagliataUnity.UI {
     [CustomEditor(typeof(VideoPlayerGraphic), true)]
     [CanEditMultipleObjects]
     public class VideoPlayerGraphicEditor : Editor {

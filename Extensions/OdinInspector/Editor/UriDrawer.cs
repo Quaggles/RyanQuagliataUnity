@@ -1,11 +1,11 @@
-﻿#if UNITY_EDITOR && ODIN_INSPECTOR
-
-using System;
-using Sirenix.OdinInspector.Editor;
+﻿
+#if UNITY_EDITOR && ODIN_INSPECTOR
 using UnityEditor;
 using UnityEngine;
+using System;
+using Sirenix.OdinInspector.Editor;
 
-namespace RyanQuagliata.PluginExtensions.OdinInspector.Drawers {
+namespace RyanQuagliataUnity.Extensions.OdinInspector.Editor {
 	[OdinDrawer]
 	public class UriDrawer : OdinValueDrawer<Uri> {
 		protected override void DrawPropertyLayout(IPropertyValueEntry<Uri> entry, GUIContent label) {

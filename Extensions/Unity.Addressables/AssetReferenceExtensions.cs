@@ -1,12 +1,12 @@
-﻿using UniRx.Async;
+﻿using System;
+using UniRx.Async;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceProviders;
 using UnityEngine.SceneManagement;
-using System;
 
-namespace RyanQuagliataUnity.PluginExtensions.Unity.Addressables {
+namespace RyanQuagliataUnity.Extensions.Unity.Addressables {
 	public static class AssetReferenceExtensions {
 		public static async UniTask<T> LoadAssetUniTaskAsync<T>(this AssetReferenceT<T> that,
 			IProgress<float> progress = null) =>

@@ -1,9 +1,9 @@
 ﻿#if !ODIN_EDITOR_ONLY
+using UnityEngine;
 using Sirenix.Serialization;
 using Sirenix.Utilities;
-using UnityEngine;
 
-namespace RyanQuagliata.PluginExtensions.OdinInspector {
+namespace RyanQuagliataUnity.Extensions.OdinInspector {
 	/// <summary>
 	/// Global Config class serialized by Odin Inspector instead of Unity
 	/// </summary>
