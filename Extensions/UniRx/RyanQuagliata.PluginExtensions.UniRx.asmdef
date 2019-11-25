@@ -7,13 +7,14 @@
         "GUID:fbc376426469ba34ca1de613b40fbfd8",
         "GUID:e2e9959bd64170e47930067e50fcb902"
     ],
-    "optionalUnityReferences": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
     "precompiledReferences": [],
     "autoReferenced": true,
-    "defineConstraints": [],
+    "defineConstraints": [
+        "UNIRX"
+    ],
     "versionDefines": []
 }
