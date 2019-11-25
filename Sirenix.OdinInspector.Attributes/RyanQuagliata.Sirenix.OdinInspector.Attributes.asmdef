@@ -1,13 +1,12 @@
 {
     "name": "RyanQuagliata.Sirenix.OdinInspector.Attributes",
     "references": [],
-    "optionalUnityReferences": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
     "precompiledReferences": [],
-    "autoReferenced": false,
+    "autoReferenced": true,
     "defineConstraints": [
         "!ODIN_INSPECTOR"
     ],
