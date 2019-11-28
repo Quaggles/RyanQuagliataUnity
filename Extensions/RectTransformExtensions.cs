@@ -6,9 +6,10 @@ namespace RyanQuagliataUnity.Extensions {
 	public static class RectTransformExtensions {
 		static public Rect WorldRect([NotNull] this RectTransform rectTransform) {
 			if (rectTransform == null) throw new ArgumentNullException(nameof(rectTransform));
-			Vector3 topLeft = GetWorldCorners(rectTransform, 0);
-			Vector2 scaledSize = new Vector2(rectTransform.rect.size.x, rectTransform.rect.size.y);
-			return new Rect(topLeft, scaledSize);
+			var worldRect = new Rect();
+			worldRect.min = rectTransform.GetWorldCorners(0);
+			worldRect.max = rectTransform.GetWorldCorners(2);
+			return worldRect;
 		}
 
 		/// <summary>
