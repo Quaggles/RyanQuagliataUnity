@@ -1,7 +1,11 @@
 ﻿using DG.Tweening;
 using DG.Tweening.Plugins.Options;
+using RyanQuagliataUnity.UnityEvents;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace RyanQuagliataUnity.Extensions.DOTween {
 	[RequireComponent(typeof(CanvasGroup))]
@@ -22,6 +26,8 @@ namespace RyanQuagliataUnity.Extensions.DOTween {
 
 		private CanvasGroup canvasGroup;
 
+		public Selectable SelectOnVisible;
+
 		/// <summary>
 		/// If the CanvasGroup doesn't exist try to find it, if that fails make a new one
 		/// </summary>
@@ -30,6 +36,10 @@ namespace RyanQuagliataUnity.Extensions.DOTween {
 		private Tween fadeTween;
 
 		public void ToggleVisibility() => Visible = !Visible;
+
+		public BooleanEvent VisibilityChanged;
+		public UnityEvent NowVisible;
+		public UnityEvent NowInvisibile;
 
 		[PropertyOrder(-1)]
 		[ShowInInspector]
@@ -49,6 +59,12 @@ namespace RyanQuagliataUnity.Extensions.DOTween {
 		}
 
 		public Tween SetVisibility(bool visible, bool instant = false) {
+			VisibilityChanged?.Invoke(visible);
+			if (visible)
+				NowVisible.Invoke();
+			else 
+				NowInvisibile.Invoke();
+			if (visible && SelectOnVisible) EventSystem.current.SetSelectedGameObject(SelectOnVisible.gameObject);
 			CanvasGroup.blocksRaycasts = visible;
 			CanvasGroup.interactable = visible;
 			return SetAlpha(visible ? VisibleAlpha : InvisibleAlpha, instant);
