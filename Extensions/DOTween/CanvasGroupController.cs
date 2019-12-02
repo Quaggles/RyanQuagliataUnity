@@ -27,6 +27,7 @@ namespace RyanQuagliataUnity.Extensions.DOTween {
 		private CanvasGroup canvasGroup;
 
 		public Selectable SelectOnVisible;
+		public bool UnselectOnHide = false;
 
 		/// <summary>
 		/// If the CanvasGroup doesn't exist try to find it, if that fails make a new one
@@ -46,7 +47,8 @@ namespace RyanQuagliataUnity.Extensions.DOTween {
 		public bool Visible {
 			get {
 				// If a tween is playing check its end value to see if its becoming visible or not
-				if (fadeTween != null && fadeTween.IsActive() && fadeTween.IsPlaying()) return fadeTween.GetEndValue<float, float, FloatOptions>().ApproximatelyEqual(VisibleAlpha);
+				if (fadeTween != null && fadeTween.IsActive() && fadeTween.IsPlaying())
+					return fadeTween.GetEndValue<float, float, FloatOptions>().ApproximatelyEqual(VisibleAlpha);
 
 				// Otherwise check if the actual value is 1
 				return CanvasGroup.alpha.ApproximatelyEqual(VisibleAlpha);
@@ -60,11 +62,14 @@ namespace RyanQuagliataUnity.Extensions.DOTween {
 
 		public Tween SetVisibility(bool visible, bool instant = false) {
 			VisibilityChanged?.Invoke(visible);
-			if (visible)
+			if (visible) {
+				if (SelectOnVisible) EventSystem.current.SetSelectedGameObjectForce(SelectOnVisible.gameObject);
 				NowVisible.Invoke();
-			else 
+			} else {
+				if (UnselectOnHide) EventSystem.current.SetSelectedGameObject(null);
 				NowInvisibile.Invoke();
-			if (visible && SelectOnVisible) EventSystem.current.SetSelectedGameObject(SelectOnVisible.gameObject);
+			}
+
 			CanvasGroup.blocksRaycasts = visible;
 			CanvasGroup.interactable = visible;
 			return SetAlpha(visible ? VisibleAlpha : InvisibleAlpha, instant);
