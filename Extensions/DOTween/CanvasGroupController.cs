@@ -61,7 +61,10 @@ namespace RyanQuagliataUnity.Extensions.DOTween {
 		}
 
 		public Tween SetVisibility(bool visible, bool instant = false) {
+			CanvasGroup.blocksRaycasts = visible;
+			CanvasGroup.interactable = visible;
 			VisibilityChanged?.Invoke(visible);
+			if (visible && !CanvasGroup.gameObject.activeSelf) CanvasGroup.gameObject.SetActive(true);
 			if (visible) {
 				if (SelectOnVisible) EventSystem.current.SetSelectedGameObjectForce(SelectOnVisible.gameObject);
 				NowVisible.Invoke();
@@ -69,9 +72,6 @@ namespace RyanQuagliataUnity.Extensions.DOTween {
 				if (UnselectOnHide) EventSystem.current.SetSelectedGameObject(null);
 				NowInvisibile.Invoke();
 			}
-
-			CanvasGroup.blocksRaycasts = visible;
-			CanvasGroup.interactable = visible;
 			return SetAlpha(visible ? VisibleAlpha : InvisibleAlpha, instant);
 		}
 
