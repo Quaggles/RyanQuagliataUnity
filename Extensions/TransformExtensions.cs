@@ -21,5 +21,17 @@ namespace RyanQuagliataUnity.Extensions {
 		public static Quaternion TransformRotation(this Transform that, Quaternion rotation) {
 			return that.rotation * rotation;
 		}
+		
+		public static bool HasParent(this Transform that, Transform parent) {
+			Transform newParent = that;
+			while (newParent) {
+				newParent = newParent.parent;
+				if (newParent == parent) {
+					return true;
+				}
+			}
+
+			return false;
+		}
 	}
 }
