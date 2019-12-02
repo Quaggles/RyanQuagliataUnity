@@ -5,6 +5,7 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace RyanQuagliataUnity.Extensions.DOTween {
@@ -40,7 +41,8 @@ namespace RyanQuagliataUnity.Extensions.DOTween {
 
 		public BooleanEvent VisibilityChanged;
 		public UnityEvent NowVisible;
-		public UnityEvent NowInvisibile;
+		[FormerlySerializedAs("NowInvisibile")]
+		public UnityEvent NowInvisible;
 
 		[PropertyOrder(-1)]
 		[ShowInInspector]
@@ -70,7 +72,7 @@ namespace RyanQuagliataUnity.Extensions.DOTween {
 				NowVisible.Invoke();
 			} else {
 				if (UnselectOnHide) EventSystem.current.SetSelectedGameObject(null);
-				NowInvisibile.Invoke();
+				NowInvisible.Invoke();
 			}
 			return SetAlpha(visible ? VisibleAlpha : InvisibleAlpha, instant);
 		}
