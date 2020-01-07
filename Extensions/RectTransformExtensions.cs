@@ -4,6 +4,26 @@ using UnityEngine;
 
 namespace RyanQuagliataUnity.Extensions {
 	public static class RectTransformExtensions {
+		/// <summary>
+		/// Gets the rect in screen space
+		/// </summary>
+		/// <param name="rectTransform"></param>
+		/// <param name="canvas">Optional, if provided avoids an expensive GetComponentInParent call</param>
+		/// <returns></returns>
+		/// <exception cref="ArgumentNullException"></exception>
+		public static Rect ScreenSpaceRect(this RectTransform rectTransform, Canvas canvas = null) {
+			if (rectTransform == null) throw new ArgumentNullException(nameof(rectTransform));
+			var screenRect = new Rect();
+			if (!canvas) canvas = rectTransform.GetComponentInParent<Canvas>();
+			if (!canvas) throw new InvalidOperationException($"{nameof(RectTransform)} has no parent canvas");
+			var cam = canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : canvas.worldCamera;
+			var min = RectTransformUtility.WorldToScreenPoint(cam, rectTransform.GetWorldCorners(0));
+			var max = RectTransformUtility.WorldToScreenPoint(cam, rectTransform.GetWorldCorners(2));
+			screenRect.min = min;
+			screenRect.max = max;
+			return screenRect;
+		}
+
 		static public Rect WorldRect([NotNull] this RectTransform rectTransform) {
 			if (rectTransform == null) throw new ArgumentNullException(nameof(rectTransform));
 			var worldRect = new Rect();
