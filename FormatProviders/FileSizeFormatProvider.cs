@@ -71,4 +71,11 @@ namespace RyanQuagliataUnity.FormatProviders {
 			return arg.ToString();
 		}
 	}
+
+	public static class FileSizeFormatExtensionMethods {
+		public static string ToFileSize(this int that) => string.Format(new FileSizeFormatProvider(), "{0:fs}", that);
+		public static string ToFileSize(this long that) => string.Format(new FileSizeFormatProvider(), "{0:fs}", that);
+		public static string ToFileSize(this float that) => string.Format(new FileSizeFormatProvider(), "{0:fs}", that);
+		public static string ToFileSize(this double that) => string.Format(new FileSizeFormatProvider(), "{0:fs}", that);
+	}
 }
