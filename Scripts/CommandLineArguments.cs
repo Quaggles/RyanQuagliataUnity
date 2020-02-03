@@ -121,16 +121,21 @@ namespace RyanQuagliataUnity {
 		/// <exception cref="IndexOutOfRangeException">Value count exceeded the length of the command line args</exception>
 		public static IEnumerable<string> ReadArgValues(string argName) {
 			if (!environmentArgsAdded) AddEnvironmentArgs();
+			bool chainStarted = false;
 			for (var i = 0; i < Arguments.Count; i++) {
 				var commandLineArgument = Arguments[i];
-				if (!string.Equals(commandLineArgument, argName, StringComparison.InvariantCultureIgnoreCase)) continue;
-
-				if (commandLineArgument.StartsWith("-")) break;
-
-				yield return commandLineArgument;
+				// Argument name found so start returning values
+				if (string.Equals(commandLineArgument, argName, StringComparison.InvariantCultureIgnoreCase)) {
+					chainStarted = true;
+					continue;
+				}
+				if (chainStarted) {
+					if (commandLineArgument.StartsWith("-")) break;
+					yield return commandLineArgument;
+				}
 			}
 
-			throw new ArgumentException($"Argument \"{argName}\" was not found in the list of command line arguments");
+			if (!chainStarted)  throw new ArgumentException($"Argument \"{argName}\" was not found in the list of command line arguments");
 		}
 
 		public class CommandLineArgumentNotFoundException : Exception {
