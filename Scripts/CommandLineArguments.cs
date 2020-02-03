@@ -50,21 +50,21 @@ namespace RyanQuagliataUnity {
 		public static string ReadArgValue(string argName, bool enforceValueType = true) {
 			if (!environmentArgsAdded) AddEnvironmentArgs();
 			bool skippedDueToEnforcedValueType = false;
-			
+
 			for (var i = 0; i < Arguments.Count; i++) {
 				var commandLineArgument = Arguments[i];
 				// Skip arguments that don't match
 				if (!string.Equals(commandLineArgument, argName, StringComparison.InvariantCultureIgnoreCase)) continue;
-				
+
 				// Once the argument matches get the following value
 				string val = Arguments[i + 1];
-				
+
 				// If enforcing value type check that it doesn't start with a hyphen, if it does skip
 				if (enforceValueType && val.StartsWith("-")) {
 					skippedDueToEnforcedValueType = true;
 					continue;
 				}
-				
+
 				return val;
 			}
 
@@ -87,11 +87,11 @@ namespace RyanQuagliataUnity {
 			for (var i = 0; i < Arguments.Count; i++) {
 				var commandLineArgument = Arguments[i];
 				if (!string.Equals(commandLineArgument, argName, StringComparison.InvariantCultureIgnoreCase)) continue;
-				
+
 				// If enforcing value type check that it doesn't start with a hyphen, if it does skip
 				if (enforceValueType) {
 					bool breakOut = false;
-					for (int j = i+1; j < i+count+1; j++) {
+					for (int j = i + 1; j < i + count + 1; j++) {
 						if (Arguments[j].StartsWith("-")) {
 							breakOut = true;
 							skippedDueToEnforcedValueType = true;
@@ -102,12 +102,34 @@ namespace RyanQuagliataUnity {
 				}
 
 				string[] result = new string[count];
-				Arguments.CopyTo(i+1, result, 0, count);
+				Arguments.CopyTo(i + 1, result, 0, count);
 				return result;
 			}
 
 			if (skippedDueToEnforcedValueType)
 				throw new ArgumentException($"Argument \"{argName}\" was skipped as it did not have {count} valid values following it");
+			throw new ArgumentException($"Argument \"{argName}\" was not found in the list of command line arguments");
+		}
+
+		/// <summary>
+		/// Reads through arguments after argName until it encounters one starting with -
+		/// </summary>
+		/// <param name="argName">Name of the argument e.g. -windowSize</param>
+		/// <param name="count">Number of values expected after the argument</param>
+		/// <param name="enforceValueType">If true an exception will be thrown if the values after the provided argument starts with a '-' character</param>
+		/// <returns>A set of values after the argument name</returns>
+		/// <exception cref="IndexOutOfRangeException">Value count exceeded the length of the command line args</exception>
+		public static IEnumerable<string> ReadArgValues(string argName) {
+			if (!environmentArgsAdded) AddEnvironmentArgs();
+			for (var i = 0; i < Arguments.Count; i++) {
+				var commandLineArgument = Arguments[i];
+				if (!string.Equals(commandLineArgument, argName, StringComparison.InvariantCultureIgnoreCase)) continue;
+
+				if (commandLineArgument.StartsWith("-")) break;
+
+				yield return commandLineArgument;
+			}
+
 			throw new ArgumentException($"Argument \"{argName}\" was not found in the list of command line arguments");
 		}
 
@@ -117,6 +139,7 @@ namespace RyanQuagliataUnity {
 			public CommandLineArgumentNotFoundException(string message) : base(message) { }
 			public CommandLineArgumentNotFoundException(string message, Exception innerException) : base(message, innerException) { }
 		}
+
 		public class CommandLineArgumentNotValidException : Exception {
 			public CommandLineArgumentNotValidException() { }
 			protected CommandLineArgumentNotValidException([NotNull] SerializationInfo info, StreamingContext context) : base(info, context) { }
