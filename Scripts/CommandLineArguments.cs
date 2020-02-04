@@ -107,8 +107,8 @@ namespace RyanQuagliataUnity {
 			}
 
 			if (skippedDueToEnforcedValueType)
-				throw new ArgumentException($"Argument \"{argName}\" was skipped as it did not have {count} valid values following it");
-			throw new ArgumentException($"Argument \"{argName}\" was not found in the list of command line arguments");
+				throw new CommandLineArgumentNotValidException($"Argument \"{argName}\" was skipped as it did not have {count} valid values following it");
+			throw new CommandLineArgumentNotFoundException($"Argument \"{argName}\" was not found in the list of command line arguments");
 		}
 
 		/// <summary>
@@ -135,7 +135,7 @@ namespace RyanQuagliataUnity {
 				}
 			}
 
-			if (!chainStarted)  throw new ArgumentException($"Argument \"{argName}\" was not found in the list of command line arguments");
+			if (!chainStarted)  throw new CommandLineArgumentNotFoundException($"Argument \"{argName}\" was not found in the list of command line arguments");
 		}
 
 		public class CommandLineArgumentNotFoundException : Exception {
