@@ -21,7 +21,7 @@ namespace RyanQuagliataUnity.Extensions {
 		/// <param name="that"></param>
 		/// <returns></returns>
 		public static string ToSpaced(this string that) {
-			return ToSpaced(that, (i, c) => i >= 0 && char.IsUpper(c));
+			return ToSpaced(that, (i, c) => i > 0 && char.IsUpper(c));
 		}
 
 		/// <summary>
