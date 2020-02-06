@@ -1,10 +1,10 @@
 {
     "name": "RyanQuagliata.Extensions.DOTween",
     "references": [
-        "GUID:0065df8e10cb31c4695d09ae3d05494f",
-        "GUID:e2e9959bd64170e47930067e50fcb902",
-        "GUID:fbc376426469ba34ca1de613b40fbfd8",
-        "GUID:52f275a616c6fc1439383fee5fc75ea4"
+        "RyanQuagliata",
+        "Sirenix.OdinInspector.Attributes",
+        "RyanQuagliata.Sirenix.OdinInspector.Attributes",
+        "DOTween.Modules"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
