@@ -15,11 +15,27 @@ namespace RyanQuagliataUnity.Extensions {
 			if (that == null) throw new ArgumentNullException(nameof(that));
 			if (collection == null) throw new ArgumentNullException(nameof(collection));
 
-			var list = that as List<T>;
-			if (list != null)
+			if (that is List<T> list)
 				list.AddRange(collection);
 			else
 				collection.ForEach(that.Add);
+		}
+		
+		/// <summary>
+		/// Adds a range of values to a collection but only the ones that don't already exist in it
+		/// </summary>
+		/// <param name="that"></param>
+		/// <param name="collection"></param>
+		/// <typeparam name="T"></typeparam>
+		/// <exception cref="ArgumentNullException"></exception>
+		public static void AddUniqueRange<T>([NotNull] this ICollection<T> that, [NotNull] IEnumerable<T> collection) {
+			if (that == null) throw new ArgumentNullException(nameof(that));
+			if (collection == null) throw new ArgumentNullException(nameof(collection));
+
+			foreach (var item in collection) {
+				if (that.Contains(item)) continue;
+				that.Add(item);
+			}
 		}
 	}
 }
