@@ -37,5 +37,11 @@ namespace RyanQuagliataUnity.Extensions {
 				that.Add(item);
 			}
 		}
+
+		public static void AddUnique<T>([NotNull] this ICollection<T> that, [NotNull] T item) {
+			if (that == null) throw new ArgumentNullException(nameof(that));
+			if (that.Contains(item)) return;
+			that.Add(item);
+		}
 	}
 }
