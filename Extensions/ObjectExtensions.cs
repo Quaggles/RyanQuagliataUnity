@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace RyanQuagliataUnity.Extensions {
 	public static class ObjectExtensions {
@@ -35,6 +37,40 @@ namespace RyanQuagliataUnity.Extensions {
 #else
 			Object.Destroy(that);
 #endif
+		}
+
+		public static T FindObjectOfTypeIncludingInactive<T>() where T : Component {
+			List<GameObject> rootList = new List<GameObject>();
+			for (int i = 0; i < SceneManager.sceneCount; i++) {
+				var s = SceneManager.GetSceneAt(i);
+				if (s.isLoaded) {
+					s.GetRootGameObjects(rootList);
+					for (int j = 0; j < rootList.Count; j++) {
+						var go = rootList[j];
+						var result = go.GetComponentInChildren<T>(true);
+						if (result) return result;
+					}
+				}
+			}
+
+			return null;
+		}
+		
+		public static List<T> FindObjectsOfTypeIncludingInactive<T>(List<T> resultList = null) where T : Component {
+			List<GameObject> rootList = new List<GameObject>();
+			if (resultList == null) resultList = new List<T>();
+			for (int i = 0; i < SceneManager.sceneCount; i++) {
+				var s = SceneManager.GetSceneAt(i);
+				if (s.isLoaded) {
+					s.GetRootGameObjects(rootList);
+					for (int j = 0; j < rootList.Count; j++) {
+						var go = rootList[j];
+						resultList.AddRange(go.GetComponentsInChildren<T>(true));
+					}
+				}
+			}
+
+			return resultList;
 		}
 	}
 }
