@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Object = UnityEngine.Object;
 
 namespace RyanQuagliataUnity.Extensions {
 	public static class ObjectExtensions {
@@ -108,6 +110,27 @@ namespace RyanQuagliataUnity.Extensions {
 		}
 
 		/// <summary>
+		/// Returns the first object that can be found of type, this will include objects that are DontDestroyOnLoad since it searches all objects in memory then filters out those not existing in a scene
+		/// </summary>
+		/// <param name="includeInactive"></param>
+		/// <returns></returns>
+		public static Component FindLoadedObjectOfType(Type type, bool includeInactive = false) {
+            var objects = Resources.FindObjectsOfTypeAll(type);
+            for (var i = 0; i < objects.Length; i++) {
+                var obj = objects[i];
+                if (obj is Component component) {
+	                // Skip inactive objects if that was requested
+	                if (!includeInactive && !component.gameObject.activeInHierarchy) continue;
+	                // Make sure the object exists in a scene to avoid returning random objects in memory
+	                if (string.IsNullOrWhiteSpace(component.gameObject.scene.name)) continue;
+	                return obj;
+                }
+            }
+
+            return null;
+        }
+
+		/// <summary>
 		/// Returns objects that can be found of type, this will include objects that are DontDestroyOnLoad since it searches all objects in memory then filters out those not existing in a scene
 		/// </summary>
 		/// <param name="includeInactive"></param>
@@ -124,6 +147,30 @@ namespace RyanQuagliataUnity.Extensions {
 				// Make sure the object exists in a scene to avoid returning random objects in memory
 				if (string.IsNullOrWhiteSpace(obj.gameObject.scene.name)) continue;
 				resultList.Add(obj);
+			}
+
+			return resultList;
+		}
+		
+		/// <summary>
+		/// Returns objects that can be found of type, this will include objects that are DontDestroyOnLoad since it searches all objects in memory then filters out those not existing in a scene
+		/// </summary>
+		/// <param name="includeInactive"></param>
+		/// <param name="resultList"></param>
+		/// <typeparam name="T"></typeparam>
+		/// <returns></returns>
+		public static List<Component> FindLoadedObjectsOfType(Type type, bool includeInactive = false, List<Component> resultList = null) {
+			if (resultList == null) resultList = new List<Component>();
+			var objects = Resources.FindObjectsOfTypeAll(type);
+			for (var i = 0; i < objects.Length; i++) {
+				var obj = objects[i];
+				if (obj is Component component) {
+					// Skip inactive objects if that was requested
+					if (!includeInactive && !component.gameObject.activeInHierarchy) continue;
+					// Make sure the object exists in a scene to avoid returning random objects in memory
+					if (string.IsNullOrWhiteSpace(component.gameObject.scene.name)) continue;
+					resultList.Add(component);
+				}
 			}
 
 			return resultList;
