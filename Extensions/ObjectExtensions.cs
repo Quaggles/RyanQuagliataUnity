@@ -123,7 +123,7 @@ namespace RyanQuagliataUnity.Extensions {
 	                if (!includeInactive && !component.gameObject.activeInHierarchy) continue;
 	                // Make sure the object exists in a scene to avoid returning random objects in memory
 	                if (string.IsNullOrWhiteSpace(component.gameObject.scene.name)) continue;
-	                return obj;
+	                return component;
                 }
             }
 
