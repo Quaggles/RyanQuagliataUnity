@@ -5,6 +5,7 @@ using UnityEngine;
 namespace RyanQuagliataUnity {
     [DisallowMultipleComponent]
     public class TransformHasChangedResetter : MonoBehaviour {
+        public static YieldInstruction WaitYield = null;
         private static bool routineStarted = false;
         public static List<TransformHasChangedResetter> All = new List<TransformHasChangedResetter>();
 
@@ -24,7 +25,7 @@ namespace RyanQuagliataUnity {
         /// <returns></returns>
         static IEnumerator EndOfFrameReset() {
             while (Application.isPlaying) {
-                yield return new WaitForEndOfFrame();
+                yield return WaitYield;
                 foreach (var transformHasChangedResetter in All) transformHasChangedResetter.transform.hasChanged = false;
             }
         }
