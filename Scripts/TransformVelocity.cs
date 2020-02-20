@@ -3,8 +3,13 @@ using UnityEngine;
 
 namespace RyanQuagliataUnity {
     public class TransformVelocity : MonoBehaviour {
-        public ExponentialMovingAverageVector3 Velocity = new ExponentialMovingAverageVector3(10);
-        public ExponentialMovingAverageVector3 AngularVelocity = new ExponentialMovingAverageVector3(10);
+        [Min(0)]
+        public int InitialVelocityLoopback = 1;
+        [Min(0)]
+        public int InitialAngularVelocityLoopback = 1;
+
+        public ExponentialMovingAverageVector3 Velocity;
+        public ExponentialMovingAverageVector3 AngularVelocity;
         
         [ShowInInspector]
         public float VelocityMagnitude => Velocity.Average.magnitude;
@@ -16,7 +21,12 @@ namespace RyanQuagliataUnity {
 
         private Transform cachedTransform;
 
-        void Awake() => cachedTransform = transform;
+        void Awake() {
+            cachedTransform = transform;
+            previousPosition = transform.position;
+            Velocity = new ExponentialMovingAverageVector3(InitialVelocityLoopback);
+            AngularVelocity = new ExponentialMovingAverageVector3(InitialAngularVelocityLoopback);
+        }
 
         // Update is called once per frame
         void LateUpdate() {

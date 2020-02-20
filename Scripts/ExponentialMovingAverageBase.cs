@@ -14,6 +14,7 @@ namespace RyanQuagliataUnity {
 
         private int loopback;
         [ShowInInspector]
+        [MinValue(0)]
         public int Loopback {
             get => loopback;
             set {
