@@ -36,12 +36,15 @@ namespace RyanQuagliataUnity.Editor {
 					Debug.LogError($"Failed to loading asset at path {path}");
 					continue;
 				}
-
+				
+				// Make sure this is a prefab
+				if (PrefabUtility.GetPrefabInstanceStatus(prefab) != PrefabInstanceStatus.Connected) return;
+				
 				// Get the type of asset
-				var type = PrefabUtility.GetPrefabAssetType(prefab);
+				var assetType = PrefabUtility.GetPrefabAssetType(prefab);
 
 				// If it's not a model, skip
-				if (type != PrefabAssetType.Model) continue;
+				if (assetType != PrefabAssetType.Model) continue;
 
 #if UNITY_VECTOR_GRAPHICS
 				// Skip SVG files
