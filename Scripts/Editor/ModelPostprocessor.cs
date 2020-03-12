@@ -1,11 +1,11 @@
 ﻿#if UNITY_VECTOR_GRAPHICS
 using Unity.VectorGraphics.Editor;
 #endif
-using System;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
+
 
 namespace RyanQuagliataUnity.Editor {
 	public class ModelPostprocessor : AssetPostprocessor {
@@ -28,6 +28,10 @@ namespace RyanQuagliataUnity.Editor {
 		/// <param name="movedFromAssetPaths"></param>
 		public static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets,
 			string[] movedFromAssetPaths) {
+#if ODIN_INSPECTOR
+			if (!ModelPostProcessorConfig.Instance.CreatePrefabVariantsForModels) return;
+#endif
+
 			// Only check imported assets
 			foreach (var path in importedAssets) {
 				// Load the asset from the path
@@ -36,10 +40,10 @@ namespace RyanQuagliataUnity.Editor {
 					Debug.LogError($"Failed to loading asset at path {path}");
 					continue;
 				}
-				
+
 				// Make sure this is a prefab
 				if (PrefabUtility.GetPrefabInstanceStatus(prefab) != PrefabInstanceStatus.Connected) return;
-				
+
 				// Get the type of asset
 				var assetType = PrefabUtility.GetPrefabAssetType(prefab);
 

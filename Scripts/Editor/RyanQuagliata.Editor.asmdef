@@ -2,7 +2,8 @@
     "name": "RyanQuagliataEditor",
     "references": [
         "RyanQuagliata",
-        "Unity.VectorGraphics.Editor"
+        "Unity.VectorGraphics.Editor",
+        "RyanQuagliata.Extensions.OdinInspector"
     ],
     "includePlatforms": [
         "Editor"
@@ -19,5 +20,6 @@
             "expression": "0.0.0",
             "define": "UNITY_VECTOR_GRAPHICS"
         }
-    ]
+    ],
+    "noEngineReferences": false
 }
