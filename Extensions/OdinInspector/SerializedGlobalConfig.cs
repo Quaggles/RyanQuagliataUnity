@@ -8,8 +8,9 @@ namespace RyanQuagliataUnity.Extensions.OdinInspector {
 	/// Global Config class serialized by Odin Inspector instead of Unity
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
-	public abstract class SerializedGlobalConfig<T> : GlobalConfig<T>, ISerializationCallbackReceiver
-		where T : GlobalConfig<T>, new() {
+	public abstract class SerializedGlobalConfig<T> : GlobalConfig<T>, ISerializationCallbackReceiver where T : GlobalConfig<T>, new() {
+		public const string ASSET_FOLDER = "_Project/Settings";
+		
 		[SerializeField, HideInInspector]
 		private SerializationData serializationData;
 
