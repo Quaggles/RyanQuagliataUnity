@@ -9,7 +9,7 @@ namespace RyanQuagliataUnity.Extensions.OdinInspector {
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
 	public abstract class SerializedGlobalConfig<T> : GlobalConfig<T>, ISerializationCallbackReceiver where T : GlobalConfig<T>, new() {
-		public const string ASSET_FOLDER = "_Project/Settings";
+		public const string ASSET_FOLDER = "Resources";
 		
 		[SerializeField, HideInInspector]
 		private SerializationData serializationData;
