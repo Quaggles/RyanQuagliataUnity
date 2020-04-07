@@ -16,7 +16,7 @@ namespace RyanQuagliataUnity.UI {
             base.Awake();
             if (!Application.isPlaying && !VideoPlayer) VideoPlayer = GetComponent<VideoPlayer>();
 
-            if (SetNativeSizeOnAwake) SetNativeSize();
+            if (Application.isPlaying && SetNativeSizeOnAwake) SetNativeSize();
 
             // Ensure the VideoPlayer is rendering in API only so we can grab the video texture
             if (VideoPlayer) VideoPlayer.renderMode = VideoRenderMode.APIOnly;
