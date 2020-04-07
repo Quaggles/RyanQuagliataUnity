@@ -9,7 +9,7 @@ namespace RyanQuagliataUnity.UI {
         [Required]
         public VideoPlayer VideoPlayer;
 
-        public bool SetNativeSizeOnAwake = true;
+        public bool SetNativeSizeOnAwake = false;
 
         // Start is called before the first frame update
         protected override void Awake() {
