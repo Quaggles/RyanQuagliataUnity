@@ -9,14 +9,14 @@ namespace RyanQuagliataUnity.UI {
         [Required]
         public VideoPlayer VideoPlayer;
 
-        public bool SetNativeResolutionOnAwake = true;
+        public bool SetNativeSizeOnAwake = true;
 
         // Start is called before the first frame update
         protected override void Awake() {
             base.Awake();
             if (!Application.isPlaying && !VideoPlayer) VideoPlayer = GetComponent<VideoPlayer>();
 
-            if (SetNativeResolutionOnAwake) SetNativeResolution();
+            if (SetNativeSizeOnAwake) SetNativeSize();
 
             // Ensure the VideoPlayer is rendering in API only so we can grab the video texture
             if (VideoPlayer) VideoPlayer.renderMode = VideoRenderMode.APIOnly;
@@ -25,8 +25,8 @@ namespace RyanQuagliataUnity.UI {
             this.SetAlpha(0);
         }
 
-        [Button]
-        public void SetNativeResolution() {
+        public override void SetNativeSize() {
+            base.SetNativeSize();
             if (!VideoPlayer || !VideoPlayer.clip) return;
             rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, VideoPlayer.clip.width);
             rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, VideoPlayer.clip.height);
