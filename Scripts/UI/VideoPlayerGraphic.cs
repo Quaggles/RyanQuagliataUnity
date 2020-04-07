@@ -9,16 +9,27 @@ namespace RyanQuagliataUnity.UI {
         [Required]
         public VideoPlayer VideoPlayer;
 
+        public bool SetNativeResolutionOnAwake = true;
+
         // Start is called before the first frame update
         protected override void Awake() {
             base.Awake();
             if (!Application.isPlaying && !VideoPlayer) VideoPlayer = GetComponent<VideoPlayer>();
+
+            if (SetNativeResolutionOnAwake) SetNativeResolution();
 
             // Ensure the VideoPlayer is rendering in API only so we can grab the video texture
             if (VideoPlayer) VideoPlayer.renderMode = VideoRenderMode.APIOnly;
             
             // Set the Raw Image to transparent so we don't have a big white square in the UI 
             this.SetAlpha(0);
+        }
+
+        [Button]
+        public void SetNativeResolution() {
+            if (!VideoPlayer || !VideoPlayer.clip) return;
+            rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, VideoPlayer.clip.width);
+            rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, VideoPlayer.clip.height);
         }
 
         private void PrepareCompleted(VideoPlayer source) {
