@@ -26,7 +26,6 @@ namespace RyanQuagliataUnity.UI {
         }
 
         public override void SetNativeSize() {
-            base.SetNativeSize();
             if (!VideoPlayer || !VideoPlayer.clip) return;
             rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, VideoPlayer.clip.width);
             rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, VideoPlayer.clip.height);
