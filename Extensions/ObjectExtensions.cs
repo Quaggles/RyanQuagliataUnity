@@ -167,6 +167,10 @@ namespace RyanQuagliataUnity.Extensions {
 				if (obj is Component component) {
 					// Skip inactive objects if that was requested
 					if (!includeInactive && !component.gameObject.activeInHierarchy) continue;
+#if UNITY_EDITOR
+                    // Skip objects on disk
+                    if (UnityEditor.EditorUtility.IsPersistent(component)) continue;
+#endif
 					// Make sure the object exists in a scene to avoid returning random objects in memory
 					if (string.IsNullOrWhiteSpace(component.gameObject.scene.name)) continue;
 					resultList.Add(component);
