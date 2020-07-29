@@ -17,6 +17,9 @@ namespace RyanQuagliataUnity.Editor {
 		};
 
 		static void PrefabInstanceUpdate(GameObject instance) {
+#if ODIN_INSPECTOR
+			if (!ModelPostProcessorConfig.Instance.MeshSerializerEnabled) return;
+#endif
 			var prefab = PrefabUtility.GetCorrespondingObjectFromSource(instance);
 			string prefabPath = AssetDatabase.GetAssetPath(prefab);
 
