@@ -29,7 +29,7 @@ namespace RyanQuagliataUnity.Editor {
 		public static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets,
 			string[] movedFromAssetPaths) {
 #if ODIN_INSPECTOR
-			if (!ModelPostProcessorConfig.Instance.CreatePrefabVariantsForModels) return;
+			//if (!ModelPostProcessorConfig.Instance.CreatePrefabVariantsForModels) return;
 #endif
 
 			// Only check imported assets
