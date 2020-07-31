@@ -28,9 +28,7 @@ namespace RyanQuagliataUnity.Editor {
 		/// <param name="movedFromAssetPaths"></param>
 		public static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets,
 			string[] movedFromAssetPaths) {
-#if ODIN_INSPECTOR
-			//if (!ModelPostProcessorConfig.Instance.CreatePrefabVariantsForModels) return;
-#endif
+
 
 			// Only check imported assets
 			foreach (var path in importedAssets) {
@@ -53,6 +51,9 @@ namespace RyanQuagliataUnity.Editor {
 #if UNITY_VECTOR_GRAPHICS
 				// Skip SVG files
 				if (AssetImporter.GetAtPath(path) is SVGImporter) return;
+#endif
+#if ODIN_INSPECTOR
+				if (!ModelPostProcessorConfig.Instance.CreatePrefabVariantsForModels) continue;
 #endif
 
 				var prefabPath = Path.ChangeExtension(path, ".prefab");
