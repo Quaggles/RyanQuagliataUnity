@@ -22,6 +22,7 @@ namespace RyanQuagliataUnity {
 				if (instance != null) return instance;
 				instance = new GameObject().AddComponent<DelayedActionHost>();
 				instance.name = "[DelayedActionHost]";
+				instance.gameObject.hideFlags = HideFlags.DontSave | HideFlags.NotEditable; 
 				DontDestroyOnLoad(instance);
 				return instance;
 			}
