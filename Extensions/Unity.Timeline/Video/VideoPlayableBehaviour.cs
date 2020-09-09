@@ -88,9 +88,9 @@ namespace RyanQuagliataUnity.Extensions.Unity.Timeline.Video {
 
 		public override void ProcessFrame(Playable playable, FrameData info, object playerData) {
             //Debug.Log($"[{nameof(ProcessFrame)}] videoPlayer null? {videoClip == null}");
-            videoPlayer.playbackSpeed = (float)playable.GetSpeed();
 			if (playerData is VideoPlayer videoPlayerBinding) videoPlayer = videoPlayerBinding;
 			if (videoPlayer == null || videoPlayer.clip == null) return;
+			videoPlayer.playbackSpeed = (float)playable.GetSpeed();
 			videoPlayer.targetCameraAlpha = info.weight;
 
 			if (Application.isPlaying) {
