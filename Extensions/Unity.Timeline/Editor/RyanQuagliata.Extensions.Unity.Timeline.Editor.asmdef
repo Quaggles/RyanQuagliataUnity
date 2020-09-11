@@ -1,0 +1,25 @@
+{
+    "name": "RyanQuagliata.Extensions.Unity.Timeline.Editor",
+    "references": [
+        "GUID:02f771204943f4a40949438e873e3eff",
+        "GUID:f06555f75b070af458a003d92f9efb00",
+        "GUID:c31fa9538165b38438507ad5bd7f85f5"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.unity.timeline",
+            "expression": "1.2.16",
+            "define": "UNITY_TIMELINE_EDITOR"
+        }
+    ],
+    "noEngineReferences": false
+}
