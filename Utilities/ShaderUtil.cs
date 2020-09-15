@@ -1,25 +1,33 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace RyanQuagliataUnity.Utilities {
 	public static class ShaderUtil {
-		public static float GetPropertyDefaultValue(this Shader that, string propertyName) =>
-			GetPropertyDefaultValue(that, GetPropertyIdX(that, propertyName));
+		public static float GetPropertyDefaultValue(this Shader that, string propertyName) => GetPropertyDefaultValue(that, GetPropertyIdX(that, propertyName));
 
 		public static float GetPropertyDefaultValue(this Shader that, int propertyIdX) {
 #if !UNITY_EDITOR
 			throw new EditorOnlyException(nameof(GetPropertyDefaultValue));
 #else
 			var propertyType = UnityEditor.ShaderUtil.GetPropertyType(that, propertyIdX);
-			if (propertyType == UnityEditor.ShaderUtil.ShaderPropertyType.Float || propertyType == UnityEditor.ShaderUtil.ShaderPropertyType.Range) 
+			if (propertyType == UnityEditor.ShaderUtil.ShaderPropertyType.Float || propertyType == UnityEditor.ShaderUtil.ShaderPropertyType.Range)
 				return UnityEditor.ShaderUtil.GetRangeLimits(that, propertyIdX, 0);
-			throw new InvalidPropertyTypeException($"{propertyIdX} was of type {propertyType} instead of the required type {UnityEditor.ShaderUtil.ShaderPropertyType.Float} or {UnityEditor.ShaderUtil.ShaderPropertyType.Range}");
+			throw new InvalidPropertyTypeException(
+				$"{propertyIdX} was of type {propertyType} instead of the required type {UnityEditor.ShaderUtil.ShaderPropertyType.Float} or {UnityEditor.ShaderUtil.ShaderPropertyType.Range}");
 #endif
 		}
 
-		public static Vector2 GetPropertyRange(this Shader that, string propertyName) =>
-			GetPropertyRange(that, GetPropertyIdX(that, propertyName));
+		public static ShaderPropertyType GetPropertyType(this Shader that, string propertyName) {
+#if UNITY_EDITOR
+			return (ShaderPropertyType) UnityEditor.ShaderUtil.GetPropertyType(that, GetPropertyIdX(that, propertyName));
+#else
+			throw new EditorOnlyException(nameof(GetPropertyDefaultValue));
+#endif
+		}
+
+		public static Vector2 GetPropertyRange(this Shader that, string propertyName) => GetPropertyRange(that, GetPropertyIdX(that, propertyName));
 
 		public static Vector2 GetPropertyRange(this Shader that, int propertyIdX) {
 #if !UNITY_EDITOR
@@ -27,8 +35,9 @@ namespace RyanQuagliataUnity.Utilities {
 #else
 			// If the property isn't a range return (0, 0)
 			var propertyType = UnityEditor.ShaderUtil.GetPropertyType(that, propertyIdX);
-			if (propertyType != UnityEditor.ShaderUtil.ShaderPropertyType.Range) 
-				throw new InvalidPropertyTypeException($"{propertyIdX} was of type {propertyType} instead of the required type {UnityEditor.ShaderUtil.ShaderPropertyType.Range}");
+			if (propertyType != UnityEditor.ShaderUtil.ShaderPropertyType.Range)
+				throw new InvalidPropertyTypeException(
+					$"{propertyIdX} was of type {propertyType} instead of the required type {UnityEditor.ShaderUtil.ShaderPropertyType.Range}");
 
 			Vector2 range = Vector2.zero;
 			range.x = UnityEditor.ShaderUtil.GetRangeLimits(that, propertyIdX, 1);
@@ -36,9 +45,9 @@ namespace RyanQuagliataUnity.Utilities {
 			return range;
 #endif
 		}
-	
+
 		public class InvalidPropertyTypeException : Exception {
-			public InvalidPropertyTypeException(string message) : base(message) {}
+			public InvalidPropertyTypeException(string message) : base(message) { }
 		}
 
 		public static bool DoesPropertyExist(this Shader that, string propertyName) {
@@ -51,7 +60,7 @@ namespace RyanQuagliataUnity.Utilities {
 			}
 
 			return false;
-#endif			
+#endif
 		}
 
 		/// <summary>
@@ -72,7 +81,7 @@ namespace RyanQuagliataUnity.Utilities {
 #endif
 		}
 
-		public static IList<string> GetShaderPropertyNames(this Shader that, Predicate<int> filter = null) {
+		public static IList<string> GetPropertyNames(this Shader that, Predicate<int> filter = null) {
 			var list = new List<string>();
 #if UNITY_EDITOR
 			for (int i = 0; i < UnityEditor.ShaderUtil.GetPropertyCount(that); i++) {
@@ -81,6 +90,20 @@ namespace RyanQuagliataUnity.Utilities {
 			}
 #endif
 			return list;
+		}
+
+		public static IList<string> GetPropertyNamesByType(this Shader that, ShaderPropertyType shaderPropertyType, IList<string> list = null) {
+#if !UNITY_EDITOR
+			return null;
+#else
+			if (list == null) list = new List<string>();
+			for (int i = 0; i < UnityEditor.ShaderUtil.GetPropertyCount(that); i++) {
+				if (UnityEditor.ShaderUtil.GetPropertyType(that, i) != (UnityEditor.ShaderUtil.ShaderPropertyType) shaderPropertyType) continue;
+				list.Add(UnityEditor.ShaderUtil.GetPropertyName(that, i));
+			}
+
+			return list;
+#endif
 		}
 	}
 }
