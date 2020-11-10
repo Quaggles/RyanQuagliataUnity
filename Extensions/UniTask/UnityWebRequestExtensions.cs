@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Threading.Tasks;
-using UniRx.Async;
+using Cysharp.Threading.Tasks;
 using UnityEngine.Networking;
 
-namespace RyanQuagliataUnity.Extensions.UniRx {
+namespace RyanQuagliataUnity.Extensions.UniTask {
 	public static class UnityWebRequestExtensions {
 		public static async Task<UnityWebRequest> SendWebRequestAsync(this UnityWebRequest that, IProgress<float> progress = null) {
 			var task = that.SendWebRequest();
 			if (progress != null) {
 				float lastReportProgress = -1;
 				while (!task.isDone) {
-					await UniTask.DelayFrame(1);
+					await Cysharp.Threading.Tasks.UniTask.DelayFrame(1);
 										
 					// Don't rereport the same progress
 					if (lastReportProgress == task.progress) continue;
@@ -29,7 +29,7 @@ namespace RyanQuagliataUnity.Extensions.UniRx {
 			if (progress != null) {
 				float lastReportProgress = -1;
 				while (!task.isDone) {
-					await UniTask.DelayFrame(1);
+					await Cysharp.Threading.Tasks.UniTask.DelayFrame(1);
 					
 					// Don't rereport the same progress
 					if (lastReportProgress == task.progress) continue;

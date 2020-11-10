@@ -1,11 +1,11 @@
 {
-    "name": "RyanQuagliata.Extensions.UniRx",
+    "name": "RyanQuagliata.Extensions.UniTask",
     "references": [
         "RyanQuagliata",
-        "UniRx.Async",
         "RyanQuagliata.Extensions.DOTween",
         "RyanQuagliata.Sirenix.OdinInspector.Attributes",
-        "Sirenix.OdinInspector.Attributes"
+        "Sirenix.OdinInspector.Attributes",
+        "UniTask"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
@@ -14,7 +14,14 @@
     "precompiledReferences": [],
     "autoReferenced": true,
     "defineConstraints": [
-        "UNIRX"
+        "UNITASK"
     ],
-    "versionDefines": []
+    "versionDefines": [
+        {
+            "name": "com.cysharp.unitask",
+            "expression": "0.0",
+            "define": "UNITASK"
+        }
+    ],
+    "noEngineReferences": false
 }

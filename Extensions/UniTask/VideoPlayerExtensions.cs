@@ -1,10 +1,10 @@
-﻿using UniRx.Async;
+﻿using Cysharp.Threading.Tasks;
 using UnityEngine.Video;
 
-namespace RyanQuagliataUnity.Extensions.UniRx {
+namespace RyanQuagliataUnity.Extensions.UniTask {
     public static class VideoPlayerExtensions {
 
-        public static async UniTask PrepareAsync(this VideoPlayer that) {
+        public static async Cysharp.Threading.Tasks.UniTask PrepareAsync(this VideoPlayer that) {
             if (that.clip == null) return;
             var prepareTcs = new UniTaskCompletionSource();
             void PrepareCompleted(VideoPlayer x) => prepareTcs.TrySetResult();
@@ -17,7 +17,7 @@ namespace RyanQuagliataUnity.Extensions.UniRx {
             }
         }
 
-        public static async UniTask SeekAsync(this VideoPlayer that, double time) {
+        public static async Cysharp.Threading.Tasks.UniTask SeekAsync(this VideoPlayer that, double time) {
             if (!that.canSetTime) return;
             if (that.clip == null) return;
             if (!that.isPrepared) await that.PrepareAsync();
@@ -32,9 +32,9 @@ namespace RyanQuagliataUnity.Extensions.UniRx {
             }
         }
 
-        public static async UniTask StepForwardAsync(this VideoPlayer that) => await that.StepAsync(1);
+        public static async Cysharp.Threading.Tasks.UniTask StepForwardAsync(this VideoPlayer that) => await that.StepAsync(1);
 
-        public static async UniTask StepAsync(this VideoPlayer that, int frames) {
+        public static async Cysharp.Threading.Tasks.UniTask StepAsync(this VideoPlayer that, int frames) {
             var tcs = new UniTaskCompletionSource();
             void SeekCompleted(VideoPlayer source) => tcs.TrySetResult();
             that.seekCompleted += SeekCompleted;

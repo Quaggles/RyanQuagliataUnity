@@ -1,10 +1,10 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using UniRx.Async;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-namespace RyanQuagliataUnity.Extensions.UniRx {
+namespace RyanQuagliataUnity.Extensions.UniTask {
 	public static class UniTaskExtensions {
 		/// <summary>
 		/// Waits for the given timespan and then throws an exception if the timeout was reached before the task finished
@@ -25,10 +25,10 @@ namespace RyanQuagliataUnity.Extensions.UniRx {
 			var endTime = startTime + (float)timeout.TotalSeconds;
 			
 			// When the task hasn't been completed report its progress
-			while (!that.IsCompleted && !cancellationToken.IsCancellationRequested) {
+			while (that.Status == UniTaskStatus.Pending && !cancellationToken.IsCancellationRequested) {
 				var fillAmount = Mathf.InverseLerp(startTime, endTime, unscaledTime ? Time.unscaledTime : Time.time);
 				timeoutProgress?.Report(fillAmount);
-				await UniTask.Delay(1000/60, true, cancellationToken: cancellationToken);
+				await Cysharp.Threading.Tasks.UniTask.Delay(1000/60, true, cancellationToken: cancellationToken);
 				if ((unscaledTime ? Time.unscaledTime : Time.time) > endTime) throw new TimeoutException();
 			}
 			if (cancellationToken.IsCancellationRequested) throw new TaskCanceledException();

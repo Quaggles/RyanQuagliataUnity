@@ -1,15 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using UniRx.Async;
 using UnityEngine;
 
-namespace RyanQuagliataUnity.Extensions.UniRx {
+namespace RyanQuagliataUnity.Extensions.UniTask {
 	public static class MeshExtensions {
 		public static async Task RecalculateBoundsAsync(this Mesh that) => that.bounds = await RecalculateBoundsAsync(that.vertices);
 
 		public static async Task<Bounds> RecalculateBoundsAsync(IReadOnlyList<Vector3> vertices) {
 			// Get on a background thread as this operation is slow
-			await UniTask.SwitchToThreadPool();
+			await Cysharp.Threading.Tasks.UniTask.SwitchToThreadPool();
 
 			var bounds = new Bounds();
 			for (int i = 0; i < vertices.Count; i++) {
@@ -17,7 +16,7 @@ namespace RyanQuagliataUnity.Extensions.UniRx {
 			}
 			
 			// Get back on the main thread so we can apply the bounds
-			await UniTask.SwitchToMainThread();
+			await Cysharp.Threading.Tasks.UniTask.SwitchToMainThread();
 			return bounds;
 		}
 	}

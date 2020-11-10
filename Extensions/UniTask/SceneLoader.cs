@@ -3,16 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using RyanQuagliataUnity.Attributes;
-// ReSharper disable once RedundantUsingDirective
-using RyanQuagliataUnity.Utilities;
 using Sirenix.OdinInspector;
-using UniRx.Async;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.SceneManagement;
+using UnityEngine.SceneManagement; // ReSharper disable once RedundantUsingDirective
 
-namespace RyanQuagliataUnity.Extensions.UniRx {
+namespace RyanQuagliataUnity.Extensions.UniTask {
 	public enum LoadFormat {
 		/// <summary>
 		/// Scenes are loaded sequentially, the game thread is paused during this operation, progress is reported as 0 when starting and 1 when done
@@ -156,7 +154,7 @@ namespace RyanQuagliataUnity.Extensions.UniRx {
 				}
 				// If the game is running and a scene was just loaded we need to wait until the next frame to set it as active
 				if (Application.isPlaying)
-					await UniTask.DelayFrame(0, PlayerLoopTiming.PostLateUpdate); 
+					await Cysharp.Threading.Tasks.UniTask.DelayFrame(0, PlayerLoopTiming.PostLateUpdate); 
 			
 				if (!ActiveSceneNull) {
 					Debug.Log($"Setting scene {NewActiveScene.ScenePath} as active");
