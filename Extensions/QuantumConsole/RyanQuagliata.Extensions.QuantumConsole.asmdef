@@ -1,0 +1,18 @@
+{
+    "name": "RyanQuagliata.Extensions.QuantumConsole",
+    "references": [
+        "GUID:fb24642277b1db2449da7ac148ce939d",
+        "GUID:0065df8e10cb31c4695d09ae3d05494f"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [
+        "QUANTUM_CONSOLE"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -22,5 +22,6 @@
             "expression": "0.0",
             "define": "TEXT_MESH_PRO"
         }
-    ]
+    ],
+    "noEngineReferences": false
 }

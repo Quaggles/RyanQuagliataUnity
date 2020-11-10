@@ -1,0 +1,27 @@
+{
+    "allowUnsafeCode": false,
+    "autoReferenced": true,
+    "defineConstraints": [
+        "UNITY_POST_PROCESSING",
+        "QUANTUM_CONSOLE"
+    ],
+    "excludePlatforms": [],
+    "includePlatforms": [],
+    "name": "RyanQuagliata.Extensions.QuantumConsole.PostProcessing",
+    "noEngineReferences": false,
+    "optionalUnityReferences": [],
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "references": [
+        "GUID:0065df8e10cb31c4695d09ae3d05494f",
+        "GUID:fb24642277b1db2449da7ac148ce939d",
+        "GUID:d60799ab2a985554ea1a39cd38695018"
+    ],
+    "versionDefines": [
+        {
+            "name": "com.unity.postprocessing",
+            "expression": "0.0",
+            "define": "UNITY_POST_PROCESSING"
+        }
+    ]
+}
