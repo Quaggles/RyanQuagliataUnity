@@ -1,25 +1,26 @@
 {
-    "name": "RyanQuagliataEditor",
+    "allowUnsafeCode": false,
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "excludePlatforms": [],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "name": "RyanQuagliata.Editor",
+    "noEngineReferences": false,
+    "optionalUnityReferences": [],
+    "overrideReferences": false,
+    "precompiledReferences": [],
     "references": [
         "RyanQuagliata",
         "Unity.VectorGraphics.Editor",
         "RyanQuagliata.Extensions.OdinInspector"
     ],
-    "includePlatforms": [
-        "Editor"
-    ],
-    "excludePlatforms": [],
-    "allowUnsafeCode": false,
-    "overrideReferences": false,
-    "precompiledReferences": [],
-    "autoReferenced": true,
-    "defineConstraints": [],
     "versionDefines": [
         {
             "name": "com.unity.vectorgraphics",
             "expression": "0.0.0",
             "define": "UNITY_VECTOR_GRAPHICS"
         }
-    ],
-    "noEngineReferences": false
+    ]
 }

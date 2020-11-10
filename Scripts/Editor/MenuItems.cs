@@ -1,11 +1,14 @@
 ﻿#if UNITY_EDITOR
 using UnityEditor.SceneManagement;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using RyanQuagliataUnity.Extensions.Editor;
+using RyanQuagliataUnity.Scripts;
 using UnityEditor;
+using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
@@ -96,7 +99,7 @@ namespace RyanQuagliataUnity.Editor {
 				Debug.LogError("No serialized data stored on the clipboard, copy first");
 				return;
 			}
-			
+
 			EditorUtilityExtensions.CopySerializedPolymorphic(source, new SerializedObject(command.context));
 		}
 
@@ -112,10 +115,11 @@ namespace RyanQuagliataUnity.Editor {
 
 		[MenuItem("RyanQuagliata/Open Package Manifest", priority = 0)]
 		public static void OpenPackageManifest() => Application.OpenURL(Directory.GetParent(Application.dataPath).FullName + "\\Packages\\manifest.json");
-		
+
 		[MenuItem("RyanQuagliata/Remove Package Locks", priority = 0)]
 		public static void RemovePackageLocks() {
-			if (!EditorUtility.DisplayDialog("Confirm", "Are you sure you want to remove all package locks? Any packages using git will be upgraded to the latest commit", "Yes", "No"))
+			if (!EditorUtility.DisplayDialog("Confirm",
+				"Are you sure you want to remove all package locks? Any packages using git will be upgraded to the latest commit", "Yes", "No"))
 				return;
 			try {
 				var path = Directory.GetParent(Application.dataPath).FullName + "\\Packages\\manifest.json";
@@ -137,24 +141,64 @@ namespace RyanQuagliataUnity.Editor {
 		public static void ClearMissingBuildScenes() {
 			var oldCount = EditorBuildSettings.scenes.Length;
 			var valid = EditorBuildSettings.scenes.Where(x => !x.guid.Empty());
-			if (!EditorUtility.DisplayDialog("Confirm", $"Are you sure you want to remove {oldCount - valid.Count()} missing scenes from the build list?", "Yes", "No"))
+			if (!EditorUtility.DisplayDialog("Confirm", $"Are you sure you want to remove {oldCount - valid.Count()} missing scenes from the build list?",
+				"Yes", "No"))
 				return;
 			EditorBuildSettings.scenes = valid.ToArray();
 		}
-		
-        [MenuItem("RyanQuagliata/Restart")]
-        public static void Restart() {
-	        if (EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo()) EditorApplication.ExecuteMenuItem("File/Save Project");
-	        EditorApplication.OpenProject(Environment.CurrentDirectory);
-        }
-        
-        [MenuItem("RyanQuagliata/Restart With Empty Scene")]
-        public static void RestartWithEmptyScene() {
-	        if (EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo()) EditorApplication.ExecuteMenuItem("File/Save Project");
-	        EditorSceneManager.NewScene(NewSceneSetup.EmptyScene);
-	        EditorApplication.OpenProject(Environment.CurrentDirectory);
-        }
+
+		[MenuItem("RyanQuagliata/Restart")]
+		public static void Restart() {
+			if (EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo()) EditorApplication.ExecuteMenuItem("File/Save Project");
+			EditorApplication.OpenProject(Environment.CurrentDirectory);
+		}
+
+		[MenuItem("RyanQuagliata/Restart With Empty Scene")]
+		public static void RestartWithEmptyScene() {
+			if (EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo()) EditorApplication.ExecuteMenuItem("File/Save Project");
+			EditorSceneManager.NewScene(NewSceneSetup.EmptyScene);
+			EditorApplication.OpenProject(Environment.CurrentDirectory);
+		}
+
+		/// <summary>
+		/// Checks that asmdef files assembly names match their filenames
+		/// </summary>
+		[MenuItem("RyanQuagliata/Make asmdef filenames match assembly names")]
+		public static void FixAssemblyDefinitionNames() {
+			string[] search = {
+				"Assets",
+				"Packages",
+			};
+			var asmDefs = AssetDatabase.FindAssets($"t:{nameof(AssemblyDefinitionAsset)}", search);
+			
+			foreach (var asmDefGuid in asmDefs) {
+				var asmDefPath = AssetDatabase.GUIDToAssetPath(asmDefGuid);
+				var asmDef = AssetDatabase.LoadAssetAtPath<AssemblyDefinitionAsset>(asmDefPath);
+				
+				// Parse JSON
+				var asmDefClass = asmDef.Convert();
+				
+				var filename = Path.GetFileNameWithoutExtension(asmDefPath);
+				var assemblyName = asmDefClass.name;
+				
+				// Skip the obvious Unity ones
+				if (filename.StartsWith("com.unity")) continue;
+				if (assemblyName.StartsWith("Unity.")) continue;
+				
+				// If the asm name doesn't match the filename
+				if (!string.Equals(filename, assemblyName, StringComparison.Ordinal)) {
+					var result = EditorUtility.DisplayDialogComplex("Confirm", $"asmdef filename \"{filename}\" does not match assembly name \"{assemblyName}\", change assembly name?",
+						"Yes", "No", "No to all");
+					if (result == 1) continue;
+					if (result == 2) break;
+					asmDefClass.name = filename;
+					var absolutePath = Path.GetFullPath(asmDefPath);
+					File.WriteAllText(absolutePath, asmDefClass.ToString());
+					EditorUtility.SetDirty(asmDef);
+				}
+			}
+			AssetDatabase.Refresh();
+		}
 	}
-	
 }
 #endif
