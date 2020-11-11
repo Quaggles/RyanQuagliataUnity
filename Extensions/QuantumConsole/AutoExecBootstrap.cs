@@ -2,14 +2,13 @@ using System;
 using System.IO;
 using System.Text.RegularExpressions;
 using Sirenix.OdinInspector;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
 using UnityEditor.SceneManagement;
-using UnityEngine;
-using UnityEngine.SceneManagement;
-#if UNITY_EDITOR
-
 #endif
 
 namespace RyanQuagliataUnity.Extensions.QuantumConsole {
