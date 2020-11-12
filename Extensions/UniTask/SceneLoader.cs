@@ -5,6 +5,8 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using RyanQuagliataUnity.Attributes;
+// ReSharper disable once RedundantUsingDirective
+using RyanQuagliataUnity.Utilities;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Events;
@@ -183,7 +185,7 @@ namespace RyanQuagliataUnity.Extensions.UniTask {
 				LoadSceneChildren(scene.ScenePath).Wait();
 			}
 #else
-		throw new EditorOnlyException("LoadScenesEditor");
+			throw new EditorOnlyException("LoadScenesEditor");
 #endif
 		}
 
