@@ -4,7 +4,9 @@
         "Sirenix.Serialization",
         "Sirenix.OdinInspector.Attributes",
         "Sirenix.Utilities",
-        "RyanQuagliata.Sirenix.OdinInspector.Attributes"
+        "RyanQuagliata.Sirenix.OdinInspector.Attributes",
+        "QFSW.QC",
+        "RyanQuagliata.QFSW.QC.Attributes"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
@@ -15,5 +17,6 @@
     "defineConstraints": [
         "ODIN_INSPECTOR"
     ],
-    "versionDefines": []
+    "versionDefines": [],
+    "noEngineReferences": false
 }
