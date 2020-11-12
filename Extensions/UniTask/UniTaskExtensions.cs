@@ -35,5 +35,8 @@ namespace RyanQuagliataUnity.Extensions.UniTask {
 
 			return await that;
 		}
+
+		public static bool IsCompleted(this Cysharp.Threading.Tasks.UniTask that) => that.GetAwaiter().IsCompleted;
+		public static bool IsCompleted<T>(this UniTask<T> that) => that.GetAwaiter().IsCompleted;
 	}
 }
