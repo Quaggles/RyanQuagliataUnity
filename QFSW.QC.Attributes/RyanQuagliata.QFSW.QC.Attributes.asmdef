@@ -1,0 +1,15 @@
+{
+    "name": "RyanQuagliata.QFSW.QC.Attributes",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [
+        "!QUANTUM_CONSOLE"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
