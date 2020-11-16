@@ -1,26 +1,31 @@
 {
-    "allowUnsafeCode": false,
-    "autoReferenced": true,
-    "defineConstraints": [],
-    "excludePlatforms": [],
-    "includePlatforms": [
-        "Editor"
-    ],
     "name": "RyanQuagliata.Editor",
-    "noEngineReferences": false,
-    "optionalUnityReferences": [],
-    "overrideReferences": false,
-    "precompiledReferences": [],
     "references": [
         "RyanQuagliata",
         "Unity.VectorGraphics.Editor",
-        "RyanQuagliata.Extensions.OdinInspector"
+        "RyanQuagliata.Extensions.OdinInspector",
+        "UniTask"
     ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
     "versionDefines": [
         {
             "name": "com.unity.vectorgraphics",
             "expression": "0.0.0",
             "define": "UNITY_VECTOR_GRAPHICS"
+        },
+        {
+            "name": "com.cysharp.unitask",
+            "expression": "0.0.0",
+            "define": "UNITASK"
         }
-    ]
+    ],
+    "noEngineReferences": false
 }
