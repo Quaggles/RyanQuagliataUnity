@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace RyanQuagliataUnity.MaterialPropertyDrawer {
+namespace RyanQuagliataUnity.Editor.MaterialPropertyDrawer {
 	public abstract class VectorDrawer : UnityEditor.MaterialPropertyDrawer {
 		public override void OnGUI(Rect position, MaterialProperty prop, string label, MaterialEditor editor) {
 			// Setup
