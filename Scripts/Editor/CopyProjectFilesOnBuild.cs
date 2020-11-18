@@ -35,36 +35,44 @@ namespace RyanQuagliataUnity.Editor {
 
             public bool Disabled;
 
+            [DisableIf(nameof(Disabled))]
             [EnumToggleButtons]
             public CopyType CopyProjectType;
             
+            [DisableIf(nameof(Disabled))]
             [ShowIf("@CopyProjectType == CopyType.FilePath")]
             [Sirenix.OdinInspector.FilePath(RequireExistingPath = true)]
             [ValidateInput(nameof(ValidateFilePath))]
             [DetailedInfoBox("Source Format Keys", "$SourceInfo")]
             public string FilePath;
             
+            [DisableIf(nameof(Disabled))]
             [ShowIf("@CopyProjectType == CopyType.DirectoryPath")]
             [FolderPath(RequireExistingPath = true)]
             [ValidateInput(nameof(ValidateDirectoryPath))]
             [DetailedInfoBox("Source Format Keys", "$SourceInfo")]
             public string DirectoryPath;
 
+            [DisableIf(nameof(Disabled))]
             [ShowIf("@CopyProjectType == CopyType.DirectoryPath")]
             public string DirectorySearchPattern;
             
+            [DisableIf(nameof(Disabled))]
             [ShowIf("@CopyProjectType == CopyType.DirectoryPath")]
             public string[] DirectoryExcludeExtensions;
             
+            [DisableIf(nameof(Disabled))]
             [ShowIf("@CopyProjectType == CopyType.Object")]
             [ValidateInput(nameof(ValidateObject))]
             public Object SourceObject;
             
             public bool OverwriteIfExists;
 
+            [DisableIf(nameof(Disabled))]
             [Button]
             public void DefaultDestinationPath() => DestinationPath = "{OutputPath}/{FileName}";
             
+            [DisableIf(nameof(Disabled))]
             [DetailedInfoBox("Destination Format Keys", "$DestinationInfo")]
             public string DestinationPath;
 
@@ -134,6 +142,7 @@ namespace RyanQuagliataUnity.Editor {
             }
         }
         
+        [ListDrawerSettings(Expanded = true)]
         public List<CopyItem> CopyList;
 
         public int callbackOrder { get; }
