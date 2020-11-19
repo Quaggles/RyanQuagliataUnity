@@ -26,7 +26,13 @@ namespace RyanQuagliataUnity {
 
 		public static void Draw(Action action) {
 #if UNITY_EDITOR
-			GetHandlesHost().OnGuiActions.Add(action);
+			GetHandlesHost().GizmoActions.Add(action);
+#endif
+		}
+		
+		public static void DrawGui(Action action) {
+#if UNITY_EDITOR
+			GetHandlesHost().GuiActions.Add(action);
 #endif
 		}
 

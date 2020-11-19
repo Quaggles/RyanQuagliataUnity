@@ -16,14 +16,24 @@ namespace RyanQuagliataUnity {
 		[ListDrawerSettings(Expanded = true)]
 		[InfoBox("MonoBehaviour used to execute OnGui calls that have been queued from other MonoBehaviour events")]
 		// ReSharper disable once InconsistentNaming
-		public List<Action> OnGuiActions = new List<Action>();
+		public List<Action> GizmoActions = new List<Action>();
+
+		[ShowInInspector]
+		[ListDrawerSettings(Expanded = true)]
+		[InfoBox("MonoBehaviour used to execute OnGui calls that have been queued from other MonoBehaviour events")]
+		// ReSharper disable once InconsistentNaming
+		public List<Action> GuiActions = new List<Action>();
 
 		private CancellationTokenSource cts;
 		private IEnumerator coroutine;
 		private void OnDrawGizmos() {
-			foreach (var guiAction in OnGuiActions) guiAction.Invoke();
+			foreach (var action in GizmoActions) action.Invoke();
 		}
-		
+
+		private void OnGUI() {
+			foreach (var action in GuiActions) action.Invoke();
+		}
+
 		/// <summary>
 		/// Clear on frame end as OnDrawGizmos can be called multiple times per frame
 		/// </summary>
@@ -33,7 +43,8 @@ namespace RyanQuagliataUnity {
 			var wait = new WaitForEndOfFrame();
 			while (!cancellationToken.IsCancellationRequested) {
 				yield return wait;
-				OnGuiActions.Clear();
+				GizmoActions.Clear();
+				GuiActions.Clear();
 			}
 		}
 
