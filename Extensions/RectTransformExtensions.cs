@@ -32,6 +32,16 @@ namespace RyanQuagliataUnity.Extensions {
 			screenRect.max = max;
 			return screenRect;
 		}
+		
+		public static Bounds ScreenSpaceBounds(this RectTransform rectTransform, Canvas canvas) {
+			var bounds = new Bounds();
+			var cam = canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : canvas.worldCamera;
+			var min = RectTransformUtility.WorldToScreenPoint(cam, rectTransform.GetWorldCorners(0));
+			var max = RectTransformUtility.WorldToScreenPoint(cam, rectTransform.GetWorldCorners(2));
+			bounds.min = min;
+			bounds.max = max;
+			return bounds;
+		}
 
 		static public Rect WorldRect([NotNull] this RectTransform rectTransform) {
 			return new Rect {
