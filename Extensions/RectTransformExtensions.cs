@@ -15,29 +15,28 @@ namespace RyanQuagliataUnity.Extensions {
 			screenRect.max = max;
 			return screenRect;
 		}
-		
+
 		/// <summary>
 		/// Gets the rect in screen space
 		/// </summary>
 		/// <param name="rectTransform"></param>
 		/// <param name="canvas">Optional, if provided avoids an expensive GetComponentInParent call</param>
+		/// <param name="camera"></param>
 		/// <returns></returns>
 		/// <exception cref="ArgumentNullException"></exception>
-		public static Rect ScreenSpaceRect(this RectTransform rectTransform, Canvas canvas) {
+		public static Rect ScreenSpaceRect(this RectTransform rectTransform, Camera camera) {
 			var screenRect = new Rect();
-			var cam = canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : canvas.worldCamera;
-			var min = RectTransformUtility.WorldToScreenPoint(cam, rectTransform.GetWorldCorners(0));
-			var max = RectTransformUtility.WorldToScreenPoint(cam, rectTransform.GetWorldCorners(2));
+			var min = RectTransformUtility.WorldToScreenPoint(camera, rectTransform.GetWorldCorners(0));
+			var max = RectTransformUtility.WorldToScreenPoint(camera, rectTransform.GetWorldCorners(2));
 			screenRect.min = min;
 			screenRect.max = max;
 			return screenRect;
 		}
 		
-		public static Bounds ScreenSpaceBounds(this RectTransform rectTransform, Canvas canvas) {
+		public static Bounds ScreenSpaceBounds(this RectTransform rectTransform, Camera camera) {
 			var bounds = new Bounds();
-			var cam = canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : canvas.worldCamera;
-			var min = RectTransformUtility.WorldToScreenPoint(cam, rectTransform.GetWorldCorners(0));
-			var max = RectTransformUtility.WorldToScreenPoint(cam, rectTransform.GetWorldCorners(2));
+			var min = RectTransformUtility.WorldToScreenPoint(camera, rectTransform.GetWorldCorners(0));
+			var max = RectTransformUtility.WorldToScreenPoint(camera, rectTransform.GetWorldCorners(2));
 			bounds.min = min;
 			bounds.max = max;
 			return bounds;
