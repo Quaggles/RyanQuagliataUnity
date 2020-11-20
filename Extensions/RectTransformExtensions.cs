@@ -4,6 +4,18 @@ using UnityEngine;
 
 namespace RyanQuagliataUnity.Extensions {
 	public static class RectTransformExtensions {
+		public static Rect ScreenSpaceRect(this RectTransform rectTransform) {
+			var screenRect = new Rect();
+			var canvas = rectTransform.GetComponentInParent<Canvas>();
+			if (!canvas) throw new InvalidOperationException($"{nameof(RectTransform)} has no parent canvas");
+			var cam = canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : canvas.worldCamera;
+			var min = RectTransformUtility.WorldToScreenPoint(cam, rectTransform.GetWorldCorners(0));
+			var max = RectTransformUtility.WorldToScreenPoint(cam, rectTransform.GetWorldCorners(2));
+			screenRect.min = min;
+			screenRect.max = max;
+			return screenRect;
+		}
+		
 		/// <summary>
 		/// Gets the rect in screen space
 		/// </summary>
@@ -11,11 +23,8 @@ namespace RyanQuagliataUnity.Extensions {
 		/// <param name="canvas">Optional, if provided avoids an expensive GetComponentInParent call</param>
 		/// <returns></returns>
 		/// <exception cref="ArgumentNullException"></exception>
-		public static Rect ScreenSpaceRect(this RectTransform rectTransform, Canvas canvas = null) {
-			if (rectTransform == null) throw new ArgumentNullException(nameof(rectTransform));
+		public static Rect ScreenSpaceRect(this RectTransform rectTransform, Canvas canvas) {
 			var screenRect = new Rect();
-			if (!canvas) canvas = rectTransform.GetComponentInParent<Canvas>();
-			if (!canvas) throw new InvalidOperationException($"{nameof(RectTransform)} has no parent canvas");
 			var cam = canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : canvas.worldCamera;
 			var min = RectTransformUtility.WorldToScreenPoint(cam, rectTransform.GetWorldCorners(0));
 			var max = RectTransformUtility.WorldToScreenPoint(cam, rectTransform.GetWorldCorners(2));
@@ -25,11 +34,10 @@ namespace RyanQuagliataUnity.Extensions {
 		}
 
 		static public Rect WorldRect([NotNull] this RectTransform rectTransform) {
-			if (rectTransform == null) throw new ArgumentNullException(nameof(rectTransform));
-			var worldRect = new Rect();
-			worldRect.min = rectTransform.GetWorldCorners(0);
-			worldRect.max = rectTransform.GetWorldCorners(2);
-			return worldRect;
+			return new Rect {
+				min = rectTransform.GetWorldCorners(0),
+				max = rectTransform.GetWorldCorners(2)
+			};
 		}
 
 		/// <summary>
@@ -42,11 +50,8 @@ namespace RyanQuagliataUnity.Extensions {
 		/// <param name="rectTransform"></param>
 		/// <param name="cornerIndex"></param>
 		/// <returns></returns>
-		public static Vector3 GetWorldCorners([NotNull] this RectTransform rectTransform, int cornerIndex) {
-			if (rectTransform == null) throw new ArgumentNullException(nameof(rectTransform));
-			Matrix4x4 localToWorldMatrix = rectTransform.localToWorldMatrix;
-			return localToWorldMatrix.MultiplyPoint(GetLocalCorners(rectTransform, cornerIndex));
-		}
+		public static Vector3 GetWorldCorners([NotNull] this RectTransform rectTransform, int cornerIndex) => 
+			rectTransform.localToWorldMatrix.MultiplyPoint(GetLocalCorners(rectTransform, cornerIndex));
 
 		/// <summary>
 		/// Garbageless GetLocalCorners method
@@ -60,12 +65,10 @@ namespace RyanQuagliataUnity.Extensions {
 		/// <returns></returns>
 		/// <exception cref="IndexOutOfRangeException"></exception>
 		public static Vector3 GetLocalCorners([NotNull] this RectTransform rectTransform, int cornerIndex) {
-			if (rectTransform == null) throw new ArgumentNullException(nameof(rectTransform));
 			Rect rect = rectTransform.rect;
 			float x = rect.x;
 			float y = rect.y;
 			float xMax = rect.xMax;
-
 			float yMax = rect.yMax;
 			switch (cornerIndex) {
 				case 0:
