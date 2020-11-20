@@ -1,6 +1,7 @@
 using System;
 using JetBrains.Annotations;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace RyanQuagliataUnity.Extensions {
 	public static class RectTransformExtensions {
@@ -33,10 +34,12 @@ namespace RyanQuagliataUnity.Extensions {
 			return screenRect;
 		}
 		
+		static Vector3 WorldToScreenPointVector3(Camera cam, Vector3 worldPoint) => (Object) cam == (Object) null ? new Vector3(worldPoint.x, worldPoint.y) : cam.WorldToScreenPoint(worldPoint);
+		
 		public static Bounds ScreenSpaceBounds(this RectTransform rectTransform, Camera camera) {
 			var bounds = new Bounds();
-			var min = RectTransformUtility.WorldToScreenPoint(camera, rectTransform.GetWorldCorners(0));
-			var max = RectTransformUtility.WorldToScreenPoint(camera, rectTransform.GetWorldCorners(2));
+			var min = WorldToScreenPointVector3(camera, rectTransform.GetWorldCorners(0));
+			var max = WorldToScreenPointVector3(camera, rectTransform.GetWorldCorners(2));
 			var dist = Vector3.Distance(rectTransform.transform.position, camera.transform.position);
 			bounds.min = new Vector3(min.x, min.y, dist);
 			bounds.max = new Vector3(max.x, max.y, dist);
