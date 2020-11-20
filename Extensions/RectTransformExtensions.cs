@@ -37,8 +37,9 @@ namespace RyanQuagliataUnity.Extensions {
 			var bounds = new Bounds();
 			var min = RectTransformUtility.WorldToScreenPoint(camera, rectTransform.GetWorldCorners(0));
 			var max = RectTransformUtility.WorldToScreenPoint(camera, rectTransform.GetWorldCorners(2));
-			bounds.min = min;
-			bounds.max = max;
+			var dist = Vector3.Distance(rectTransform.transform.position, camera.transform.position);
+			bounds.min = new Vector3(min.x, min.y, dist);
+			bounds.max = new Vector3(max.x, max.y, dist);
 			return bounds;
 		}
 
