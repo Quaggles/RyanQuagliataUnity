@@ -21,17 +21,17 @@ namespace RyanQuagliataUnity.Extensions.OdinInspector {
 #endif
     {
         [ShowInInspector]
-        public Dictionary<string, List<GuidScriptableObject>> ScriptableObjectsFullyQualified = new Dictionary<string, List<GuidScriptableObject>>();
+        public Dictionary<string, List<IGuid>> ScriptableObjectsFullyQualified = new Dictionary<string, List<IGuid>>();
 
         [ShowInInspector]
-        public Dictionary<Type, List<GuidScriptableObject>> ScriptableObjectsTyped = new Dictionary<Type, List<GuidScriptableObject>>();
+        public Dictionary<Type, List<IGuid>> ScriptableObjectsTyped = new Dictionary<Type, List<IGuid>>();
 
         [Command, Button]
         public static void Print() {
             foreach (var keyValuePair in Instance.ScriptableObjectsTyped) {
                 Debug.Log($"[{keyValuePair.Key}] {keyValuePair.Value.Count} object(s)");
-                foreach (var guidScriptableObject in keyValuePair.Value) {
-                    Debug.Log($"    [{keyValuePair.Key.FullName}] {guidScriptableObject.name}");
+                foreach (var iGuid in keyValuePair.Value) {
+                    Debug.Log($"    [{keyValuePair.Key.FullName}] {iGuid.ScriptableObject.name}");
                 }
             }
         }
@@ -51,6 +51,7 @@ namespace RyanQuagliataUnity.Extensions.OdinInspector {
                     Debug.LogError($"Type \"{keyValuePair.Key}\" could not be resolved, does it exist? Has it been code stripped?");
                     continue;
                 }
+                if (Instance.ScriptableObjectsTyped == null) Instance.ScriptableObjectsTyped = new Dictionary<Type, List<IGuid>>();
                 Instance.ScriptableObjectsTyped.Add(type, keyValuePair.Value);
             }
         }
@@ -88,33 +89,41 @@ namespace RyanQuagliataUnity.Extensions.OdinInspector {
         [Button]
         private static void StoreObjects(bool clear = false) {
             if (Instance.ScriptableObjectsFullyQualified == null)
-                Instance.ScriptableObjectsFullyQualified = new Dictionary<string, List<GuidScriptableObject>>();
-            var objects = GetAllInstances<GuidScriptableObject>();
+                Instance.ScriptableObjectsFullyQualified = new Dictionary<string, List<IGuid>>();
+            var objects1 = GetAllInstances<GuidScriptableObject>();
+            var objects2 = GetAllInstances<GuidSerializedScriptableObject>();
+            
             // Clear the SO database
             if (clear) {
                 Instance.ScriptableObjectsFullyQualified.Clear();
                 Instance.ScriptableObjectsTyped.Clear();
             }
-            for (var i = 0; i < objects.Length; i++) {
-                var scriptableObject = objects[i];
-                // Set GUID SO to null
-                if (clear) {
-                    scriptableObject.Guid = String.Empty;
-                    continue;
-                } else {
-                    // Populate SO databse
-                    var type = scriptableObject.GetType();
-                    List<GuidScriptableObject> list;
-                    if (!Instance.ScriptableObjectsFullyQualified.TryGetValue(type.AssemblyQualifiedName, out list))
-                        Instance.ScriptableObjectsFullyQualified.Add(type.AssemblyQualifiedName, new List<GuidScriptableObject>());
+            
+            ProcessObjects(objects1);
+            ProcessObjects(objects2);
 
-                    if (list == null) Instance.ScriptableObjectsFullyQualified[type.AssemblyQualifiedName] = list = new List<GuidScriptableObject>();
-                    list.Add(scriptableObject);
+            void ProcessObjects(IGuid[] objects) {
+                for (var i = 0; i < objects.Length; i++) {
+                    var iGuid = objects[i];
+                    // Set GUID SO to null
+                    if (clear) {
+                        iGuid.Guid = String.Empty;
+                        continue;
+                    } else {
+                        // Populate SO databse
+                        var type = iGuid.GetType();
+                        List<IGuid> list;
+                        if (!Instance.ScriptableObjectsFullyQualified.TryGetValue(type.AssemblyQualifiedName, out list))
+                            Instance.ScriptableObjectsFullyQualified.Add(type.AssemblyQualifiedName, new List<IGuid>());
+
+                        if (list == null) Instance.ScriptableObjectsFullyQualified[type.AssemblyQualifiedName] = list = new List<IGuid>();
+                        list.Add(iGuid);
+                    }
+
+                    // Set GUID of SO
+                    var guid = GetGuid(iGuid.ScriptableObject);
+                    iGuid.Guid = guid;
                 }
-
-                // Set GUID of SO
-                var guid = GetGuid(scriptableObject);
-                scriptableObject.Guid = guid;
             }
         }
 
