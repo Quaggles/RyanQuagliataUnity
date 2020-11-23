@@ -68,26 +68,26 @@ namespace RyanQuagliataUnity.Extensions.QuantumConsole {
             }
 
             try {
-                var customExecPath = RyanQuagliataUnity.CommandLineArguments.ReadArgValue("-ExecConfig");
+                var customExecPath = CommandLineArguments.ReadArgValue("-ExecConfig");
                 customExecPath = customExecPath.Replace("{StreamingAssets}", Application.streamingAssetsPath);
                 customExecPath = customExecPath.Replace("{DataPath}", Application.dataPath);
                 customExecPath = customExecPath.Replace("{Root}", Directory.GetParent(Application.dataPath).ToString());
                 InvokeConfig(customExecPath);
-            } catch (RyanQuagliataUnity.CommandLineArguments.CommandLineArgumentNotFoundException) {
+            } catch (CommandLineArguments.CommandLineArgumentNotFoundException) {
                 // Ignore
             } catch (Exception ex) {
                 Debug.LogError(ex.ToString());
             }
             
             try {
-                foreach (var command in RyanQuagliataUnity.CommandLineArguments.ReadArgValues("-Exec")) {
+                foreach (var command in CommandLineArguments.ReadArgValues("-Exec")) {
                     try {
                         QuantumConsoleProcessor.InvokeCommand(command.Trim('"'));
                     } catch (Exception ex) {
                         Debug.LogError(ex.ToString());
                     }
                 }
-            } catch (RyanQuagliataUnity.CommandLineArguments.CommandLineArgumentNotFoundException) {
+            } catch (CommandLineArguments.CommandLineArgumentNotFoundException) {
                 // Ignore
             } catch (Exception ex) {
                 Debug.LogError(ex.ToString());
@@ -99,7 +99,7 @@ namespace RyanQuagliataUnity.Extensions.QuantumConsole {
 
         [Command]
         public static void InvokeConfig(string filePath) {
-            Debug.Log($"Executing config @ ({(File.Exists(filePath) ? "Valid" : "Invalid")}) {filePath}");
+            Debug.Log($"Executing config, {(File.Exists(filePath) ? "<color=green><b>Found</b></color>" : "<color=red><b>Not found</b></color>")} at: {filePath}");
             var lines = File.ReadAllLines(filePath);
             // Parse to remove comments
             for (var i = 0; i < lines.Length; i++) {
