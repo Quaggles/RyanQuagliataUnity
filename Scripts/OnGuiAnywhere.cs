@@ -8,11 +8,6 @@ namespace RyanQuagliataUnity {
 #if UNITY_EDITOR
 		private static OnGuiMonoBehaviour onGuiHost;
 
-		[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
-		static void Initialize() {
-			GetHandlesHost();
-		}
-
 		static OnGuiMonoBehaviour GetHandlesHost() {
 			if (onGuiHost) return onGuiHost;
 			onGuiHost = new GameObject().AddComponent<OnGuiMonoBehaviour>();
