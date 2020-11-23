@@ -32,12 +32,13 @@ namespace RyanQuagliataUnity.Editor {
 
 			// Only check imported assets
 			foreach (var path in importedAssets) {
+#if ODIN_INSPECTOR
+				if (!ModelPostProcessorConfig.Instance.CreatePrefabVariantsForModels) continue;
+#endif
+				
 				// Load the asset from the path
 				var prefab = AssetDatabase.LoadMainAssetAtPath(path);
-				if (prefab == null) {
-					Debug.LogError($"Failed to loading asset at path {path}");
-					continue;
-				}
+				if (prefab == null) continue;
 
 				// Make sure this is a prefab
 				if (PrefabUtility.GetPrefabInstanceStatus(prefab) != PrefabInstanceStatus.Connected) return;
@@ -52,10 +53,6 @@ namespace RyanQuagliataUnity.Editor {
 				// Skip SVG files
 				if (AssetImporter.GetAtPath(path) is SVGImporter) return;
 #endif
-#if ODIN_INSPECTOR
-				if (!ModelPostProcessorConfig.Instance.CreatePrefabVariantsForModels) continue;
-#endif
-
 				var prefabPath = Path.ChangeExtension(path, ".prefab");
 				if (File.Exists(Path.GetFullPath(prefabPath))) continue;
 
