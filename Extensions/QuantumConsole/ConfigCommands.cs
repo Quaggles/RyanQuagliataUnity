@@ -56,10 +56,14 @@ namespace RyanQuagliataUnity.Extensions.QuantumConsole {
                 InvokeConfigStreamingAssets(AUTOEXEC_NAME);
             } catch (FileNotFoundException) {
                 // Ignore
+            } catch (DirectoryNotFoundException) {
+                // Ignore
             }
             try {
                 InvokeConfig(Path.Combine(Directory.GetParent(Application.dataPath).ToString(), AUTOEXEC_NAME));
             } catch (FileNotFoundException) {
+                // Ignore
+            } catch (DirectoryNotFoundException) {
                 // Ignore
             }
 
