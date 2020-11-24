@@ -1,3 +1,4 @@
+#if ODIN_INSPECTOR
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -259,3 +260,4 @@ namespace RyanQuagliataUnity.Editor {
         }
     }
 }
+#endif

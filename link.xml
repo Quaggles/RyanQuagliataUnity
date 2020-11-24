@@ -1,0 +1,5 @@
+<linker>
+	<assembly fullname="RyanQuagliata.Extensions.QuantumConsole" preserve="all"></assembly>
+	<assembly fullname="RyanQuagliata.Extensions.QuantumConsole.PostProcessing" preserve="all"></assembly>
+	<assembly fullname="RyanQuagliata.Extensions.QuantumConsole.Timeline" preserve="all"></assembly>
+</linker>
