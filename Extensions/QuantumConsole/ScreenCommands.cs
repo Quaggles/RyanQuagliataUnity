@@ -36,7 +36,32 @@ namespace RyanQuagliataUnity.Extensions.QuantumConsole {
         }
 
         [Command]
-        public static Resolution CurrentResolution => Screen.currentResolution;
+        public static Resolution GetResolution => Screen.currentResolution;
+
+        [Command]
+        public static float ResolutionScale {
+            get {
+                var native = GetNativeResolution;
+                return (Mathf.InverseLerp(0, native.width, Screen.currentResolution.width) +
+                        Mathf.InverseLerp(0, native.height, Screen.currentResolution.height)) / 2f;
+            }
+            set {
+                var native = GetNativeResolution;
+                SetResolution(Mathf.FloorToInt(native.width * value), Mathf.FloorToInt(native.height * value));
+            }
+        }
+        
+        [Command]
+        public static Vector2 ResolutionScale2 {
+            get {
+                var native = GetNativeResolution;
+                return new Vector2(Mathf.InverseLerp(0, native.width, Screen.currentResolution.width), Mathf.InverseLerp(0, native.height, Screen.currentResolution.height));
+            }
+            set {
+                var native = GetNativeResolution;
+                SetResolution(Mathf.FloorToInt(native.width * value.x), Mathf.FloorToInt(native.height * value.y));
+            }
+        }
 
         [Command]
         public static Resolution[] GetResolutions => Screen.resolutions;
@@ -51,7 +76,10 @@ namespace RyanQuagliataUnity.Extensions.QuantumConsole {
         public static void SetResolution(int index) => SetResolution(Screen.resolutions[index]);
         
         [Command]
-        public static void SetNativeResolution() => SetResolution(Screen.resolutions.Last());
+        public static void SetNativeResolution() => SetResolution(GetNativeResolution);
+
+        [Command]
+        public static Resolution GetNativeResolution => Screen.resolutions.Last();
 
         private static void SetResolution(Resolution resolution) => Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen, resolution.refreshRate);
 
