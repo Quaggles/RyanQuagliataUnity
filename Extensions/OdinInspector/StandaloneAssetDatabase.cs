@@ -95,8 +95,8 @@ namespace RyanQuagliataUnity.Extensions.OdinInspector {
             
             // Clear the SO database
             if (clear) {
-                Instance.ScriptableObjectsFullyQualified.Clear();
-                Instance.ScriptableObjectsTyped.Clear();
+                Instance.ScriptableObjectsFullyQualified?.Clear();
+                Instance.ScriptableObjectsTyped?.Clear();
             }
             
             ProcessObjects(objects1);
