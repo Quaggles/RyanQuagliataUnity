@@ -42,7 +42,7 @@ namespace RyanQuagliataUnity.Extensions.UniTask {
             await tcs.Task;
 #if UNITY_WEBGL
 			that.Play();
-			await UniTask.DelayFrame(1);
+            await Cysharp.Threading.Tasks.UniTask.DelayFrame(1);
 			that.Pause();
 #endif
             that.seekCompleted -= SeekCompleted;
