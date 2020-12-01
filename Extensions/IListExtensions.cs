@@ -20,5 +20,16 @@ namespace RyanQuagliataUnity.Extensions {
 			list[i] = list[j];
 			list[j] = temp;
 		}
+		
+		public static void Resize<T>(this List<T> list, int newSize, T value = default) {
+			int currentSize = list.Count;
+			if (newSize < currentSize)
+				list.RemoveRange(newSize, currentSize - newSize);
+			else if (newSize > currentSize) {
+				if (newSize > list.Capacity) // Change capacity in advance if growing
+					list.Capacity = newSize;
+				for (int i = 0; i < newSize - currentSize; i++) list.Add(value);
+			}
+		}
 	}
 }
