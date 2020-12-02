@@ -12,12 +12,19 @@ namespace RyanQuagliataUnity {
         public ExponentialMovingAverageVector3 Velocity;
         public ExponentialMovingAverageVector3 AngularVelocity;
 
+        public bool Events = false;
+        [FoldoutGroup("Events"), ShowIf(nameof(Events))]
         public bool EventsSendLocalVelocity = true;
-        public SingleEvent XVelocityEvent;
-        public SingleEvent YVelocityEvent;
-        public SingleEvent ZVelocityEvent;
-        public Vector3Event VelocityEvent;
-        public SingleEvent VelocityMagnitudeEvent;
+        [FoldoutGroup("Events"), ShowIf(nameof(Events))]
+        public SingleEvent XVelocityEvent;         
+        [FoldoutGroup("Events"), ShowIf(nameof(Events))]
+        public SingleEvent YVelocityEvent;         
+        [FoldoutGroup("Events"), ShowIf(nameof(Events))]
+        public SingleEvent ZVelocityEvent;         
+        [FoldoutGroup("Events"), ShowIf(nameof(Events))]
+        public Vector3Event VelocityEvent;         
+        [FoldoutGroup("Events"), ShowIf(nameof(Events))]
+        public SingleEvent VelocityMagnitudeEvent; 
         
         [ShowInInspector]
         public float VelocityMagnitude => Velocity.Average.magnitude;
@@ -50,12 +57,14 @@ namespace RyanQuagliataUnity {
             previousPosition = curPosition;
             previousRotation = curRotation.eulerAngles;
 
-            var eventVelocity = EventsSendLocalVelocity ? transform.TransformVector(Velocity) : Velocity;
-            XVelocityEvent?.Invoke(eventVelocity.x);
-            YVelocityEvent?.Invoke(eventVelocity.y);
-            ZVelocityEvent?.Invoke(eventVelocity.z);
-            VelocityEvent?.Invoke(eventVelocity);
-            VelocityMagnitudeEvent?.Invoke(eventVelocity.magnitude);
+            if (Events) {
+                var eventVelocity = EventsSendLocalVelocity ? transform.TransformVector(Velocity) : Velocity;
+                XVelocityEvent?.Invoke(eventVelocity.x);
+                YVelocityEvent?.Invoke(eventVelocity.y);
+                ZVelocityEvent?.Invoke(eventVelocity.z);
+                VelocityEvent?.Invoke(eventVelocity);
+                VelocityMagnitudeEvent?.Invoke(eventVelocity.magnitude);
+            }
         }
     }
 }
