@@ -1,4 +1,5 @@
-﻿using Sirenix.OdinInspector;
+﻿using RyanQuagliataUnity.UnityEvents;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace RyanQuagliataUnity {
@@ -10,6 +11,13 @@ namespace RyanQuagliataUnity {
 
         public ExponentialMovingAverageVector3 Velocity;
         public ExponentialMovingAverageVector3 AngularVelocity;
+
+        public bool EventsSendLocalVelocity = true;
+        public SingleEvent XVelocityEvent;
+        public SingleEvent YVelocityEvent;
+        public SingleEvent ZVelocityEvent;
+        public Vector3Event VelocityEvent;
+        public SingleEvent VelocityMagnitudeEvent;
         
         [ShowInInspector]
         public float VelocityMagnitude => Velocity.Average.magnitude;
@@ -41,6 +49,13 @@ namespace RyanQuagliataUnity {
             
             previousPosition = curPosition;
             previousRotation = curRotation.eulerAngles;
+
+            var eventVelocity = EventsSendLocalVelocity ? transform.TransformVector(Velocity) : Velocity;
+            XVelocityEvent?.Invoke(eventVelocity.x);
+            YVelocityEvent?.Invoke(eventVelocity.y);
+            ZVelocityEvent?.Invoke(eventVelocity.z);
+            VelocityEvent?.Invoke(eventVelocity);
+            VelocityMagnitudeEvent?.Invoke(eventVelocity.magnitude);
         }
     }
 }
