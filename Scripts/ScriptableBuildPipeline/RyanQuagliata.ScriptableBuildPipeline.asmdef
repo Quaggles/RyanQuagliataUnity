@@ -1,0 +1,27 @@
+{
+    "name": "RyanQuagliata.ScriptableBuildPipeline",
+    "references": [
+        "GUID:0065df8e10cb31c4695d09ae3d05494f",
+        "GUID:363a3288c06c1c14cbbeedbda31215f9",
+        "GUID:3348cdac4e8a3c94baf775a68592a2a0"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [
+        "PACKAGE_PLATFORMS"
+    ],
+    "versionDefines": [
+        {
+            "name": "com.unity.platforms",
+            "expression": "",
+            "define": "PACKAGE_PLATFORMS"
+        }
+    ],
+    "noEngineReferences": false
+}
