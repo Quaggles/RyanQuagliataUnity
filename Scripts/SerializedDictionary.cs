@@ -1,36 +1,185 @@
-using System;
 using System.Collections.Generic;
-using UnityEngine;
+using System.Linq;
+using UnityEngine.Serialization;
 
 namespace RyanQuagliataUnity {
-    [Serializable]
-    public class SerializedDictionary<TKey, TValue> : Dictionary<TKey, TValue>, ISerializationCallbackReceiver {
-        [SerializeField]
-        private List<TKey> keys = new List<TKey>();
+	/// <summary>
+	/// https://github.com/lordofduct/spacepuppy-unity-framework/blob/master/SpacepuppyBase/Collections/SerializableDictionaryBase.cs
+	/// </summary>
+	/// <typeparam name="TKey"></typeparam>
+	/// <typeparam name="TValue"></typeparam>
+	[System.Serializable]
+	public class SerializedDictionary<TKey, TValue> : IDictionary<TKey, TValue>, UnityEngine.ISerializationCallbackReceiver {
+#region Fields
 
-        [SerializeField]
-        private List<TValue> values = new List<TValue>();
+		[System.NonSerialized()]
+		private Dictionary<TKey, TValue> _dict;
 
-        // save the dictionary to lists
-        public void OnBeforeSerialize() {
-            keys.Clear();
-            values.Clear();
-            foreach (KeyValuePair<TKey, TValue> pair in this) {
-                keys.Add(pair.Key);
-                values.Add(pair.Value);
-            }
-        }
+		[System.NonSerialized()]
+		private IEqualityComparer<TKey> _comparer;
 
-        // load dictionary from lists
-        public void OnAfterDeserialize() {
-            this.Clear();
+#endregion
 
-            if (keys.Count != values.Count)
-                throw new Exception(
-                    $"There are {keys.Count} keys and {values.Count} values after deserialization. Make sure that both key and value types are serializable.");
+#region CONSTRUCTOR
 
-            for (int i = 0; i < keys.Count; i++)
-                this.Add(keys[i], values[i]);
-        }
-    }
+		public SerializedDictionary() { }
+
+		public SerializedDictionary(IEqualityComparer<TKey> comparer) {
+			_comparer = comparer;
+		}
+
+#endregion
+
+#region Properties
+
+		public IEqualityComparer<TKey> Comparer => _comparer;
+
+#endregion
+
+#region IDictionary Interface
+
+		public int Count => _dict != null ? _dict.Count : 0;
+
+		public void Add(TKey key, TValue value) {
+			if (_dict == null) _dict = new Dictionary<TKey, TValue>(_comparer);
+			_dict.Add(key, value);
+		}
+
+		public bool ContainsKey(TKey key) {
+			if (_dict == null) return false;
+			return _dict.ContainsKey(key);
+		}
+
+		public ICollection<TKey> Keys {
+			get {
+				if (_dict == null) _dict = new Dictionary<TKey, TValue>(_comparer);
+				return _dict.Keys;
+			}
+		}
+
+		public bool Remove(TKey key) {
+			if (_dict == null) return false;
+			return _dict.Remove(key);
+		}
+
+		public bool TryGetValue(TKey key, out TValue value) {
+			if (_dict == null) {
+				value = default(TValue);
+				return false;
+			}
+
+			return _dict.TryGetValue(key, out value);
+		}
+
+		public ICollection<TValue> Values {
+			get {
+				if (_dict == null) _dict = new Dictionary<TKey, TValue>(_comparer);
+				return _dict.Values;
+			}
+		}
+
+		public TValue this[TKey key] {
+			get {
+				if (_dict == null) throw new KeyNotFoundException();
+				return _dict[key];
+			}
+			set {
+				if (_dict == null) _dict = new Dictionary<TKey, TValue>(_comparer);
+				_dict[key] = value;
+			}
+		}
+
+		public void Clear() {
+			if (_dict != null) _dict.Clear();
+		}
+
+		void ICollection<KeyValuePair<TKey, TValue>>.Add(KeyValuePair<TKey, TValue> item) {
+			if (_dict == null) _dict = new Dictionary<TKey, TValue>(_comparer);
+			(_dict as ICollection<KeyValuePair<TKey, TValue>>).Add(item);
+		}
+
+		bool ICollection<KeyValuePair<TKey, TValue>>.Contains(KeyValuePair<TKey, TValue> item) {
+			if (_dict == null) return false;
+			return (_dict as ICollection<KeyValuePair<TKey, TValue>>).Contains(item);
+		}
+
+		void ICollection<KeyValuePair<TKey, TValue>>.CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex) {
+			if (_dict == null) return;
+			(_dict as ICollection<KeyValuePair<TKey, TValue>>).CopyTo(array, arrayIndex);
+		}
+
+		bool ICollection<KeyValuePair<TKey, TValue>>.Remove(KeyValuePair<TKey, TValue> item) {
+			if (_dict == null) return false;
+			return (_dict as ICollection<KeyValuePair<TKey, TValue>>).Remove(item);
+		}
+
+		bool ICollection<KeyValuePair<TKey, TValue>>.IsReadOnly {
+			get { return false; }
+		}
+
+		public Dictionary<TKey, TValue>.Enumerator GetEnumerator() {
+			if (_dict == null) return default(Dictionary<TKey, TValue>.Enumerator);
+			return _dict.GetEnumerator();
+		}
+
+		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() {
+			if (_dict == null) return Enumerable.Empty<KeyValuePair<TKey, TValue>>().GetEnumerator();
+			return _dict.GetEnumerator();
+		}
+
+		IEnumerator<KeyValuePair<TKey, TValue>> IEnumerable<KeyValuePair<TKey, TValue>>.GetEnumerator() {
+			if (_dict == null) return Enumerable.Empty<KeyValuePair<TKey, TValue>>().GetEnumerator();
+			return _dict.GetEnumerator();
+		}
+
+#endregion
+
+#region ISerializationCallbackReceiver
+
+		[UnityEngine.SerializeField()]
+		[FormerlySerializedAs("keys")]
+		private TKey[] _keys;
+
+		[UnityEngine.SerializeField()]
+		[FormerlySerializedAs("values")]
+		private TValue[] _values;
+
+		void UnityEngine.ISerializationCallbackReceiver.OnAfterDeserialize() {
+			if (_keys != null && _values != null) {
+				if (_dict == null)
+					_dict = new Dictionary<TKey, TValue>(_keys.Length, _comparer);
+				else
+					_dict.Clear();
+				for (int i = 0; i < _keys.Length; i++) {
+					if (i < _values.Length)
+						_dict[_keys[i]] = _values[i];
+					else
+						_dict[_keys[i]] = default(TValue);
+				}
+			}
+
+			_keys = null;
+			_values = null;
+		}
+
+		void UnityEngine.ISerializationCallbackReceiver.OnBeforeSerialize() {
+			if (_dict == null || _dict.Count == 0) {
+				_keys = null;
+				_values = null;
+			} else {
+				int cnt = _dict.Count;
+				_keys = new TKey[cnt];
+				_values = new TValue[cnt];
+				int i = 0;
+				var e = _dict.GetEnumerator();
+				while (e.MoveNext()) {
+					_keys[i] = e.Current.Key;
+					_values[i] = e.Current.Value;
+					i++;
+				}
+			}
+		}
+
+#endregion
+	}
 }
