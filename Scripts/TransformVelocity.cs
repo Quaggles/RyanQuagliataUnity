@@ -46,10 +46,10 @@ namespace RyanQuagliataUnity {
         // Update is called once per frame
         void LateUpdate() {
             var curPosition = cachedTransform.position;
-            var positionDelta = (curPosition - previousPosition) / Time.deltaTime;
+            var positionDelta = (curPosition - previousPosition) / Time.unscaledDeltaTime;
             
             var curRotation = cachedTransform.rotation;
-            var rotationDelta = (curRotation.eulerAngles - previousRotation) / Time.deltaTime;
+            var rotationDelta = (curRotation.eulerAngles - previousRotation) / Time.unscaledDeltaTime;
             
             Velocity.AddDataPoint(positionDelta);
             AngularVelocity.AddDataPoint(rotationDelta);
