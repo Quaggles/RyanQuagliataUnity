@@ -63,6 +63,16 @@ namespace RyanQuagliataUnity.Extensions.DOTween {
 		}
 
 		public Tween SetVisibility(bool visible, bool instant = false) {
+			CallEvents(visible);
+			return SetAlpha(visible ? VisibleAlpha : InvisibleAlpha, instant);
+		}
+		
+		public Tween SetVisibility(bool visible, float duration) {
+			CallEvents(visible);
+			return SetAlpha(visible ? VisibleAlpha : InvisibleAlpha, duration);
+		}
+
+		private void CallEvents(bool visible) {
 			CanvasGroup.blocksRaycasts = visible;
 			CanvasGroup.interactable = visible;
 			VisibilityChanged?.Invoke(visible);
@@ -74,10 +84,14 @@ namespace RyanQuagliataUnity.Extensions.DOTween {
 				if (Application.isPlaying && UnselectOnHide) EventSystem.current.SetSelectedGameObject(null);
 				NowInvisible.Invoke();
 			}
-			return SetAlpha(visible ? VisibleAlpha : InvisibleAlpha, instant);
 		}
 
 		public Tween SetAlpha(float alpha, bool instant = false) {
+			CreateTweenerSettingsIfNull(ref FadeTweenSettings);
+			SetAlpha(alpha, instant ? 0 : FadeTweenSettings.Duration);
+		}
+
+		public Tween SetAlpha(float alpha, float duration) {
 			CreateTweenerSettingsIfNull(ref FadeTweenSettings);
 
 			// If the alpha is greater than 0 enable the gameobject
@@ -86,12 +100,12 @@ namespace RyanQuagliataUnity.Extensions.DOTween {
 			CanvasGroup.DOKill();
 
 			// If instant just set the values
-			if (instant) {
+			if (duration == 0) {
 				CanvasGroup.alpha = alpha;
 				if (DisableGameObjectWhenInvisible && alpha == 0) CanvasGroup.gameObject.SetActive(false);
 			} else { // If not instant then tween
-				fadeTween = CanvasGroup.DOFade(alpha, FadeTweenSettings.Duration).ApplySettings(FadeTweenSettings).SetUpdate(true);
-				fadeTween = CanvasGroup.DOFade(alpha, FadeTweenSettings.Duration).ApplySettings(FadeTweenSettings).SetUpdate(true);
+				fadeTween = CanvasGroup.DOFade(alpha, duration).ApplySettings(FadeTweenSettings).SetUpdate(true);
+				fadeTween = CanvasGroup.DOFade(alpha, duration).ApplySettings(FadeTweenSettings).SetUpdate(true);
 				if (DisableGameObjectWhenInvisible && alpha == 0) fadeTween.onComplete += () => canvasGroup.gameObject.SetActive(false);
 			}
 
