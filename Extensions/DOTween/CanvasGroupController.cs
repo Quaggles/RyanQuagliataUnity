@@ -68,10 +68,10 @@ namespace RyanQuagliataUnity.Extensions.DOTween {
 			VisibilityChanged?.Invoke(visible);
 			if (visible && !CanvasGroup.gameObject.activeSelf) CanvasGroup.gameObject.SetActive(true);
 			if (visible) {
-				if (SelectOnVisible) EventSystem.current.SetSelectedGameObjectForce(SelectOnVisible.gameObject);
+				if (Application.isPlaying && SelectOnVisible) EventSystem.current.SetSelectedGameObjectForce(SelectOnVisible.gameObject);
 				NowVisible.Invoke();
 			} else {
-				if (UnselectOnHide) EventSystem.current.SetSelectedGameObject(null);
+				if (Application.isPlaying && UnselectOnHide) EventSystem.current.SetSelectedGameObject(null);
 				NowInvisible.Invoke();
 			}
 			return SetAlpha(visible ? VisibleAlpha : InvisibleAlpha, instant);
