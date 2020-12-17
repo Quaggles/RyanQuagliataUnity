@@ -33,8 +33,12 @@ namespace RyanQuagliataUnity {
 		/// <summary>
 		/// Dictionary for cached WaitForSeconds objects, reduceds garbage on repeated Wait's
 		/// </summary>
-		private static readonly Dictionary<float, WaitForSeconds> WaitForSecondsCache =
-			new Dictionary<float, WaitForSeconds>();
+		private static readonly Dictionary<float, WaitForSeconds> WaitForSecondsCache = new Dictionary<float, WaitForSeconds>();
+		
+		/// <summary>
+		/// Dictionary for cached WaitForSeconds objects, reduceds garbage on repeated Wait's
+		/// </summary>
+		private static readonly Dictionary<float, WaitForSecondsRealtime> WaitForSecondsRealtimeCache = new Dictionary<float, WaitForSecondsRealtime>();
 
 		/// <summary>
 		/// Does an action after a specified number of frames
@@ -92,6 +96,17 @@ namespace RyanQuagliataUnity {
 		public static Coroutine AfterSeconds(Action action, float delay, bool doCache = true) {
 			return DelayedActionHost.Instance.StartCoroutine(AfterSecondsRoutine(action, delay, doCache));
 		}
+		
+		/// <summary>
+		/// Does an action after a specified amount of seconds
+		/// </summary>
+		/// <param name="action">The action to perform</param>
+		/// <param name="delay">The delay to wait</param>
+		/// <param name="doCache">Should we cache the WaitForSeconds Yield Instruction, only do this if you intend to reuse this exact wait delay</param>
+		/// <returns>Coroutine object</returns>
+		public static Coroutine AfterUnscaledSeconds(Action action, float delay, bool doCache = true) {
+			return DelayedActionHost.Instance.StartCoroutine(AfterUnscaledSecondsRoutine(action, delay, doCache));
+		}
 
 		/// <summary>
 		/// Does an action after a specified amount of seconds
@@ -106,6 +121,24 @@ namespace RyanQuagliataUnity {
 				waitAction = new WaitForSeconds(delay);
 				if (doCache)
 					WaitForSecondsCache.Add(delay, waitAction);
+			}
+			yield return waitAction;
+			action.Invoke();
+		}
+		
+		/// <summary>
+		/// Does an action after a specified amount of seconds
+		/// </summary>
+		/// <param name="action">The action to perform</param>
+		/// <param name="delay">The delay to wait</param>
+		/// <param name="doCache">Should we cache the WaitForSeconds Yield Instruction, only do this if you intend to reuse this exact wait delay</param>
+		/// <returns>Yield Instruction</returns>
+		private static IEnumerator AfterUnscaledSecondsRoutine(Action action, float delay, bool doCache = true) {
+			WaitForSecondsRealtime waitAction = null;
+			if (!WaitForSecondsRealtimeCache.TryGetValue(delay, out waitAction)) {
+				waitAction = new WaitForSecondsRealtime(delay);
+				if (doCache)
+					WaitForSecondsRealtimeCache.Add(delay, waitAction);
 			}
 			yield return waitAction;
 			action.Invoke();
