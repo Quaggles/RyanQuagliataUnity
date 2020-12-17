@@ -1,4 +1,5 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using System.Threading;
+using Cysharp.Threading.Tasks;
 using UnityEngine.Video;
 
 namespace RyanQuagliataUnity.Extensions.UniTask {
@@ -46,6 +47,17 @@ namespace RyanQuagliataUnity.Extensions.UniTask {
 			that.Pause();
 #endif
             that.seekCompleted -= SeekCompleted;
+        }
+        
+        public static async Cysharp.Threading.Tasks.UniTask PlayAsync(this VideoPlayer that, CancellationToken cancellationToken = default) {
+            var tcs = new UniTaskCompletionSource();
+            void Finished(VideoPlayer source) => tcs.TrySetResult();
+            that.loopPointReached += Finished;
+            try {
+                await tcs.Task.WithCancellation(cancellationToken);
+            } finally {
+                that.seekCompleted -= Finished;
+            }
         }
     }
 }
