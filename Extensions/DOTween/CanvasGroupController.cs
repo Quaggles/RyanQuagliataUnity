@@ -88,7 +88,7 @@ namespace RyanQuagliataUnity.Extensions.DOTween {
 
 		public Tween SetAlpha(float alpha, bool instant = false) {
 			CreateTweenerSettingsIfNull(ref FadeTweenSettings);
-			SetAlpha(alpha, instant ? 0 : FadeTweenSettings.Duration);
+			return SetAlpha(alpha, instant ? 0 : FadeTweenSettings.Duration);
 		}
 
 		public Tween SetAlpha(float alpha, float duration) {
