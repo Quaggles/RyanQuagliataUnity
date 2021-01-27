@@ -65,6 +65,8 @@ namespace RyanQuagliataUnity {
 			rectTransformCached = transform as RectTransform;
 		}
 
+		protected virtual void DrawGizmosUserSelected() { }
+
 		// Disabled in builds to save performance from Unity Event Calls
 #if UNITY_EDITOR
 		protected void OnDrawGizmos() {
@@ -74,8 +76,6 @@ namespace RyanQuagliataUnity {
 		protected void OnDrawGizmosSelected() {
 			if (GizmoDrawMode == GizmoDrawModeType.Selected) DrawGizmosUserSelected();
 		}
-
-		protected virtual void DrawGizmosUserSelected() { }
 
 		private void ForceSceneUpdate() {
 			SceneView.RepaintAll();
