@@ -17,10 +17,10 @@ namespace RyanQuagliataUnity.Extensions.QuantumConsole {
         private static void OpenAutoExec() {
             var path = Path.Combine(Application.streamingAssetsPath, AUTOEXEC_NAME);
             if (!File.Exists(path)) {
-                if (UnityEditor.EditorUtility.DisplayDialog("", $"{path} does not exist, do you want to create it?", "Yes", "No"))
+                if (UnityEditor.EditorUtility.DisplayDialog("", $"{path} does not exist, do you want to create it?", "Yes", "No")) {
+                    Directory.CreateDirectory(Path.GetDirectoryName(path));
                     File.WriteAllText(path, "// Any commands here will be executed every time a new scene loads, full list of commands in \"ConsoleCommandList.txt\"\n");
-                else
-                    return;
+                } else return;
             }
             Application.OpenURL(path);
         }
