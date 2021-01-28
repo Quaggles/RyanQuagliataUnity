@@ -2,10 +2,10 @@
 using DG.Tweening.Core.Easing;
 using RyanQuagliataUnity.Utilities;
 using Sirenix.OdinInspector;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 #if UNITY_EDITOR
+using UnityEditor;
 #endif
 
 namespace RyanQuagliataUnity.Extensions.DOTween {
@@ -170,7 +170,7 @@ namespace RyanQuagliataUnity.Extensions.DOTween {
 
 		private void ResetOvershoot() => EaseOvershoot = 1.70158f;
 
-		[Indent, ShowIf("ShowPeriod"), LabelText("$PeriodLabel"), PropertyTooltip("$PeriodTooltip"), Range(-1, 1)]
+		[Indent, ShowIf("ShowPeriod"), LabelText("$PeriodLabel"), PropertyTooltip("$PeriodTooltip")]
 		public float EasePeriod = 0;
 	
 		/// <summary>
