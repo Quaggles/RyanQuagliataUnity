@@ -75,8 +75,8 @@ namespace RyanQuagliataUnity.Extensions.DOTween {
 		private void CallEvents(bool visible) {
 			CanvasGroup.blocksRaycasts = visible;
 			CanvasGroup.interactable = visible;
-			VisibilityChanged?.Invoke(visible);
 			if (visible && !CanvasGroup.gameObject.activeSelf) CanvasGroup.gameObject.SetActive(true);
+			VisibilityChanged?.Invoke(visible);
 			if (visible) {
 				if (Application.isPlaying && SelectOnVisible) EventSystem.current.SetSelectedGameObjectForce(SelectOnVisible.gameObject);
 				NowVisible.Invoke();
