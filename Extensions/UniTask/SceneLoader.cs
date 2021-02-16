@@ -208,7 +208,7 @@ namespace RyanQuagliataUnity.Extensions.UniTask {
 				LoadSceneChildren(scene.ScenePath).Wait();
 			}
 #else
-		throw new EditorOnlyException("LoadScenesEditor");
+			throw new RyanQuagliataUnity.Utilities.EditorOnlyException("LoadScenesEditor");
 #endif
 		}
 
