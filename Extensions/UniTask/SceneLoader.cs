@@ -5,12 +5,10 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using RyanQuagliataUnity.Attributes;
-// ReSharper disable once RedundantUsingDirective
-using RyanQuagliataUnity.Utilities;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.SceneManagement; // ReSharper disable once RedundantUsingDirective
+using UnityEngine.SceneManagement;
 
 namespace RyanQuagliataUnity.Extensions.UniTask {
 	public enum LoadFormat {
@@ -52,12 +50,20 @@ namespace RyanQuagliataUnity.Extensions.UniTask {
 	
 		[TabGroup("Load Settings"), EnumToggleButtons]
 		public LoadFormat LoadFormat;
-		[TabGroup("Load Settings")]
-		public bool LoadOnAwake = true;
+        [TabGroup("Load Settings")]
+        public bool SetCursorVisibilityOnLoad = false;
+        [TabGroup("Load Settings"), ShowIf(nameof(SetCursorVisibilityOnLoad)), Indent]
+        public bool CursorVisibilityOnLoad = true;
+        [TabGroup("Load Settings")]
+		public bool LoadOnAwake = false;
+        [TabGroup("Load Settings")]
+        public bool LoadOnStart = true;
 		[TabGroup("Load Settings"), Tooltip("When loading a scene this will search through its root objects, if it located a 'Load Scene' script this will also trigger its Load Scenes function, recursively calling it until all child scenes are loaded")]
 		public bool LoadChildScenes;
 		[TabGroup("Load Settings"), Tooltip("When loading child scenes should they be loaded with the same load format as this script?")]
 		public bool ChildScenesInheritLoadFormat = true;
+		[TabGroup("Load Settings")]
+		public bool UnloadCurrentSceneWhenComplete = false;
 	
 		[TabGroup("Progress Reporting"), Range(0, 1000), SuffixLabel("ms"), Tooltip("How often should progress be reported about the level load status, setting this too low might slow down loading")]
 		public int ProgressReportInterval = 25;
@@ -80,11 +86,27 @@ namespace RyanQuagliataUnity.Extensions.UniTask {
 
 		private async void Awake() {
 			if (LoadOnAwake) {
-				var progress = new Progress<float>();
-				progress.ProgressChanged += ReportProgress; 
-				await LoadScenesAsync(progress);
-			}
+                Load();
+            }
 		}
+
+        private async void Start() {
+            if (LoadOnStart) {
+                Load();
+            }
+        }
+
+        public async void Load()
+        {
+            if (SetCursorVisibilityOnLoad) Cursor.visible = CursorVisibilityOnLoad;
+            var scene = SceneManager.GetActiveScene();
+            var progress = new Progress<float>();
+            progress.ProgressChanged += ReportProgress; 
+            await LoadScenesAsync(progress);
+            if (UnloadCurrentSceneWhenComplete) {
+                await SceneManager.UnloadSceneAsync(scene).ToUniTask();
+            }
+        }
 
 		private void ReportProgress(object sender, float progress) {
 			if (IsEditMode) return;
@@ -121,6 +143,7 @@ namespace RyanQuagliataUnity.Extensions.UniTask {
 			currentlyLoadingTask = true;
 			var thisScene = SceneManagerExtensions.GetLoadedSceneContainingGameObject(this.gameObject);
 			OnSceneLoadStart?.Invoke(thisScene);
+            await Cysharp.Threading.Tasks.UniTask.DelayFrame(1);
 			try {
 				Debug.Log(
 					$"Scene: '{SceneManagerExtensions.GetLoadedSceneContainingGameObject(this.gameObject).name}' is loading with format: '{LoadFormat}'");
@@ -185,7 +208,7 @@ namespace RyanQuagliataUnity.Extensions.UniTask {
 				LoadSceneChildren(scene.ScenePath).Wait();
 			}
 #else
-			throw new EditorOnlyException("LoadScenesEditor");
+		throw new EditorOnlyException("LoadScenesEditor");
 #endif
 		}
 
