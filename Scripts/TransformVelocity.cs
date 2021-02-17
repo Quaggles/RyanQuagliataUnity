@@ -46,6 +46,7 @@ namespace RyanQuagliataUnity {
 
         // Update is called once per frame
         void LateUpdate() {
+            if (Time.unscaledDeltaTime == 0) return;
             var curPosition = cachedTransform.position;
             var positionDelta = (curPosition - previousPosition) / Time.unscaledDeltaTime;
 
