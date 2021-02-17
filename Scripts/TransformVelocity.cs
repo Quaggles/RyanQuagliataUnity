@@ -1,4 +1,5 @@
-﻿using RyanQuagliataUnity.UnityEvents;
+﻿using RyanQuagliataUnity.Extensions;
+using RyanQuagliataUnity.UnityEvents;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -47,15 +48,19 @@ namespace RyanQuagliataUnity {
         void LateUpdate() {
             var curPosition = cachedTransform.position;
             var positionDelta = (curPosition - previousPosition) / Time.unscaledDeltaTime;
-            
+
             var curRotation = cachedTransform.rotation;
             var rotationDelta = (curRotation.eulerAngles - previousRotation) / Time.unscaledDeltaTime;
-            
-            Velocity.AddDataPoint(positionDelta);
-            AngularVelocity.AddDataPoint(rotationDelta);
-            
-            previousPosition = curPosition;
-            previousRotation = curRotation.eulerAngles;
+
+            if (!positionDelta.IsNaN()) {
+                Velocity.AddDataPoint(positionDelta);
+                previousPosition = curPosition;
+            }
+
+            if (!rotationDelta.IsNaN()) {
+                AngularVelocity.AddDataPoint(rotationDelta);
+                previousRotation = curRotation.eulerAngles;
+            }
 
             if (Events) {
                 var eventVelocity = EventsSendLocalVelocity ? transform.TransformVector(Velocity) : Velocity;
