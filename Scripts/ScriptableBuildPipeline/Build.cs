@@ -76,14 +76,19 @@ namespace RyanQuagliataUnity.ScriptableBuildPipeline {
             try {
                 var version = CommandLineArguments.ReadArgValue("-BUILD_NUMBER");
                 PlayerSettings.bundleVersion = version;
-                PlayerSettings.iOS.buildNumber = version;
-                var match = new Regex(@"^(\d+)\.(\d+)\.(\d+)$").Match(version);
-                if (!match.Success) throw new InvalidOperationException($"BUILD_NUMBER is not in the format #.#.#");
-                int bundleVersionCode = 0;
-                bundleVersionCode += int.Parse(match.Groups[1].Value) * 10000;
-                bundleVersionCode += int.Parse(match.Groups[2].Value) * 100;
-                bundleVersionCode += int.Parse(match.Groups[3].Value);
-                PlayerSettings.Android.bundleVersionCode = bundleVersionCode;
+                
+                if (EditorUserBuildSettings.activeBuildTarget == BuildTarget.iOS || Application.platform == RuntimePlatform.OSXPlayer)
+                    PlayerSettings.iOS.buildNumber = version;
+
+                if (EditorUserBuildSettings.activeBuildTarget == BuildTarget.Android) {
+                    var match = new Regex(@"^(\d)\.(\d{1,2})\.(\d{1,3})$").Match(version);
+                    if (!match.Success) throw new InvalidOperationException($"BUILD_NUMBER {version} is not in the format #{{1}}.#{{1-2}}.#{{1-3}} for conversion to Android bundleVersionCode");
+                    int bundleVersionCode = 0;
+                    bundleVersionCode += int.Parse(match.Groups[1].Value) * 10000;
+                    bundleVersionCode += int.Parse(match.Groups[2].Value) * 1000;
+                    bundleVersionCode += int.Parse(match.Groups[3].Value);
+                    PlayerSettings.Android.bundleVersionCode = bundleVersionCode;
+                }
             } catch (CommandLineArguments.CommandLineArgumentNotFoundException) {
                 // Ignore
             }
