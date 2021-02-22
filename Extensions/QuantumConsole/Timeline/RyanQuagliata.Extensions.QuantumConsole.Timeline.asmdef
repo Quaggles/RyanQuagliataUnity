@@ -1,5 +1,6 @@
 {
     "name": "RyanQuagliata.Extensions.QuantumConsole.Timeline",
+    "rootNamespace": "",
     "references": [
         "GUID:fb24642277b1db2449da7ac148ce939d",
         "GUID:0065df8e10cb31c4695d09ae3d05494f"
@@ -11,7 +12,8 @@
     "precompiledReferences": [],
     "autoReferenced": true,
     "defineConstraints": [
-        "UNITY_TIMELINE"
+        "UNITY_TIMELINE",
+        "QUANTUM_CONSOLE"
     ],
     "versionDefines": [
         {
