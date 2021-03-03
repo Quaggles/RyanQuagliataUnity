@@ -17,7 +17,6 @@ namespace RyanQuagliataUnity.Extensions.UniTask {
                 that.prepareCompleted -= PrepareCompleted;
             }
         }
-
         public static async Cysharp.Threading.Tasks.UniTask SeekAsync(this VideoPlayer that, double time) {
             if (!that.canSetTime) return;
             if (that.clip == null) return;
@@ -54,7 +53,11 @@ namespace RyanQuagliataUnity.Extensions.UniTask {
             void Finished(VideoPlayer source) => tcs.TrySetResult();
             that.loopPointReached += Finished;
             try {
+#if UNITASK_2_2_1_OR_NEWER
+                await tcs.Task.AttachExternalCancellation(cancellationToken);
+#else
                 await tcs.Task.WithCancellation(cancellationToken);
+#endif
             } finally {
                 that.seekCompleted -= Finished;
             }

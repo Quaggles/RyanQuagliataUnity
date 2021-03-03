@@ -1,5 +1,6 @@
 {
     "name": "RyanQuagliata.Extensions.UniTask",
+    "rootNamespace": "",
     "references": [
         "RyanQuagliata",
         "RyanQuagliata.Extensions.DOTween",
@@ -19,7 +20,12 @@
     "versionDefines": [
         {
             "name": "com.cysharp.unitask",
-            "expression": "0.0",
+            "expression": "2.2.1",
+            "define": "UNITASK_2_2_1_OR_NEWER"
+        },
+        {
+            "name": "com.cysharp.unitask",
+            "expression": "0",
             "define": "UNITASK"
         }
     ],
