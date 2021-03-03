@@ -81,8 +81,8 @@ namespace RyanQuagliataUnity.ScriptableBuildPipeline {
                     PlayerSettings.iOS.buildNumber = version;
 
                 if (EditorUserBuildSettings.activeBuildTarget == BuildTarget.Android) {
-                    var match = new Regex(@"^(\d)\.(\d{1,2})\.(\d{1,3})$").Match(version);
-                    if (!match.Success) throw new InvalidOperationException($"BUILD_NUMBER {version} is not in the format #{{1}}.#{{1-2}}.#{{1-3}} for conversion to Android bundleVersionCode");
+                    var match = new Regex(@"^(\d{1})\.(\d{1})\.(\d{1,3})$").Match(version);
+                    if (!match.Success) throw new InvalidOperationException($"BUILD_NUMBER {version} is not in the format #{{1}}.#{{1}}.#{{1-3}} for conversion to Android bundleVersionCode");
                     int bundleVersionCode = 0;
                     bundleVersionCode += int.Parse(match.Groups[1].Value) * 10000;
                     bundleVersionCode += int.Parse(match.Groups[2].Value) * 1000;
