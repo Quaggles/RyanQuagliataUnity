@@ -12,12 +12,13 @@ namespace RyanQuagliataUnity.Extensions.QuantumConsole {
         }
 
         [Command]
+        public static void SetNativeTargetFrameRate() => Application.targetFrameRate = GetNativeResolution.refreshRate;
+
+        [Command]
         public static bool FullScreen {
             get => Screen.fullScreen;
             set => Screen.fullScreen = value;
         }
-        
-        
 
         [Command]
         public static bool FullScreenDelayed {
