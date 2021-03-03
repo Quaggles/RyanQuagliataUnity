@@ -12,7 +12,13 @@ namespace RyanQuagliataUnity.Extensions.QuantumConsole {
         }
 
         [Command]
-        public static void SetNativeTargetFrameRate() => Application.targetFrameRate = GetNativeResolution.refreshRate;
+        public static void SetNativeTargetFrameRate() {
+            try {
+                Application.targetFrameRate = GetNativeResolution.refreshRate;
+            } catch {
+                Application.targetFrameRate = Screen.currentResolution.refreshRate;
+            }
+        }
 
         [Command]
         public static bool FullScreen {
