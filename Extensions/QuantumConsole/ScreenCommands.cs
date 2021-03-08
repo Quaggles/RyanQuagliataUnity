@@ -98,5 +98,17 @@ namespace RyanQuagliataUnity.Extensions.QuantumConsole {
         
         [Command]
         public static void SetPosition(int posX, int posY) => DisplayExtensions.SetPosition(posX, posY, 0, 0);
+
+        [Command]
+        public static float Dpi => Screen.dpi;
+
+        [Command]
+        public static float Brightness => Screen.brightness;
+
+        [Command]
+        public static Rect[] Cutouts => Screen.cutouts;
+
+        [Command]
+        public static Rect SafeArea => Screen.safeArea;
     }
 }
