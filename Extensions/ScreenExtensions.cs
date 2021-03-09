@@ -1,6 +1,8 @@
 // ReSharper disable RedundantUsingDirective
 using UnityEngine;
+#if UNITY_IOS
 using UnityEngine.iOS;
+#endif
 
 namespace RyanQuagliataUnity.Extensions {
 	public static class ScreenExtensions {
