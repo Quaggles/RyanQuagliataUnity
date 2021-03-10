@@ -69,9 +69,7 @@ namespace RyanQuagliataUnity.ScriptableBuildPipeline {
             try {
                 PlayerSettings.graphicsJobs = bool.Parse(CommandLineArguments.ReadArgValue("-GRAPHICS_JOBS"));
                 Debug.Log($"[{typeof(ScriptableBuildPipeline)}] PlayerSettings.graphicsJobs = {PlayerSettings.graphicsJobs}");
-            } catch (CommandLineArguments.CommandLineArgumentNotFoundException) {
-                // Ignore
-            }
+            } catch (CommandLineArguments.CommandLineArgumentNotFoundException) { /*Ignore*/ }
             
             try {
                 var version = CommandLineArguments.ReadArgValue("-BUILD_NUMBER");
@@ -89,9 +87,7 @@ namespace RyanQuagliataUnity.ScriptableBuildPipeline {
                     bundleVersionCode += int.Parse(match.Groups[3].Value);
                     PlayerSettings.Android.bundleVersionCode = bundleVersionCode;
                 }
-            } catch (CommandLineArguments.CommandLineArgumentNotFoundException) {
-                // Ignore
-            }
+            } catch (CommandLineArguments.CommandLineArgumentNotFoundException) { /*Ignore*/ }
             
             var additionalil2CppArgs = PlayerSettings.GetAdditionalIl2CppArgs();
             try {
@@ -99,9 +95,20 @@ namespace RyanQuagliataUnity.ScriptableBuildPipeline {
                     PlayerSettings.SetAdditionalIl2CppArgs(additionalil2CppArgs + " --compiler-flags=-d2ssa-cfg-jt-");
                     Debug.Log($"[{typeof(ScriptableBuildPipeline)}] PlayerSettings.additionalIl2CppArgs = {PlayerSettings.GetAdditionalIl2CppArgs()}");
                 }
-            } catch (CommandLineArguments.CommandLineArgumentNotFoundException) {
-                // Ignore
-            }
+            } catch (CommandLineArguments.CommandLineArgumentNotFoundException) { /*Ignore*/ }
+            
+            try {
+                PlayerSettings.Android.keystoreName = CommandLineArguments.ReadArgValue("-KEYSTORE_NAME");
+            } catch (CommandLineArguments.CommandLineArgumentNotFoundException) { /*Ignore*/ }
+            try {
+                PlayerSettings.keystorePass = CommandLineArguments.ReadArgValue("-KEYSTORE_PASS");
+            } catch (CommandLineArguments.CommandLineArgumentNotFoundException) { /*Ignore*/ }
+            try {
+                PlayerSettings.Android.keyaliasName = CommandLineArguments.ReadArgValue("-KEYALIAS_NAME");
+            } catch (CommandLineArguments.CommandLineArgumentNotFoundException) { /*Ignore*/ }
+            try {
+                PlayerSettings.keyaliasPass = CommandLineArguments.ReadArgValue("-KEYALIAS_PASS");
+            } catch (CommandLineArguments.CommandLineArgumentNotFoundException) { /*Ignore*/ }
             
             var outputBuildDirectory = buildConfiguration.GetComponentOrDefault<OutputBuildDirectory>();
             outputBuildDirectory.OutputDirectory = path;
