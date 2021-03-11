@@ -1,7 +1,6 @@
 using System;
 using System.IO;
 using System.Text.RegularExpressions;
-using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 #if UNITY_EDITOR
@@ -9,6 +8,9 @@ using UnityEditor;
 using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
 using UnityEditor.SceneManagement;
+#endif
+#if ODIN_INSPECTOR
+using Sirenix.OdinInspector;
 #endif
 
 namespace RyanQuagliataUnity.Extensions.QuantumConsole {
@@ -36,14 +38,20 @@ namespace RyanQuagliataUnity.Extensions.QuantumConsole {
         public void OnPostprocessBuild(BuildReport report) {
             //RemoveBootstrap();
         } 
-
+        
+#if ODIN_INSPECTOR
         [Button]
+#endif
         public static void AddBootstrap() => ConfigureBootstrap(AutoExecOperation.Add);
 
+#if ODIN_INSPECTOR
         [Button]
+#endif
         public static void RemoveBootstrap() => ConfigureBootstrap(AutoExecOperation.Remove);
 
+#if ODIN_INSPECTOR
         [Button]
+#endif
         public static void CheckBootstrap() => ConfigureBootstrap(AutoExecOperation.Check);
 
         public enum AutoExecOperation {
@@ -165,7 +173,9 @@ namespace RyanQuagliataUnity.Extensions.QuantumConsole {
             return exists;
         }
 
+#if ODIN_INSPECTOR
         [Button]
+#endif
         public static void CollectGarbage() {
             EditorUtility.UnloadUnusedAssetsImmediate(true);
             GC.Collect();
