@@ -148,6 +148,7 @@ namespace RyanQuagliataUnity.Editor {
 
         public int callbackOrder { get; }
         public void OnPostprocessBuild(BuildReport report) {
+            if (!Instance) return;
             Output(report.summary.outputPath, Instance);
         }
 
