@@ -144,7 +144,7 @@ namespace RyanQuagliataUnity.Editor {
         }
         
         [ListDrawerSettings(Expanded = true)]
-        public List<CopyItem> CopyList;
+        public List<CopyItem> CopyList = new List<CopyItem>();
 
         public int callbackOrder { get; }
         public void OnPostprocessBuild(BuildReport report) {
