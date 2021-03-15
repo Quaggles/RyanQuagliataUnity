@@ -97,22 +97,6 @@ namespace RyanQuagliataUnity.ScriptableBuildPipeline {
                 }
             } catch (CommandLineArguments.CommandLineArgumentNotFoundException) { /*Ignore*/ }
             
-            try {
-                PlayerSettings.Android.keystoreName = CommandLineArguments.ReadArgValue("-KEYSTORE_NAME");
-            } catch (CommandLineArguments.CommandLineArgumentNotFoundException) { /*Ignore*/ }
-            try {
-                PlayerSettings.keystorePass = CommandLineArguments.ReadArgValue("-KEYSTORE_PASS");
-                PlayerSettings.Android.useCustomKeystore = true;
-                PlayerSettings.Android.keystorePass = CommandLineArguments.ReadArgValue("-KEYSTORE_PASS");
-            } catch (CommandLineArguments.CommandLineArgumentNotFoundException) { /*Ignore*/ }
-            try {
-                PlayerSettings.Android.keyaliasName = CommandLineArguments.ReadArgValue("-KEYALIAS_NAME");
-            } catch (CommandLineArguments.CommandLineArgumentNotFoundException) { /*Ignore*/ }
-            try {
-                PlayerSettings.keyaliasPass = CommandLineArguments.ReadArgValue("-KEYALIAS_PASS");
-                PlayerSettings.Android.keyaliasPass = CommandLineArguments.ReadArgValue("-KEYALIAS_PASS");                
-            } catch (CommandLineArguments.CommandLineArgumentNotFoundException) { /*Ignore*/ }
-            
             var outputBuildDirectory = buildConfiguration.GetComponentOrDefault<OutputBuildDirectory>();
             outputBuildDirectory.OutputDirectory = path;
             buildConfiguration.RemoveComponent<OutputBuildDirectory>();
