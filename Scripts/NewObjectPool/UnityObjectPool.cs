@@ -8,7 +8,7 @@ namespace RyanQuagliataUnity.NewObjectPool {
 	public class UnityObjectPool<T> : GenericObjectPool<T> where T : Object {
 		[Required]
 		[PropertyOrder(-1)]
-		[AssetList]
+		[AssetsOnly]
 		public T Template;
 		
 		protected override T Instantiate() {
