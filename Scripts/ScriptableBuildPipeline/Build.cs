@@ -41,6 +41,9 @@ namespace RyanQuagliataUnity.ScriptableBuildPipeline {
 
         [Button]
         public static void BuildTo(BuildConfiguration buildConfiguration, string path) {
+            var buildTarget = EditorUserBuildSettings.activeBuildTarget;
+            var buildTargetGroup = BuildPipeline.GetBuildTargetGroup(EditorUserBuildSettings.activeBuildTarget);
+            
             /*
              * Debug
              * Develop
@@ -75,10 +78,10 @@ namespace RyanQuagliataUnity.ScriptableBuildPipeline {
                 var version = CommandLineArguments.ReadArgValue("-BUILD_NUMBER");
                 PlayerSettings.bundleVersion = version;
                 
-                if (EditorUserBuildSettings.activeBuildTarget == BuildTarget.iOS || Application.platform == RuntimePlatform.OSXPlayer)
+                if (buildTarget == BuildTarget.iOS || Application.platform == RuntimePlatform.OSXPlayer)
                     PlayerSettings.iOS.buildNumber = version;
 
-                if (EditorUserBuildSettings.activeBuildTarget == BuildTarget.Android) {
+                if (buildTarget == BuildTarget.Android) {
                     var match = new Regex(@"^(\d{1})\.(\d{1})\.(\d{1,3})$").Match(version);
                     if (!match.Success) throw new InvalidOperationException($"BUILD_NUMBER {version} is not in the format #{{1}}.#{{1}}.#{{1-3}} for conversion to Android bundleVersionCode");
                     int bundleVersionCode = 0;
@@ -97,20 +100,29 @@ namespace RyanQuagliataUnity.ScriptableBuildPipeline {
                 }
             } catch (CommandLineArguments.CommandLineArgumentNotFoundException) { /*Ignore*/ }
             
+            var applicationIdentifier = PlayerSettings.applicationIdentifier;
+            try {
+                PlayerSettings.SetApplicationIdentifier(buildTargetGroup, CommandLineArguments.ReadArgValue("-APPLICATION_IDENTIFIER"));
+                Debug.Log($"[{typeof(ScriptableBuildPipeline)}] PlayerSettings.applicationIdentifier = {PlayerSettings.GetApplicationIdentifier(buildTargetGroup)}");
+            } catch (CommandLineArguments.CommandLineArgumentNotFoundException) { /*Ignore*/ }
+            
             var outputBuildDirectory = buildConfiguration.GetComponentOrDefault<OutputBuildDirectory>();
             outputBuildDirectory.OutputDirectory = path;
             buildConfiguration.RemoveComponent<OutputBuildDirectory>();
             buildConfiguration.SetComponent(outputBuildDirectory);
             Debug.Log($"[{typeof(ScriptableBuildPipeline)}] {typeof(OutputBuildDirectory)} OutputBuildDirectory = {path}");
-            
-            Debug.Log($"[{nameof(ScriptableBuildPipeline)}] Building to {buildConfiguration.GetOutputBuildDirectory()}");
-            buildConfiguration.Build();
-            Debug.Log($"[{nameof(ScriptableBuildPipeline)}] Completed building to {buildConfiguration.GetOutputBuildDirectory()}");
-            buildConfiguration.RestoreAsset();
 
-            // Restore settings
-            PlayerSettings.graphicsJobs = graphicsJobs;
-            PlayerSettings.SetAdditionalIl2CppArgs(additionalil2CppArgs);
+            try {
+                Debug.Log($"[{nameof(ScriptableBuildPipeline)}] Building to {buildConfiguration.GetOutputBuildDirectory()}");
+                buildConfiguration.Build();
+                Debug.Log($"[{nameof(ScriptableBuildPipeline)}] Completed building to {buildConfiguration.GetOutputBuildDirectory()}");
+                buildConfiguration.RestoreAsset();
+            } finally {
+                // Restore settings
+                PlayerSettings.graphicsJobs = graphicsJobs;
+                PlayerSettings.SetAdditionalIl2CppArgs(additionalil2CppArgs);
+                PlayerSettings.SetApplicationIdentifier(buildTargetGroup, applicationIdentifier);
+            }
         }
     }
 }
