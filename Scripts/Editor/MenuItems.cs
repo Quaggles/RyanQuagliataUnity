@@ -26,20 +26,17 @@ namespace RyanQuagliataUnity.Editor {
 			PlayerSettings.SetScriptingDefineSymbolsForGroup(platform, newSymbols);
 			PlayerSettings.SetScriptingDefineSymbolsForGroup(platform, symbols);
 		}
-
-		/// <summary>
-		/// Forces a recompile by adding a temporary new symbol to the PlayerSettings and then removing it
-		/// </summary>
+		
 		[MenuItem("RyanQuagliata/Force Update Canvases _F7", priority = 0)]
 		public static void ForceUpdateCanvases() => Canvas.ForceUpdateCanvases();
 
-		/// <summary>
-		/// Forces a recompile by adding a temporary new symbol to the PlayerSettings and then removing it
-		/// </summary>
 		[MenuItem("RyanQuagliata/Set All UI Dirty _F8", priority = 0)]
 		public static void ForceSetAllUIDirty() {
 			foreach (var graphic in Object.FindObjectsOfType<Graphic>()) graphic.SetAllDirty();
 		}
+		
+		[MenuItem("RyanQuagliata/Reset Player Prefs", priority = 0)]
+		public static void ResetPlayerPrefs() => PlayerPrefs.DeleteAll();
 
 #if !UNITY_2018_3_OR_NEWER
         [MenuItem("RyanQuagliata/Open Player Settings &p", priority = 0)]
@@ -115,6 +112,9 @@ namespace RyanQuagliataUnity.Editor {
 
 		[MenuItem("RyanQuagliata/Open Package Manifest", priority = 0)]
 		public static void OpenPackageManifest() => Application.OpenURL(Directory.GetParent(Application.dataPath).FullName + "\\Packages\\manifest.json");
+
+		[MenuItem("RyanQuagliata/Open Package Lock", priority = 0)]
+		public static void OpenPackageLock() => Application.OpenURL(Directory.GetParent(Application.dataPath).FullName + "\\Packages\\packages-lock.json");
 
 		[MenuItem("RyanQuagliata/Remove Package Locks", priority = 0)]
 		public static void RemovePackageLocks() {
