@@ -5,8 +5,11 @@ namespace RyanQuagliataUnity.Extensions.QuantumConsole {
 	[CommandPrefix("PlayerPrefs")]
 	public static class PlayerPrefsCommands {
 		[Command]
-		public static void DeleteAll() => PlayerPrefs.DeleteAll();
-		
+		public static void DeleteAll() {
+			PlayerPrefs.DeleteAll();
+			Save();
+		}
+
 		[Command]
 		public static void Save() => PlayerPrefs.Save();
 
