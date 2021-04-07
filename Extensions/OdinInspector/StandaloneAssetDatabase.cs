@@ -36,6 +36,41 @@ namespace RyanQuagliataUnity.Extensions.OdinInspector {
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="list">Optional: List to populate with results, </param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public List<T> GetValues<T> (List<T> list = null) where T : ScriptableObject {
+            if (list == null) list = new List<T>();
+            if (ScriptableObjectsTyped.TryGetValue(typeof(T), out var objects)) {
+                for (var i = 0; i < objects.Count; i++) {
+                    var item = objects[i];
+                    list.Add(item.ScriptableObject as T);
+                }
+            }
+
+            return list;
+        }
+
+        public T GetValue<T>(string guid) where T : ScriptableObject => TryGetValue<T>(guid, out var value) ? value : null;
+
+        public bool TryGetValue<T>(string guid, out T value) where T : ScriptableObject {
+            if (ScriptableObjectsTyped.TryGetValue(typeof(T), out var objects)) {
+                for (var i = 0; i < objects.Count; i++) {
+                    var item = objects[i];
+                    if (item.Guid.Equals(guid, StringComparison.Ordinal)) {
+                        value = item.ScriptableObject as T;
+                        return true;
+                    }
+                }
+            }
+
+            value = null;
+            return false;
+        }
+
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         static void Initialize() {
             // If in the editor play mode then store the objects and write GUIDs for usage 
