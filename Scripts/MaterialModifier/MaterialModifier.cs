@@ -131,6 +131,8 @@ namespace RyanQuagliataUnity.MaterialModifier {
 			}
 		}
 
+		private void OnDidApplyAnimationProperties() => UpdateMaterial();
+
 		[Button, EnableIf(nameof(ValidPropertyName))]
 		[ShowIf(nameof(ManualValue))]
 		public void UpdateMaterial() => UpdateMaterial(Value);
