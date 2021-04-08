@@ -13,6 +13,7 @@ namespace RyanQuagliataUnity.MaterialModifier {
         public override void UpdateMaterialPropertyBlock(MaterialPropertyBlock materialPropertyBlock, int propertyId, Vector4 value) => materialPropertyBlock.SetVector(propertyId, value);
 
         public override void UpdateUiMaterial(Material uiMaterial, int propertyId, Vector4 value) => uiMaterial.SetVector(propertyId, value);
+        public override void UpdateMaterial(Material material, int propertyId, Vector4 value) => material.SetVector(propertyId, value);
 
         public void SetValue2(Vector2 vector) => SetValue(vector);
         

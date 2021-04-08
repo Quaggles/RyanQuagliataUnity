@@ -23,6 +23,12 @@ namespace RyanQuagliataUnity.MaterialModifier {
 		[ShowIf("@MaterialModifierType == RyanQuagliataUnity.MaterialModifier.MaterialModifierType.UI")]
 		public Graphic Graphic;
 
+
+		[HorizontalGroup("ModifierType")]
+		[HideLabel]
+		[ShowIf("@MaterialModifierType == RyanQuagliataUnity.MaterialModifier.MaterialModifierType.Material")]
+		public Material Material;
+
 		private MaterialPropertyBlock materialPropertyBlock;
 
 		private int propertyId;
@@ -114,14 +120,12 @@ namespace RyanQuagliataUnity.MaterialModifier {
 
 		public Material GetMaterial() {
 			try {
-				switch (MaterialModifierType) {
-					case MaterialModifierType.Renderer:
-						return Renderer.sharedMaterial;
-					case MaterialModifierType.UI:
-						return Graphic.materialForRendering;
-					default:
-						throw new ArgumentOutOfRangeException();
-				}
+				return MaterialModifierType switch {
+					MaterialModifierType.Renderer => Renderer.sharedMaterial,
+					MaterialModifierType.UI => Graphic.materialForRendering,
+					MaterialModifierType.Material => Material,
+					_ => throw new ArgumentOutOfRangeException()
+				};
 			} catch {
 				return null;
 			}
@@ -145,6 +149,9 @@ namespace RyanQuagliataUnity.MaterialModifier {
 					valueNonSerialized = value;
 					Graphic.SetMaterialDirty();
 					break;
+				case MaterialModifierType.Material:
+					UpdateMaterial(GetMaterial(), propertyId, value);
+					break;
 				default:
 					throw new ArgumentOutOfRangeException();
 			}
@@ -152,6 +159,7 @@ namespace RyanQuagliataUnity.MaterialModifier {
 
 		public abstract void UpdateMaterialPropertyBlock(MaterialPropertyBlock materialPropertyBlock, int propertyId, T value);
 		public abstract void UpdateUiMaterial(Material uiMaterial, int propertyId, T value);
+		public abstract void UpdateMaterial(Material material, int propertyId, T value);
 
 
 		public void SetValue(T value) {
@@ -185,6 +193,7 @@ namespace RyanQuagliataUnity.MaterialModifier {
 
 	public enum MaterialModifierType {
 		Renderer,
-		UI
+		UI,
+		Material
 	}
 }

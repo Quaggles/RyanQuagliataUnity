@@ -11,5 +11,6 @@ namespace RyanQuagliataUnity.MaterialModifier {
 		public override void UpdateMaterialPropertyBlock(MaterialPropertyBlock materialPropertyBlock, int propertyId, Color value) => materialPropertyBlock.SetColor(propertyId, value);
 
 		public override void UpdateUiMaterial(Material uiMaterial, int propertyId, Color value) => uiMaterial.SetColor(propertyId, value);
+		public override void UpdateMaterial(Material material, int propertyId, Color value) => material.SetColor(propertyId, value);
 	}
 }

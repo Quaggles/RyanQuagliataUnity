@@ -16,5 +16,8 @@ namespace RyanQuagliataUnity.MaterialModifier {
         public override void UpdateMaterialPropertyBlock(MaterialPropertyBlock materialPropertyBlock, int propertyId, float value) => materialPropertyBlock.SetFloat(propertyId, value);
 
         public override void UpdateUiMaterial(Material uiMaterial, int propertyId, float value) => uiMaterial.SetFloat(propertyId, value);
+        public override void UpdateMaterial(Material material, int propertyId, float value) {
+            material.SetFloat(propertyId, value);
+        }
     }
 }
