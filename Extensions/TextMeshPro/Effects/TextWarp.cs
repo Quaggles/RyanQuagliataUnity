@@ -48,6 +48,7 @@ namespace RyanQuagliataUnity.Extensions.TextMeshPro.Effects {
             TextMeshProUGUI.ForceMeshUpdate();
 
             TMP_TextInfo textInfo = TextMeshProUGUI.textInfo;
+            if (textInfo == null) return;
             int characterCount = textInfo.characterCount;
 
             //if the string is empty, no need to waste time
