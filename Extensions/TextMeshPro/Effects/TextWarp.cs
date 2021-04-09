@@ -7,7 +7,7 @@ namespace RyanQuagliataUnity.Extensions.TextMeshPro.Effects {
     public class TextWarp : MonoBehaviour {
         public TextMeshProUGUI TextMeshProUGUI;
         
-        [SerializeReference, ShowInInspector, InlineProperty, OnValueChanged(nameof(Update2), true)]
+        [SerializeReference, ShowInInspector, InlineProperty, OnValueChanged(nameof(UpdateVertices), true)]
         public ITextWarpFunction TextWarpFunction;
 
         /// <summary>
@@ -23,14 +23,18 @@ namespace RyanQuagliataUnity.Extensions.TextMeshPro.Effects {
             m_forceUpdate = true;
         }
 
+        private void OnRectTransformDimensionsChange() {
+            UpdateVertices();
+        }
+
         private void OnDisable() { }
 
         void Update() {
             if (!m_forceUpdate && !TextMeshProUGUI.havePropertiesChanged) return;
-            Update2();
+            UpdateVertices();
         }
 
-        protected void Update2() {
+        protected void UpdateVertices() {
             if (TextWarpFunction == null || !TextMeshProUGUI) return;
             m_forceUpdate = false;
 
