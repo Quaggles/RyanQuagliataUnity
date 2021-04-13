@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using QFSW.QC;
@@ -51,6 +52,8 @@ namespace RyanQuagliataUnity.Extensions.QuantumConsole {
 
         [Command]
         public static void InvokeAutoExec() {
+            var console = QFSW.QC.QuantumConsole.Instance ? QFSW.QC.QuantumConsole.Instance : Object.FindObjectOfType<QFSW.QC.QuantumConsole>();
+            InvokeMethod(console, "Initialize");
             QuantumConsoleProcessor.GenerateCommandTable(); // Ensures the command table is generated
             try {
                 InvokeConfigStreamingAssets(AUTOEXEC_NAME);
@@ -130,6 +133,12 @@ namespace RyanQuagliataUnity.Extensions.QuantumConsole {
 
             Debug.Log(string.Join("\n", Enumerable.Prepend(lines, $"Reading {lines.Length} lines from {filePath}")));
         }
+        
+        public static object InvokeMethod<T>(this T obj, string methodName, params object[] args) {
+            var type = typeof(T);
+            var method = type.GetTypeInfo().GetDeclaredMethod(methodName);
+            return method.Invoke(obj, args);
+        }
 
         [Command]
         public static void InvokeCommands(IEnumerable<string> commands) {
@@ -151,66 +160,61 @@ namespace RyanQuagliataUnity.Extensions.QuantumConsole {
 
         public static string GetCommandList(bool forceReload) {
             QuantumConsoleProcessor.GenerateCommandTable(false, forceReload);
-
-            try {
-                var sb = new StringBuilder();
-                foreach (var command in GetOrderedCommands()) {
-                    // Name line
-                    sb.Append(command.CommandName);
+            var sb = new StringBuilder();
+            foreach (var command in GetOrderedCommands()) {
+                // Name line
+                sb.Append(command.CommandName);
+                sb.Append(' ');
+                sb.Append(command.IsStatic ? "[Static]" : "[Instance]");
+                if (!command.IsStatic) {
                     sb.Append(' ');
-                    sb.Append(command.IsStatic ? "[Static]" : "[Instance]");
-                    if (!command.IsStatic) {
-                        sb.Append(' ');
-                        sb.Append($"[{command.MonoTarget.ToString()}]");
-                    }
-                    sb.AppendLine();
+                    sb.Append($"[{command.MonoTarget.ToString()}]");
+                }
+                sb.AppendLine();
 
-                    // Description Line
-                    if (command.HasDescription) {
-                        sb.Append('\t');
-                        sb.Append("description: ");
-                        var desc = command.CommandDescription;
-                        // If it's a multiline description put it on a new line
-                        if (desc.Contains('\n')) {
-                            desc = desc.Insert(0, "\n");
-                            // Tab any new lines to match the current indent
-                            desc = desc.Replace("\n", $"\n\t\t");
-                        }
-
-                        sb.AppendLine(desc);
-                    }
-                    
-                    // Signature Line
-                    if (command.ParamCount > 0) {
-                        sb.Append("\tsignature: ");
-                        var paramNames = command.ParameterSignature.Split(' ');
-                        var paramTypes = command.ParamTypes.Select(x => x.Name).ToArray();
-                        for (var i = 0; i < paramNames.Length; i++) {
-                            sb.Append($"<{paramTypes[i]}> {paramNames[i]}");
-                            if (i < paramNames.Length - 1) sb.Append($", ");
-                        }
-
-                        sb.AppendLine();
+                // Description Line
+                if (command.HasDescription) {
+                    sb.Append('\t');
+                    sb.Append("description: ");
+                    var desc = command.CommandDescription;
+                    // If it's a multiline description put it on a new line
+                    if (desc.Contains('\n')) {
+                        desc = desc.Insert(0, "\n");
+                        // Tab any new lines to match the current indent
+                        desc = desc.Replace("\n", $"\n\t\t");
                     }
 
-                    // Return Line
-                    try {
-                        if (command.MethodData.ReturnType != typeof(void)) {
-                            sb.Append("\treturns: ");
-                            sb.Append($"<{command.MethodData.ReturnType.Name}>");
-                            sb.AppendLine();
-                        }
-                    } catch (NotImplementedException) {
-                        // Ignore
+                    sb.AppendLine(desc);
+                }
+                
+                // Signature Line
+                if (command.ParamCount > 0) {
+                    sb.Append("\tsignature: ");
+                    var paramNames = command.ParameterSignature.Split(' ');
+                    var paramTypes = command.ParamTypes.Select(x => x.Name).ToArray();
+                    for (var i = 0; i < paramNames.Length; i++) {
+                        sb.Append($"<{paramTypes[i]}> {paramNames[i]}");
+                        if (i < paramNames.Length - 1) sb.Append($", ");
                     }
 
                     sb.AppendLine();
                 }
 
-                return sb.ToString();
-            } finally {
-                QuantumConsoleProcessor.ClearCommandTable();
+                // Return Line
+                try {
+                    if (command.MethodData.ReturnType != typeof(void)) {
+                        sb.Append("\treturns: ");
+                        sb.Append($"<{command.MethodData.ReturnType.Name}>");
+                        sb.AppendLine();
+                    }
+                } catch (NotImplementedException) {
+                    // Ignore
+                }
+
+                sb.AppendLine();
             }
+
+            return sb.ToString();
         }
     }
     
