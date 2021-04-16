@@ -33,5 +33,16 @@ namespace RyanQuagliataUnity.Extensions {
 
 			return false;
 		}
+
+		/// <summary>
+		/// Returns the path of a transform within its scene
+		/// Format: {Scene.Name}/[Root]/path/to/transform/{Transform.Name}
+		/// </summary>
+		/// <param name="current"></param>
+		/// <returns></returns>
+		public static string GetPath(this Transform current, bool relativeToScene = false) {
+			if (current.parent == null) return relativeToScene ? current.name : $"{current.gameObject.scene.name}/[Root]/{current.name}";
+			return $"{current.parent.GetPath(relativeToScene)}/{current.name}";
+		}
 	}
 }
