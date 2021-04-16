@@ -10,11 +10,11 @@ namespace RyanQuagliataUnity.Extensions.QuantumConsole {
 		public static bool IncludeInactive = true;
 
 		[Command]
-		public static List<T> GetAll<T>(string searchTerm = "", SearchType searchType = SearchType.Contains, bool ignoreCase = true) where T : Component =>
+		public static List<T> GetAll<T>(string searchTerm = "", SearchType searchType = default, bool ignoreCase = true) where T : Component =>
 			ObjectExtensions.FindSceneObjectsOfType<T>(IncludeInactive).Where(x => x.transform.GetPath().Filter(searchTerm, searchType, ignoreCase)).ToList();
 
 		[Command]
-		public static void List<T>(string searchTerm = "", SearchType searchType = SearchType.Contains, bool ignoreCase = true) where T : Component {
+		public static void List<T>(string searchTerm = "", SearchType searchType = default, bool ignoreCase = true) where T : Component {
 			var items = GetAll<T>(searchTerm, searchType, ignoreCase);
 			Debug.Log(StringExtensions.FilterToString(items?.Count ?? 0, searchTerm, searchType, ignoreCase));
 			if (items == null) return;
@@ -25,7 +25,7 @@ namespace RyanQuagliataUnity.Extensions.QuantumConsole {
 		}
 
 		[Command]
-		public static T Get<T>(string searchTerm = "", SearchType searchType = SearchType.Contains, bool ignoreCase = true) where T : Component {
+		public static T Get<T>(string searchTerm = "", SearchType searchType = default, bool ignoreCase = true) where T : Component {
 			foreach (var item in GetAll<T>())
 				if (item.name.Filter(searchTerm, searchType, ignoreCase))
 					return item;
@@ -34,7 +34,7 @@ namespace RyanQuagliataUnity.Extensions.QuantumConsole {
 		}
 
 		[Command]
-		public static T GetByPath<T>(string searchTerm = "", SearchType searchType = SearchType.Contains, bool ignoreCase = true) where T : Component {
+		public static T GetByPath<T>(string searchTerm = "", SearchType searchType = default, bool ignoreCase = true) where T : Component {
 			foreach (var item in GetAll<T>())
 				if (StringExtensions.Filter(item.transform.GetPath(), searchTerm, searchType, ignoreCase))
 					return item;

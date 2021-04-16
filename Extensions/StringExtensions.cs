@@ -15,7 +15,7 @@ namespace RyanQuagliataUnity.Extensions {
 		/// <param name="ignoreCase"></param>
 		/// <returns></returns>
 		/// <exception cref="ArgumentOutOfRangeException"></exception>
-		public static bool Filter(this string that, string searchTerm, SearchType searchType, bool ignoreCase = true) {
+		public static bool Filter(this string that, string searchTerm, SearchType searchType = default, bool ignoreCase = true) {
 			if (string.IsNullOrEmpty(searchTerm)) return true;
 			var strComp = ignoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
 			switch (searchType) {
@@ -34,7 +34,7 @@ namespace RyanQuagliataUnity.Extensions {
 			}
 		}
 
-		public static string FilterToString(int resultCount, string searchTerm, SearchType searchType, bool ignoreCase = true) => $"{resultCount} result/s found with search {searchType} \"{searchTerm}\"";
+		public static string FilterToString(int resultCount, string searchTerm, SearchType searchType = default, bool ignoreCase = true) => $"{resultCount} result/s found with search {searchType} \"{searchTerm}\"";
 
 		public static string Bold(this string that) => string.Concat("<b>", that, "</b>");
 		public static string Italics(this string that) => string.Concat("<i>", that, "</i>");
@@ -134,10 +134,10 @@ namespace RyanQuagliataUnity.Extensions {
 	}
 	
 	public enum SearchType {
+		Contains,
 		Matches,
 		StartsWith,
 		EndsWith,
-		Contains,
 		Regex
 	}
 }

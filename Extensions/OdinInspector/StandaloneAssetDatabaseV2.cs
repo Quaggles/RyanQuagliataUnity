@@ -29,7 +29,7 @@ namespace RyanQuagliataUnity.Extensions.OdinInspector {
 		public List<Type> SaveTypes = new List<Type>();
 
 		[Command]
-		public static List<T> GetAll<T>(string searchTerm = "", SearchType searchType = SearchType.Contains, bool ignoreCase = true) where T : Object {
+		public static List<T> GetAll<T>(string searchTerm = "", SearchType searchType = default, bool ignoreCase = true) where T : Object {
 			if (string.IsNullOrEmpty(searchTerm)) {
 				if (Instance.Assets.TryGetValue(typeof(T), out var list)) return (List<T>) list;
 			} else {
@@ -57,7 +57,7 @@ namespace RyanQuagliataUnity.Extensions.OdinInspector {
 		}
 		
 		[Command]
-		public static void List<T>(string searchTerm = "", SearchType searchType = SearchType.Contains, bool ignoreCase = true) where T : Object {
+		public static void List<T>(string searchTerm = "", SearchType searchType = default, bool ignoreCase = true) where T : Object {
 			var items = GetAll<T>(searchTerm, searchType, ignoreCase);
 			Debug.Log(StringExtensions.FilterToString(items?.Count ?? 0, searchTerm, searchType, ignoreCase));
 			if (items == null) return;
@@ -71,7 +71,7 @@ namespace RyanQuagliataUnity.Extensions.OdinInspector {
 		}
 		
 		[Command]
-		public static T Get<T>(string searchTerm = "", SearchType searchType = SearchType.Contains, bool ignoreCase = true) where T : Object {
+		public static T Get<T>(string searchTerm = "", SearchType searchType = default, bool ignoreCase = true) where T : Object {
 			foreach (var item in GetAll<T>())
 				if (item.name.Filter(searchTerm, searchType, ignoreCase))
 					return item;
