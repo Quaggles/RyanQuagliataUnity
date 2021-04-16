@@ -28,12 +28,6 @@ namespace RyanQuagliataUnity.Extensions.OdinInspector {
 		[ShowInInspector, ListDrawerSettings(Expanded = true, HideAddButton = true)]
 		public List<Type> SaveTypes = new List<Type>();
 
-		[Button]
-		public void AddSavedType(Type type) {
-			if (SaveTypes.Contains(type)) return;
-			SaveTypes.Add(type);
-		}
-
 		[Command]
 		public static List<T> GetAll<T>(string searchTerm = "", SearchType searchType = SearchType.Contains, bool ignoreCase = true) where T : Object {
 			if (string.IsNullOrEmpty(searchTerm)) {
@@ -46,9 +40,9 @@ namespace RyanQuagliataUnity.Extensions.OdinInspector {
 		}
 
 		[Command]
-		public T GetByGuid<T>(string guid) where T : Object, IGuid => TryGetByGuid<T>(guid, out var value) ? value : default;
+		public static T GetByGuid<T>(string guid) where T : Object, IGuid => TryGetByGuid<T>(guid, out var value) ? value : default;
 
-		public bool TryGetByGuid<T>(string guid, out T value) where T : Object, IGuid {
+		public static bool TryGetByGuid<T>(string guid, out T value) where T : Object, IGuid {
 			var objects = GetAll<T>();
 			for (var i = 0; i < objects.Count; i++) {
 				var item = objects[i];
@@ -89,6 +83,13 @@ namespace RyanQuagliataUnity.Extensions.OdinInspector {
 		public int callbackOrder { get; }
 		public void OnPreprocessBuild(BuildReport report) => StoreAllTypes();
 		public void OnPostprocessBuild(BuildReport report) => Clear();
+		
+		[Button]
+		public static void AddSavedType(Type type) {
+			var saveTypes = Instance.SaveTypes;
+			if (saveTypes.Contains(type)) return;
+			saveTypes.Add(type);
+		}
 
 		public static IEnumerable<Type> GuidTypes => TypeCache.GetTypesDerivedFrom<IGuid>().Where(x => x.IsClass && !x.IsAbstract);
 		
