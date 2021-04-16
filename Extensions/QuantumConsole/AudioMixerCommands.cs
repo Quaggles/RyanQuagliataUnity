@@ -4,22 +4,19 @@ using UnityEngine.Audio;
 
 namespace RyanQuagliataUnity.Extensions.QuantumConsole {
     [CommandPrefix("AudioMixer")]
-    public class AudioMixerCommands : MonoBehaviour {
-        public AudioMixer AudioMixer;
-
-        [Command(targetType:MonoTargetType.AllInactive)]
-        public void SetFloat(string propertyName, float volume) {
+    public class AudioMixerCommands {
+        [Command]
+        public static void SetFloat(AudioMixer audioMixer, string propertyName, float volume) {
             if (Time.frameCount == 0) {
-                DelayedAction.AfterFrame(() => SetFloat(propertyName, volume));
+                DelayedAction.AfterFrame(() => SetFloat(audioMixer, propertyName, volume));
                 return;
             }
-            AudioMixer.SetFloat(propertyName, volume);
-            Debug.Log($"{nameof(SetFloat)} {propertyName} {volume} {GetFloat(propertyName)}");
+            audioMixer.SetFloat(propertyName, volume);
         }
         
-        [Command(targetType:MonoTargetType.AllInactive)]
-        public float GetFloat(string propertyName) {
-            AudioMixer.GetFloat(propertyName, out var volume);
+        [Command]
+        public static float GetFloat(AudioMixer audioMixer, string propertyName) {
+            audioMixer.GetFloat(propertyName, out var volume);
             return volume;
         }
     }
