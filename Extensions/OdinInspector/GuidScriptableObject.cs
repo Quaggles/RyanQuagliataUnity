@@ -12,7 +12,5 @@ namespace RyanQuagliataUnity.Extensions.OdinInspector {
             get => guid;
             set => guid = value;
         }
-        
-        public ScriptableObject ScriptableObject => this;
     }
 }

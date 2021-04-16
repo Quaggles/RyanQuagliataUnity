@@ -3,7 +3,7 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace RyanQuagliataUnity.Extensions.OdinInspector {
-	public class GuidSerializedScriptableObject : SerializedScriptableObject, IGuid {
+	public abstract class GuidSerializedScriptableObject : SerializedScriptableObject, IGuid {
 		[HideInInspector, SerializeField]
 		private string guid;
 
@@ -12,7 +12,5 @@ namespace RyanQuagliataUnity.Extensions.OdinInspector {
 			get => guid;
 			set => guid = value;
 		}
-
-		public ScriptableObject ScriptableObject => this;
 	}
 }
