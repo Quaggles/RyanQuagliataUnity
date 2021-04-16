@@ -1,10 +1,41 @@
 ﻿using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 using JetBrains.Annotations;
 using UnityEngine;
 
 namespace RyanQuagliataUnity.Extensions {
 	public static class StringExtensions {
+		/// <summary>
+		/// Returns if a name matches the search term
+		/// </summary>
+		/// <param name="that"></param>
+		/// <param name="searchTerm"></param>
+		/// <param name="searchType"></param>
+		/// <param name="ignoreCase"></param>
+		/// <returns></returns>
+		/// <exception cref="ArgumentOutOfRangeException"></exception>
+		public static bool Filter(this string that, string searchTerm, SearchType searchType, bool ignoreCase = true) {
+			if (string.IsNullOrEmpty(searchTerm)) return true;
+			var strComp = ignoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
+			switch (searchType) {
+				case SearchType.Matches:
+					return that.Equals(searchTerm, strComp);
+				case SearchType.StartsWith:
+					return that.StartsWith(searchTerm, strComp);
+				case SearchType.EndsWith:
+					return that.EndsWith(searchTerm, strComp);
+				case SearchType.Contains:
+					return that.Contains(searchTerm, strComp);
+				case SearchType.Regex:
+					return Regex.Match(that, searchTerm).Success;
+				default:
+					throw new ArgumentOutOfRangeException(nameof(searchType), searchType, null);
+			}
+		}
+
+		public static string FilterToString(int resultCount, string searchTerm, SearchType searchType, bool ignoreCase = true) => $"{resultCount} result/s found with search {searchType} \"{searchTerm}\"";
+
 		public static string Bold(this string that) => string.Concat("<b>", that, "</b>");
 		public static string Italics(this string that) => string.Concat("<i>", that, "</i>");
 		public static string Colour(this string that, Color color) => string.Concat("<color=#", ColorUtility.ToHtmlStringRGB(color), ">", that, "</color>");
@@ -14,7 +45,7 @@ namespace RyanQuagliataUnity.Extensions {
 		public static string SurroundBacktick(this string that) => that.Surround("`");
 		public static string SurroundApostrophe(this string that) => that.Surround("'");
 		public static string SurroundQuotation(this string that) => that.Surround("\"");
-		
+
 		/// <summary>
 		/// Creates a string where there are spaces before every capital letter (Except if the first letter is capital)
 		/// </summary>
@@ -100,5 +131,13 @@ namespace RyanQuagliataUnity.Extensions {
 		public static bool Contains(this string that, string toCheck, StringComparison comp) {
 			return that != null && toCheck != null && that.IndexOf(toCheck, comp) >= 0;
 		}
+	}
+	
+	public enum SearchType {
+		Matches,
+		StartsWith,
+		EndsWith,
+		Contains,
+		Regex
 	}
 }
