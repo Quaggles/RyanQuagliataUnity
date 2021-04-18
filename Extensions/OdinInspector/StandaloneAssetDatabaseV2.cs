@@ -29,6 +29,17 @@ namespace RyanQuagliataUnity.Extensions.OdinInspector {
 		public List<Type> SaveTypes = new List<Type>();
 
 		[Command]
+		public static void ListAll() {
+			foreach (var pair in Instance.Assets) {
+				Debug.Log($"({pair.Value.Count}) {pair.Key.FullName}");
+				for (var i = 0; i < pair.Value.Count; i++) {
+					var o = pair.Value[i];
+					Debug.Log($"    [{i}] {o}");
+				}
+			}
+		}
+
+		[Command]
 		public static List<T> GetAll<T>(string searchTerm = "", SearchType searchType = default, bool ignoreCase = true) where T : Object {
 			if (string.IsNullOrEmpty(searchTerm)) {
 				if (Instance.Assets.TryGetValue(typeof(T), out var list)) return (List<T>) list;
