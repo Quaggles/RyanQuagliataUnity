@@ -4,7 +4,7 @@ using UnityEngine.Audio;
 
 namespace RyanQuagliataUnity.Extensions.QuantumConsole {
     [CommandPrefix("AudioMixer")]
-    public class AudioMixerCommands {
+    public static class AudioMixerCommands {
         [Command]
         public static void SetFloat(AudioMixer audioMixer, string propertyName, float volume) {
             if (Time.frameCount == 0) {
