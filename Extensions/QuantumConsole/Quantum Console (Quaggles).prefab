@@ -11,6 +11,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Quantum Console (Quaggles)
       objectReference: {fileID: 0}
+    - target: {fileID: 114338341816592800, guid: 9ed2a051c32b4fe47a5e4fb95c20b03f,
+        type: 3}
+      propertyPath: _blurMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 4f9d7a44d6c58924cb8d88078f85e6ee, type: 2}
     - target: {fileID: 114600693638766706, guid: 9ed2a051c32b4fe47a5e4fb95c20b03f,
         type: 3}
       propertyPath: _theme
@@ -116,7 +121,7 @@ PrefabInstance:
     - target: {fileID: 224130951485110974, guid: 9ed2a051c32b4fe47a5e4fb95c20b03f,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -327
+      value: -1466
       objectReference: {fileID: 0}
     - target: {fileID: 224166536479716514, guid: 9ed2a051c32b4fe47a5e4fb95c20b03f,
         type: 3}
