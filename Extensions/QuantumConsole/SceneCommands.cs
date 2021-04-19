@@ -11,7 +11,7 @@ namespace RyanQuagliataUnity.Extensions.QuantumConsole {
 
 		[Command]
 		public static List<T> GetAll<T>(string searchTerm = "", SearchType searchType = default, bool ignoreCase = true) where T : Component =>
-			ObjectExtensions.FindSceneObjectsOfType<T>(IncludeInactive).Where(x => x.transform.GetPath().Filter(searchTerm, searchType, ignoreCase)).ToList();
+			ObjectExtensions.FindSceneObjectsOfType<T>(IncludeInactive, searchUnloaded:true).Where(x => x.transform.GetPath().Filter(searchTerm, searchType, ignoreCase)).ToList();
 
 		[Command]
 		public static void List<T>(string searchTerm = "", SearchType searchType = default, bool ignoreCase = true) where T : Component {
