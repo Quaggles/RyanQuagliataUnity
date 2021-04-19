@@ -112,7 +112,7 @@ namespace RyanQuagliataUnity.Extensions.QuantumConsole {
             }
         }
         
-        [CommandPrefix("Shadows.")]
+        [CommandPrefix("Shadows")]
         public static class ShadowCommands {
             [Command]
             public static ShadowmaskMode ShadowmaskMode {
