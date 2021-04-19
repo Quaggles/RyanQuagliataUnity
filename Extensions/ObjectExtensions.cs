@@ -48,11 +48,11 @@ namespace RyanQuagliataUnity.Extensions {
 		/// <param name="includeInactive"></param>
 		/// <typeparam name="T"></typeparam>
 		/// <returns></returns>
-		public static T FindSceneObjectOfType<T>(bool includeInactive = false) where T : Component {
+		public static T FindSceneObjectOfType<T>(bool includeInactive = false, bool searchUnloaded = false) where T : Component {
 			List<GameObject> rootList = new List<GameObject>();
 			for (int i = 0; i < SceneManager.sceneCount; i++) {
 				var s = SceneManager.GetSceneAt(i);
-				if (s.isLoaded) {
+				if (searchUnloaded || s.isLoaded) {
 					s.GetRootGameObjects(rootList);
 					for (int j = 0; j < rootList.Count; j++) {
 						var go = rootList[j];
@@ -72,12 +72,12 @@ namespace RyanQuagliataUnity.Extensions {
 		/// <param name="resultList"></param>
 		/// <typeparam name="T"></typeparam>
 		/// <returns></returns>
-		public static List<T> FindSceneObjectsOfType<T>(bool includeInactive = false, List<T> resultList = null) where T : Component {
+		public static List<T> FindSceneObjectsOfType<T>(bool includeInactive = false, List<T> resultList = null, bool searchUnloaded = false) where T : Component {
 			if (resultList == null) resultList = new List<T>();
 			List<GameObject> rootList = new List<GameObject>();
 			for (int i = 0; i < SceneManager.sceneCount; i++) {
 				var s = SceneManager.GetSceneAt(i);
-				if (s.isLoaded) {
+				if (searchUnloaded || s.isLoaded) {
 					s.GetRootGameObjects(rootList);
 					for (int j = 0; j < rootList.Count; j++) {
 						var go = rootList[j];
