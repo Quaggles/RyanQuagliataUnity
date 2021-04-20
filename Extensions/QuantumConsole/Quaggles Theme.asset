@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49e15215dd5c7444aa955d9a8a83fea0, type: 3}
   m_Name: Quaggles Theme
   m_EditorClassIdentifier: 
-  Font: {fileID: 11400000, guid: 03667487b095d134cb5d244fc285c9d1, type: 2}
+  Font: {fileID: 11400000, guid: 06975fd079c04e24393a73ee469a037f, type: 2}
   PanelMaterial: {fileID: 2100000, guid: 4f9d7a44d6c58924cb8d88078f85e6ee, type: 2}
   PanelColor: {r: 1, g: 1, b: 1, a: 1}
   CommandLogColor: {r: 0, g: 1, b: 1, a: 1}
