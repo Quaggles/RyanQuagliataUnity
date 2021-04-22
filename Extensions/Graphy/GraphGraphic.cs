@@ -95,11 +95,11 @@ namespace RyanQuagliataUnity.Extensions.Graphy {
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		void VerifyArray() {
-			if (graph.Array == null || graph.Array.Length != Resolution) graph.Array = new float[Resolution];
+			if (graph.ShaderArrayValues == null || graph.ShaderArrayValues.Length != Resolution) graph.ShaderArrayValues = new float[Resolution];
 		}
 
 		public void Clear() {
-			for (int i = 0; i < Resolution; i++) graph.Array[i] = 0;
+			for (int i = 0; i < Resolution; i++) graph.ShaderArrayValues[i] = 0;
 
 			graph.UpdateArray();
 			graph.UpdatePoints();
@@ -110,10 +110,10 @@ namespace RyanQuagliataUnity.Extensions.Graphy {
 			VerifyArray();
 			RemapToRange(ref value);
 			// Moves all old values up the array
-			for (int i = 0; i < graph.Array.Length - 1; i++) graph.Array[i] = graph.Array[i + 1];
+			for (int i = 0; i < graph.ShaderArrayValues.Length - 1; i++) graph.ShaderArrayValues[i] = graph.ShaderArrayValues[i + 1];
 
 			// Puts the new value at the end
-			graph.Array[graph.Array.Length - 1] = value;
+			graph.ShaderArrayValues[graph.ShaderArrayValues.Length - 1] = value;
 
 			graph.UpdateArray();
 			graph.UpdatePoints();
@@ -189,8 +189,8 @@ namespace RyanQuagliataUnity.Extensions.Graphy {
 			if (!AutomaticAverage) return;
 			VerifyArray();
 			graph.Average = 0;
-			for (var i = 0; i < graph.Array.Length; i++) graph.Average += graph.Array[i];
-			graph.Average /= graph.Array.Length;
+			for (var i = 0; i < graph.ShaderArrayValues.Length; i++) graph.Average += graph.ShaderArrayValues[i];
+			graph.Average /= graph.ShaderArrayValues.Length;
 			graph.UpdateAverage();
 		}
 
