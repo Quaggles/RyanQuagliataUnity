@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace RyanQuagliataUnity.Extensions {
 	public static class EnumExtensions {
@@ -59,7 +60,8 @@ namespace RyanQuagliataUnity.Extensions {
 		
 		public static T GetEnumOffset<T>(this T enumValue, int offset) where T : Enum {
 			var values = GetValues<T>();
-			return values[values.IndexOf(enumValue) + offset];
+			var index = Mathf.Clamp(values.IndexOf(enumValue) + offset, 0, values.Count - 1);
+			return values[index];
 		}
 
 		/// <summary>
