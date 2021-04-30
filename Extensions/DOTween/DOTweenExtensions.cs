@@ -96,6 +96,21 @@ namespace RyanQuagliataUnity.Extensions.DOTween {
 			return tweener;
 		}
 
+		/// <summary>
+		/// Applies the TweenerSettings to this tweener, this will clear OnX callbacks <code>e.g. OnStart(<b>action</b>) if the relevant TweenerSetting events have listeners</code>
+		/// </summary>
+		/// <param name="tweener">This</param>
+		/// <param name="settings">Tweener settings to apply</param>
+		/// <param name="inEase"></param>
+		/// <returns>The modified tweener</returns>
+		public static Tweener ApplySettingsVariant([NotNull] this Tweener tweener, TweenerSettingsV2 settings, bool inEase) {
+			if (settings == null) return tweener;
+			ApplySettings(tweener, settings);
+			if (!settings.StopMotionEase)
+				tweener.SetEase(settings.GetEaseVariant(settings.EaseFunction, inEase), settings.EaseOvershoot, settings.EasePeriod);
+			return tweener;
+		}
+
 		private static TweenerCore<T1, T2, TPlugOptions> ApplySettings<T1, T2, TPlugOptions>(this TweenerCore<T1, T2, TPlugOptions> tweenerCore, TweenerSettings settings)
 			where TPlugOptions : struct, IPlugOptions {
 			var tweener = tweenerCore as Tweener;
