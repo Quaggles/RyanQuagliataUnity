@@ -18,13 +18,17 @@ namespace RyanQuagliataUnity.Editor {
 		/// <summary>
 		/// Forces a recompile by adding a temporary new symbol to the PlayerSettings and then removing it
 		/// </summary>
-		[MenuItem("RyanQuagliata/Force Recompile _F6", priority = 0)]
+		[MenuItem("RyanQuagliata/Recompile Scripts _F6", priority = 0)]
 		public static void ForceRecompile() {
+#if UNITY_2019_3_OR_NEWER
+			UnityEditor.Compilation.CompilationPipeline.RequestScriptCompilation();
+#else
 			var platform = EditorUserBuildSettings.selectedBuildTargetGroup;
 			var symbols = PlayerSettings.GetScriptingDefineSymbolsForGroup(platform);
 			var newSymbols = "RECOMPILE;" + symbols;
 			PlayerSettings.SetScriptingDefineSymbolsForGroup(platform, newSymbols);
 			PlayerSettings.SetScriptingDefineSymbolsForGroup(platform, symbols);
+#endif
 		}
 		
 		[MenuItem("RyanQuagliata/Force Update Canvases _F7", priority = 0)]
@@ -37,37 +41,19 @@ namespace RyanQuagliataUnity.Editor {
 		
 		[MenuItem("RyanQuagliata/Reset Player Prefs", priority = 0)]
 		public static void ResetPlayerPrefs() => PlayerPrefs.DeleteAll();
-
-#if !UNITY_2018_3_OR_NEWER
-        [MenuItem("RyanQuagliata/Open Player Settings &p", priority = 0)]
-        public static void OpenPlayerSettings() {
-		    EditorApplication.ExecuteMenuItem("Edit/Project Settings/Player");
-        }
-
-        [MenuItem("RyanQuagliata/Open Build Settings &b", priority = 0)]
-        public static void OpenBuildSettings() =>
-            EditorWindow.GetWindow(Type.GetType("UnityEditor.BuildPlayerWindow,UnityEditor"));
-
-        [MenuItem("RyanQuagliata/Open Time Settings &t", priority = 0)]
-        public static void OpenTimeSettings() => EditorApplication.ExecuteMenuItem("Edit/Project Settings/Time");
-
-        [MenuItem("RyanQuagliata/Open Quality Settings &q", priority = 0)]
-        public static void OpenQualitySettings() => EditorApplication.ExecuteMenuItem("Edit/Project Settings/Quality");
-#else
-		[MenuItem("RyanQuagliata/Open Project Settings &p", priority = 0)]
+		
+		[MenuItem("RyanQuagliata/Project Settings #&p", priority = 0)]
 		public static void OpenProjectSettings() => EditorApplication.ExecuteMenuItem("Edit/Project Settings...");
-#endif
+		
+		[MenuItem("RyanQuagliata/Save Project &s", priority = 0)]
+		public static void SaveProject() => EditorApplication.ExecuteMenuItem("File/Save Project");
 
 		/// <summary>
 		/// Saves the scene and project settings
 		/// </summary>
 		[MenuItem("RyanQuagliata/Save All %&s", priority = 0)]
 		public static void SaveAll() {
-#if UNITY_2018_3_OR_NEWER
 			EditorApplication.ExecuteMenuItem("File/Save");
-#else
-            EditorApplication.ExecuteMenuItem("File/Save Scene");
-#endif
 			EditorApplication.ExecuteMenuItem("File/Save Project");
 		}
 
