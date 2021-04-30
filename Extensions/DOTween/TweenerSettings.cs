@@ -24,13 +24,13 @@ namespace RyanQuagliataUnity.Extensions.DOTween {
 		[Button("▲"), HorizontalGroup("Ease", 20)]
 		private void PrevEase() {
 			for (int i = 0; i < (nextEaseStepLarge ? 3 : 1); i++)
-				EaseFunction = EaseFunction.GetPrevEnum();
+				EaseFunction = EaseFunction.GetPrevious();
 		}
 	
 		[Button("▼"), HorizontalGroup("Ease", 20)]
 		private void NextEase() {
 			for (int i = 0; i < (nextEaseStepLarge ? 3 : 1); i++)
-				EaseFunction = EaseFunction.GetNextEnum();
+				EaseFunction = EaseFunction.GetNext();
 		}
 	
 		[Tooltip("Ease Function this tween will use to reach the end value, for a visualisation go to:\nwww.easings.net"), 
