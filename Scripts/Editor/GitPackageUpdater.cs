@@ -87,33 +87,48 @@ namespace RyanQuagliataUnity.Editor {
 			[ShowInInspector, DisplayAsString, PropertyOrder(1)]
 			public string GitUrl => PackageInfo.packageId.Split('@')[1];
 
-			[ReadOnly, PropertyOrder(Int32.MaxValue), DisplayAsString]
+			[HideIf(nameof(HasUpdate)), ReadOnly, PropertyOrder(Int32.MaxValue), DisplayAsString]
 			public bool HasUpdate;
 
-			[ShowIf(nameof(HasUpdate)), Button, PropertyOrder(3)]
+			[HorizontalGroup]
+			[ShowIf(nameof(HasUpdate)), PropertyOrder(3)]
+			public bool Selected;
+
+			[HorizontalGroup]
+			[HideIf(nameof(Selected)), ShowIf(nameof(HasUpdate)), Button, PropertyOrder(3)]
 			public void UpdatePackage() => CurrentTask = UpdatePackageAsync(PackageInfo);
 		}
 
 		[Button, ShowIf(nameof(AnyUpdates))]
 		public static void UpdateAllPackages() => CurrentTask = UpdateAllPackagesAsync();
 
-		public static async Task UpdateAllPackagesAsync() {
+		[Button, ShowIf(nameof(AnyUpdates))]
+		public static void UpdateSelectedPackages() => CurrentTask = UpdateAllPackagesAsync(package => package.Selected);
+
+		public static async Task UpdateAllPackagesAsync(Predicate<Package> predicate = null) {
 			foreach (var package in GitPackages) {
+				if (predicate != null && !predicate.Invoke(package)) continue;
 				if (package.HasUpdate) await UpdatePackageAsync(package.PackageInfo, false);
 			}
 			Client.Resolve();
+			await RefreshPackageListAsync();
 		}
 
 		public static async Task UpdatePackageAsync(PackageInfo packageInfo, bool resolveOnFinish = true) {
-			var add = Client.Add(packageInfo.packageId.Split('@')[1]);
-			while (!add.IsCompleted) {
-				EditorUtility.DisplayProgressBar($"Updating {packageInfo.name}", $"Updating {packageInfo.name}", 0.5f);
-				// Wait
-				await Task.Delay(1000 / 60);
+			try {
+				var add = Client.Add(packageInfo.packageId.Split('@')[1]);
+				while (!add.IsCompleted) {
+					EditorUtility.DisplayProgressBar($"Updating {packageInfo.name}", $"Updating {packageInfo.name}", 0.5f);
+					// Wait
+					await Task.Delay(1000 / 30);
+				}
+			} finally {
+				EditorUtility.ClearProgressBar();
+				if (resolveOnFinish) {
+					Client.Resolve();
+					await RefreshPackageListAsync();
+				}
 			}
-
-			EditorUtility.ClearProgressBar();
-			if (resolveOnFinish) Client.Resolve();
 		}
 
 		[Button, DisableIf(nameof(CheckingForUpdate))]
