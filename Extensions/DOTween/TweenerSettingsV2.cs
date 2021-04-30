@@ -17,17 +17,17 @@ namespace RyanQuagliataUnity.Extensions.DOTween {
 		public float Delay = 0;
 	
 		[Button("▲"), HorizontalGroup("Ease", 20)]
-		private void PrevEase() => EaseFunction = EaseFunction.GetEnumOffset(-1);
+		private void PrevEase() => EaseFunction = EaseFunction.GetOffset(-1);
 
 		[Button("▼"), HorizontalGroup("Ease", 20)]
-		private void NextEase() => EaseFunction = EaseFunction.GetEnumOffset(1);
+		private void NextEase() => EaseFunction = EaseFunction.GetOffset(1);
 
 		public bool IsEaseBidirectional(Ease ease) => ease.GetName().StartsWith("In Out");
 
 		public Ease GetEaseVariant(Ease ease, bool inEase) {
 			if (!IsEaseBidirectional(ease)) return ease;
-			if (inEase) return ease.GetEnumOffset(-2);
-			else return ease.GetEnumOffset(-1);
+			if (inEase) return ease.GetOffset(-2);
+			else return ease.GetOffset(-1);
 		}
 
 		[Tooltip("Ease Function this tween will use to reach the end value, for a visualisation go to:\nwww.easings.net"), 
