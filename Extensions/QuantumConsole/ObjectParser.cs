@@ -1,3 +1,4 @@
+#if ODIN_INSPECTOR
 using System;
 using QFSW.QC;
 using RyanQuagliataUnity.Extensions.OdinInspector;
@@ -15,3 +16,4 @@ namespace RyanQuagliataUnity.Extensions.QuantumConsole {
 		}
 	}
 }
+#endif
