@@ -23,7 +23,6 @@ namespace RyanQuagliataUnity.MaterialModifier {
 		[ShowIf("@MaterialModifierType == RyanQuagliataUnity.MaterialModifier.MaterialModifierType.UI")]
 		public Graphic Graphic;
 
-
 		[HorizontalGroup("ModifierType")]
 		[HideLabel]
 		[ShowIf("@MaterialModifierType == RyanQuagliataUnity.MaterialModifier.MaterialModifierType.Material")]
@@ -115,7 +114,7 @@ namespace RyanQuagliataUnity.MaterialModifier {
 		}
 
 		void Start() {
-			if (Application.isPlaying && ManualValue) UpdateMaterial();
+			if (ManualValue) UpdateMaterial();
 		}
 
 		public Material GetMaterial() {
