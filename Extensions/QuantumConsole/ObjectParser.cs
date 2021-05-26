@@ -11,7 +11,7 @@ namespace RyanQuagliataUnity.Extensions.QuantumConsole {
 			throw new ParserInputException($"ODIN_INSPECTOR not available, cannot search StandaloneAssetDatabase");
 #else
 			var method = typeof(StandaloneAssetDatabaseV2).GetMethod(nameof(StandaloneAssetDatabaseV2.Get)).MakeGenericMethod(type);
-			value = value.Trim('\\');
+			value = value.Trim('"');
 			return method.Invoke(null, new object[]{value, SearchType.Matches, false}) as Object;
 #endif
 		}
