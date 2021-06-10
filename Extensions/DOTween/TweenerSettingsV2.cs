@@ -3,7 +3,6 @@ using DG.Tweening;
 using DG.Tweening.Core.Easing;
 using RyanQuagliataUnity.Utilities;
 using Sirenix.OdinInspector;
-using Sirenix.Utilities;
 using UnityEngine;
 using UnityEngine.Events; 
 
