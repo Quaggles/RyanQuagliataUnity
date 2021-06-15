@@ -15,10 +15,13 @@ using Object = UnityEngine.Object;
 
 namespace RyanQuagliataUnity.Editor {
 	public static class MenuItems {
+		[MenuItem("RyanQuagliata/Recompile Scripts Soft _F6", priority = 0)]
+		public static void ForceRecompileSoft() => EditorUtility.RequestScriptReload();
+
 		/// <summary>
 		/// Forces a recompile by adding a temporary new symbol to the PlayerSettings and then removing it
 		/// </summary>
-		[MenuItem("RyanQuagliata/Recompile Scripts _F6", priority = 0)]
+		[MenuItem("RyanQuagliata/Recompile Scripts _%F6", priority = 0)]
 		public static void ForceRecompile() {
 #if UNITY_2019_3_OR_NEWER
 			UnityEditor.Compilation.CompilationPipeline.RequestScriptCompilation();
@@ -30,7 +33,7 @@ namespace RyanQuagliataUnity.Editor {
 			PlayerSettings.SetScriptingDefineSymbolsForGroup(platform, symbols);
 #endif
 		}
-		
+
 		[MenuItem("RyanQuagliata/Force Update Canvases _F7", priority = 0)]
 		public static void ForceUpdateCanvases() => Canvas.ForceUpdateCanvases();
 
