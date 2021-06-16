@@ -1,9 +1,11 @@
 {
     "name": "RyanQuagliata.ScriptableBuildPipeline",
+    "rootNamespace": "",
     "references": [
         "GUID:0065df8e10cb31c4695d09ae3d05494f",
         "GUID:363a3288c06c1c14cbbeedbda31215f9",
-        "GUID:3348cdac4e8a3c94baf775a68592a2a0"
+        "GUID:3348cdac4e8a3c94baf775a68592a2a0",
+        "GUID:fbc376426469ba34ca1de613b40fbfd8"
     ],
     "includePlatforms": [
         "Editor"
