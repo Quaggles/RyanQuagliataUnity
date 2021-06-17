@@ -53,6 +53,7 @@ namespace RyanQuagliataUnity.Extensions.QuantumConsole {
         [Command]
         public static void InvokeAutoExec() {
             var console = QFSW.QC.QuantumConsole.Instance ? QFSW.QC.QuantumConsole.Instance : Object.FindObjectOfType<QFSW.QC.QuantumConsole>();
+            if (!console) return;
             InvokeMethod(console, "Initialize");
             QuantumConsoleProcessor.GenerateCommandTable(); // Ensures the command table is generated
             try {
