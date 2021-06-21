@@ -34,6 +34,15 @@ namespace RyanQuagliataUnity.Extensions {
 			return false;
 		}
 		
+		public static bool IsSceneLoadedByBuildIndex(int buildIndex) {
+			var refScene = SceneManager.GetSceneByBuildIndex(buildIndex);
+			for (int i = 0; i < SceneManager.sceneCount; i++) {
+				var scene = SceneManager.GetSceneAt(i);
+				if (refScene.path == scene.path) return true;
+			}
+			return false;
+		}
+		
 		/// <summary>
 		/// Returns if a scene is loaded by comparing scene paths
 		/// </summary>
