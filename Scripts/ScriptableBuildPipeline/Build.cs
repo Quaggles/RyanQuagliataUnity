@@ -16,11 +16,10 @@ namespace RyanQuagliataUnity.ScriptableBuildPipeline {
             BuildTo(config, path);
         }
 
-        public static void Build() {
-            var buildConfiguration = CommandLineArguments.ReadArgValue("-BUILD_CONFIGURATION");
-            var buildFolder = CommandLineArguments.ReadArgValue("-BUILD_FOLDER");
-            BuildTo(buildConfiguration, buildFolder);
-        }
+        public static void Build() => BuildTo(GetConfig(), GetBuildFolder());
+
+        public static BuildConfiguration GetConfig() => AssetDatabase.LoadAssetAtPath<BuildConfiguration>(CommandLineArguments.ReadArgValue("-BUILD_CONFIGURATION"));
+        public static string GetBuildFolder() => CommandLineArguments.ReadArgValue("-BUILD_FOLDER");
 
         protected static bool SetBuildComponentValue<T> (BuildConfiguration buildConfiguration, string argName, Action<T, string> action) where T : IBuildComponent {
             try {
