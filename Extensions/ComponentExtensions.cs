@@ -19,5 +19,8 @@ namespace RyanQuagliataUnity.Extensions {
 			if (value == null) value = that.GetComponent<T>();
 			return value;
 		}
+
+		public static T GetComponent<T>(this Component that, ref T component) where T : Component => component ? component : component = that.GetComponent<T>();   
+		public static T GetOrAddComponent<T>(this Component that, ref T component) where T : Component => component ? component : component = that.GetOrAddComponent<T>();   
 	}
 }
